@@ -99,6 +99,34 @@ const repos = [
     td a:hover{text-decoration:underline}
     .arch{background:#1a1a2e;color:#e9ecef;border-radius:14px;padding:32px;font-family:"SF Mono","Fira Code",monospace;font-size:.82rem;line-height:1.8;overflow-x:auto;white-space:pre;margin-top:32px}
     .hl{color:#e94560}.hl2{color:#5390d9}.hl3{color:#72efdd}
+    /* ── UI Demo Preview ── */
+    .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+    .demo-card{border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);transition:all .2s}
+    .demo-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.12)}
+    .demo-card-header{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid #e5e7eb;font-weight:600;font-size:.85rem}
+    .demo-card-header .dot{width:10px;height:10px;border-radius:50%}
+    .demo-body{padding:16px 18px;font-size:.8rem}
+    .demo-stat-row{display:flex;gap:8px;margin-bottom:12px}
+    .demo-stat{flex:1;text-align:center;padding:10px 6px;border-radius:8px;border:1px solid #e5e7eb}
+    .demo-stat-num{font-size:1.2rem;font-weight:700}
+    .demo-stat-lbl{font-size:.65rem;color:#6b7280}
+    .demo-item{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:6px;margin-bottom:4px}
+    .demo-item:hover{background:#f9fafb}
+    .demo-badge{padding:1px 8px;border-radius:10px;font-size:.65rem;font-weight:500}
+    .demo-progress{height:4px;border-radius:2px;background:#e5e7eb;overflow:hidden;margin:6px 0}
+    .demo-progress-fill{height:100%;border-radius:2px;transition:width .3s}
+    .demo-tag{display:inline-block;font-size:.62rem;padding:1px 6px;border-radius:3px;background:#f3f4f6;color:#555;margin:1px}
+    @media(max-width:640px){.demo-grid{grid-template-columns:1fr}}
+    /* CoC purple theme */
+    .coc .demo-card-header{border-left:3px solid #7c3aed}
+    .coc .demo-stat-num{color:#7c3aed}
+    .coc .demo-progress-fill{background:#7c3aed}
+    .coc .demo-badge{background:#ede9fe;color:#5b21b6}
+    /* D&D blue theme */
+    .dnd .demo-card-header{border-left:3px solid #2563eb}
+    .dnd .demo-stat-num{color:#2563eb}
+    .dnd .demo-progress-fill{background:#2563eb}
+    .dnd .demo-badge{background:#dbeafe;color:#1e40af}
     footer{background:#1a1a2e;color:rgba(255,255,255,.5);text-align:center;padding:40px 24px;font-size:.85rem}
     footer a{color:rgba(255,255,255,.7);text-decoration:none}
     footer a:hover{color:#fff}
@@ -158,6 +186,182 @@ const repos = [
         {e.tag2 && <span class="tag tag2">{e.tag2}</span>}
       </div>)}
     </div>
+  </div>
+</section>
+
+<!-- UI Preview -->
+<section class="bg-white">
+  <div class="container">
+    <h2 class="zh-only">管理面板预览</h2><h2 class="en-only">Dashboard Preview</h2>
+    <p class="sec-sub zh-only">启动 sagasmith-dnd serve 后，前端直连数据库实时展示</p>
+    <p class="sec-sub en-only">Start sagasmith-dnd serve, connect frontend to database live</p>
+
+    <div class="tabs" style="margin-top:0">
+      <button class="tab active" data-ui="dnd">⚔️ D&D</button>
+      <button class="tab" data-ui="coc">🕯️ CoC</button>
+    </div>
+
+    <!-- D&D Preview -->
+    <div class="ui-panel active" id="ui-dnd">
+      <div class="demo-grid dnd">
+        <!-- Dashboard -->
+        <div class="demo-card">
+          <div class="demo-card-header"><span class="dot" style="background:#2563eb"/>Dashboard<span style="margin-left:auto;font-size:.7rem;color:#6b7280">3 战役 · 12 角色 · 5 模组</span></div>
+          <div class="demo-body">
+            <div class="demo-stat-row">
+              <div class="demo-stat"><div class="demo-stat-num">3</div><div class="demo-stat-lbl">战役</div></div>
+              <div class="demo-stat"><div class="demo-stat-num">12</div><div class="demo-stat-lbl">角色</div></div>
+              <div class="demo-stat"><div class="demo-stat-num">5</div><div class="demo-stat-lbl">模组</div></div>
+              <div class="demo-stat"><div class="demo-stat-num">18</div><div class="demo-stat-lbl">存档</div></div>
+            </div>
+            <div class="demo-item"><div><div style="font-weight:600">深渊之门</div><div style="font-size:.72rem;color:#6b7280">D&D 5e 2024 · Rev 12</div></div><span class="demo-badge" style="background:#d1fae5;color:#065f46">进行中</span></div>
+            <div class="demo-item"><div><div style="font-weight:600">冰风谷迷案</div><div style="font-size:.72rem;color:#6b7280">D&D 5e 2014 · Rev 5</div></div><span class="demo-badge" style="background:#d1fae5;color:#065f46">进行中</span></div>
+            <div class="demo-item"><div><div style="font-weight:600">地城试炼</div><div style="font-size:.72rem;color:#6b7280">D&D 5e 2024 · Rev 8</div></div><span class="demo-badge" style="background:#fef3c7;color:#92400e">暂停</span></div>
+          </div>
+        </div>
+
+        <!-- Campaign Detail -->
+        <div class="demo-card">
+          <div class="demo-card-header"><span class="dot" style="background:#2563eb"/>深渊之门 · 战役详情</div>
+          <div class="demo-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+              <div>
+                <div style="font-size:.7rem;color:#6b7280;margin-bottom:6px">角色</div>
+                <div class="demo-item"><span>🧙 Gandalf</span><span style="font-size:.7rem;color:#6b7280">巫师 L5</span></div>
+                <div class="demo-item"><span>🗡️ Aragorn</span><span style="font-size:.7rem;color:#6b7280">游侠 L4</span></div>
+                <div class="demo-item"><span>🏹 Legolas</span><span style="font-size:.7rem;color:#6b7280">战士 L4</span></div>
+              </div>
+              <div>
+                <div style="font-size:.7rem;color:#6b7280;margin-bottom:6px">模组</div>
+                <div class="demo-item">📖 博德之门 · 5章 62场景</div>
+                <div class="demo-item">📖 下水道支线 · 1章 5场景</div>
+              </div>
+            </div>
+            <div style="font-size:.7rem;color:#6b7280;margin-bottom:4px">当前场景 · scope: party</div>
+            <div style="font-weight:600;font-size:.85rem">📍 精灵之歌酒馆</div>
+            <div class="demo-progress"><div class="demo-progress-fill" style="width:70%"/></div>
+            <div style="display:flex;justify-content:space-between;font-size:.68rem;color:#6b7280">进度 70%<span>房间: 大厅 · 酒窖 · 后院</span></div>
+          </div>
+        </div>
+
+        <!-- Character Sheet -->
+        <div class="demo-card">
+          <div class="demo-card-header"><span class="dot" style="background:#2563eb"/>Gandalf · 灰袍巫师 L5</div>
+          <div class="demo-body">
+            <div class="demo-stat-row" style="grid-template-columns:repeat(6,1fr);display:grid">
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">STR</div><div style="font-size:1rem;font-weight:700">8</div><div style="font-size:.6rem;color:#9ca3af">-1</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">DEX</div><div style="font-size:1rem;font-weight:700">14</div><div style="font-size:.6rem;color:#9ca3af">+2</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">CON</div><div style="font-size:1rem;font-weight:700">14</div><div style="font-size:.6rem;color:#9ca3af">+2</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">INT</div><div style="font-size:1rem;font-weight:700">18</div><div style="font-size:.6rem;color:#9ca3af">+4</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">WIS</div><div style="font-size:1rem;font-weight:700">16</div><div style="font-size:.6rem;color:#9ca3af">+3</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">CHA</div><div style="font-size:1rem;font-weight:700">12</div><div style="font-size:.6rem;color:#9ca3af">+1</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div>
+                <div class="demo-item" style="font-size:.75rem"><span>HP</span><span>38/38</span></div>
+                <div class="demo-item" style="font-size:.75rem"><span>AC</span><span>12</span></div>
+                <div class="demo-item" style="font-size:.75rem"><span>先攻</span><span>+2</span></div>
+              </div>
+              <div>
+                <div class="demo-item" style="font-size:.75rem"><span>法术一環</span><span>4/4</span></div>
+                <div class="demo-item" style="font-size:.75rem"><span>二環</span><span>3/3</span></div>
+                <div class="demo-item" style="font-size:.75rem"><span>三環</span><span>2/2</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="demo-card">
+          <div class="demo-card-header"><span class="dot" style="background:#2563eb"/>存档时间线 · 5 存档</div>
+          <div class="demo-body" style="padding:12px 18px">
+            <div style="display:flex;flex-direction:column;gap:4px;position:relative;padding-left:20px">
+              <div style="position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:#e5e7eb"/>
+              <div style="position:relative"><div style="position:absolute;left:-16px;top:6px;width:10px;height:10px;border-radius:50%;background:#2563eb;border:2px solid #fff;box-shadow:0 0 0 2px #e5e7eb"/>Slot 1 · 初始状态</div>
+              <div style="position:relative;margin-top:4px"><div style="position:absolute;left:-16px;top:6px;width:10px;height:10px;border-radius:50%;background:#d1d5db;border:2px solid #fff;box-shadow:0 0 0 2px #e5e7eb"/>Slot 2 · 进入地城</div>
+              <div style="position:relative;margin-top:4px"><div style="position:absolute;left:-16px;top:6px;width:10px;height:10px;border-radius:50%;background:#d1d5db;border:2px solid #fff;box-shadow:0 0 0 2px #e5e7eb"/>Slot 3 · Boss战前</div>
+              <div style="position:relative;margin-top:4px"><div style="position:absolute;left:-16px;top:6px;width:10px;height:10px;border-radius:50%;background:#d1d5db;border:2px solid #fff;box-shadow:0 0 0 2px #e5e7eb"/>Slot 4 · 分歧: 谈判线</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CoC Preview -->
+    <div class="ui-panel" id="ui-coc" style="display:none">
+      <div class="demo-grid coc">
+        <!-- Dashboard -->
+        <div class="demo-card">
+          <div class="demo-card-header"><span class="dot" style="background:#7c3aed"/>Dashboard<span style="margin-left:auto;font-size:.7rem;color:#6b7280">2 调查团 · 5 调查员</span></div>
+          <div class="demo-body">
+            <div class="demo-stat-row">
+              <div class="demo-stat"><div class="demo-stat-num" style="color:#7c3aed">2</div><div class="demo-stat-lbl">调查团</div></div>
+              <div class="demo-stat"><div class="demo-stat-num" style="color:#7c3aed">5</div><div class="demo-stat-lbl">调查员</div></div>
+              <div class="demo-stat"><div class="demo-stat-num" style="color:#7c3aed">12</div><div class="demo-stat-lbl">场景</div></div>
+              <div class="demo-stat"><div class="demo-stat-num" style="color:#7c3aed">8</div><div class="demo-stat-lbl">存档</div></div>
+            </div>
+            <div class="demo-item"><div><div style="font-weight:600">🕯️ 阿卡姆疑云</div><div style="font-size:.72rem;color:#6b7280">CoC 7e · Rev 6</div></div><span class="demo-badge coc">进行中</span></div>
+            <div class="demo-item"><div><div style="font-weight:600">🕯️ 敦威治恐怖</div><div style="font-size:.72rem;color:#6b7280">CoC 7e · Rev 4</div></div><span class="demo-badge coc">进行中</span></div>
+          </div>
+        </div>
+
+        <!-- Investigator Sheet -->
+        <div class="demo-card">
+          <div class="demo-card-header"><span class="dot" style="background:#7c3aed"/>🕵️ Herbert West · 医生</div>
+          <div class="demo-body">
+            <div class="demo-stat-row" style="grid-template-columns:repeat(4,1fr);display:grid">
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">STR</div><div style="font-size:.95rem;font-weight:700;color:#7c3aed">50</div><div style="font-size:.55rem;color:#9ca3af">½:25 ⅕:10</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">CON</div><div style="font-size:.95rem;font-weight:700;color:#7c3aed">60</div><div style="font-size:.55rem;color:#9ca3af">½:30 ⅕:12</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">SIZ</div><div style="font-size:.95rem;font-weight:700;color:#7c3aed">65</div><div style="font-size:.55rem;color:#9ca3af">½:32 ⅕:13</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">DEX</div><div style="font-size:.95rem;font-weight:700;color:#7c3aed">55</div><div style="font-size:.55rem;color:#9ca3af">½:27 ⅕:11</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">APP</div><div style="font-size:.95rem;font-weight:700;color:#7c3aed">45</div><div style="font-size:.55rem;color:#9ca3af">½:22 ⅕:9</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">INT</div><div style="font-size:.95rem;font-weight:700;color:#7c3aed">80</div><div style="font-size:.55rem;color:#9ca3af">½:40 ⅕:16</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">POW</div><div style="font-size:.95rem;font-weight:700;color:#7c3aed">70</div><div style="font-size:.55rem;color:#9ca3af">½:35 ⅕:14</div></div>
+              <div class="demo-stat" style="padding:6px"><div style="font-size:.6rem;color:#6b7280">EDU</div><div style="font-size:.95rem;font-weight:700;color:#7c3aed">75</div><div style="font-size:.55rem;color:#9ca3af">½:37 ⅕:15</div></div>
+            </div>
+            <div class="demo-stat-row" style="grid-template-columns:repeat(4,1fr);display:grid;margin-bottom:0">
+              <div class="demo-stat"><div class="demo-stat-num" style="color:#7c3aed;font-size:1rem">50/50</div><div class="demo-stat-lbl">HP</div></div>
+              <div class="demo-stat"><div class="demo-stat-num" style="color:#7c3aed;font-size:1rem">70/99</div><div class="demo-stat-lbl">SAN</div></div>
+              <div class="demo-stat"><div class="demo-stat-num" style="color:#7c3aed;font-size:1rem">65</div><div class="demo-stat-lbl">幸运</div></div>
+              <div class="demo-stat"><div class="demo-stat-num" style="color:#7c3aed;font-size:1rem">14/14</div><div class="demo-stat-lbl">MP</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario Index -->
+        <div class="demo-card">
+          <div class="demo-card-header"><span class="dot" style="background:#7c3aed"/>场景索引 · 阿卡姆疑云</div>
+          <div class="demo-body" style="padding:12px 18px">
+            <div style="font-size:.7rem;color:#6b7280;margin-bottom:6px">过滤: <span class="demo-tag">全部</span> <span class="demo-tag">🔍 investigation</span> <span class="demo-tag">⚔️ combat</span></div>
+            <div style="font-weight:600;font-size:.8rem;margin-bottom:4px">📂 第一章: 抵达阿卡姆</div>
+            <div class="demo-item" style="padding:4px 8px"><span>🔍 阿卡姆火车站</span><span style="font-size:.65rem;color:#6b7280">p.12 · Keeper</span></div>
+            <div class="demo-item" style="padding:4px 8px"><span>💬 吉尔曼旅馆</span><span style="font-size:.65rem;color:#6b7280">p.15 · Player</span></div>
+            <div class="demo-item" style="padding:4px 8px"><span>🔍 密斯卡塔尼克大学</span><span style="font-size:.65rem;color:#6b7280">p.18 🔍×3 🧠×2</span></div>
+          </div>
+        </div>
+
+        <!-- SAN & Clues -->
+        <div class="demo-card">
+          <div class="demo-card-header"><span class="dot" style="background:#7c3aed"/>当前场景 · scope: party</div>
+          <div class="demo-body" style="padding:12px 18px">
+            <div style="font-weight:600;font-size:.85rem">📍 阿卡姆疯人院 · 接待室</div>
+            <div style="font-size:.72rem;color:#6b7280;margin:4px 0">可获取线索:</div>
+            <div class="demo-item" style="padding:4px 8px;background:#faf5ff">🔍 接待日志 · 核心线索</div>
+            <div class="demo-item" style="padding:4px 8px;background:#faf5ff">🔍 被撕毁的信件 · 线索</div>
+            <div style="font-size:.72rem;color:#6b7280;margin:4px 0">检定:</div>
+            <div class="demo-item" style="padding:4px 8px">🎲 图书馆使用 65% [常规]</div>
+            <div class="demo-item" style="padding:4px 8px">🎲 精神分析 50% [困难]</div>
+            <div style="font-size:.72rem;color:#6b7280;margin:4px 0">理智:</div>
+            <div class="demo-item" style="padding:4px 8px">🧠 目睹尸体: SAN 0/1D4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:20px;font-size:.85rem;color:#6b7280">
+      <span class="zh-only">需要启动 sagasmith-dnd serve 才能连接真实数据 · 上图为 Mock 数据预览</span>
+      <span class="en-only">Start sagasmith-dnd serve to connect live data · Above is mock preview</span>
+    </p>
   </div>
 </section>
 
@@ -327,13 +531,22 @@ document.querySelectorAll('[data-lang-btn]').forEach(btn => {
     document.querySelectorAll('[data-lang-btn]').forEach(b => b.classList.toggle('active', b === btn));
   });
 });
-// Tab switch
+// Quick-start tab switch
 document.querySelectorAll('[data-tab]').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('[data-tab]').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
     document.getElementById('p-' + tab.getAttribute('data-tab')).classList.add('active');
+  });
+});
+// UI preview tab switch
+document.querySelectorAll('[data-ui]').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('[data-ui]').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.ui-panel').forEach(p => p.style.display = 'none');
+    tab.classList.add('active');
+    document.getElementById('ui-' + tab.getAttribute('data-ui')).style.display = 'block';
   });
 });
 </script>
