@@ -1,0 +1,341 @@
+---
+// ── Data ──────────────────────────────────────────────────────
+const ecosystems = [
+  { emoji: '🏗️', name: 'sagasmith-core', zh: '通用引擎 — DB、文档、RAG、FTS5、快照、插件系统', en: 'System-neutral engine — DB, docs, RAG, FTS5, snapshots, plugin system', tag: 'Core' },
+  { emoji: '⚔️', name: 'sagasmith-dnd', zh: 'D&D 5e 2014/2024 运行时 + CLI + HTTP API serve', en: 'D&D 5e 2014/2024 runtime + CLI + HTTP API serve', tag: 'System', tag2: 'serve' },
+  { emoji: '🕯️', name: 'sagasmith-coc', zh: 'CoC 7e 运行时 + CLI，三种解析模式', en: 'CoC 7e runtime + CLI, three parsing modes', tag: 'System' },
+  { emoji: '🖥️', name: 'sagasmith-dnd-ui', zh: 'D&D 管理面板 — Astro + React', en: 'D&D admin dashboard — Astro + React', tag: 'UI' },
+  { emoji: '🖥️', name: 'sagasmith-coc-ui', zh: 'CoC 守秘人面板 — Astro + React', en: 'CoC Keeper dashboard — Astro + React', tag: 'UI' },
+  { emoji: '🎲', name: 'SagaSmith-agent', zh: '完整 AI DM 运行时（NanoBot）', en: 'Full AI DM runtime on NanoBot', tag: 'Runtime' },
+  { emoji: '📦', name: 'SagaSmith-dnd-skills', zh: 'D&D Agent Skills — full + standalone', en: 'D&D agent skills — full + standalone', tag: 'Skills' },
+  { emoji: '📦', name: 'SagaSmith-coc-skills', zh: 'CoC Agent Skills — full + standalone', en: 'CoC agent skills — full + standalone', tag: 'Skills' },
+  { emoji: '✍️', name: 'SagaSmith-module-gen-skills', zh: '冒险模组生成器，25 种范式', en: 'Adventure module generator, 25 paradigms', tag: 'Skills' },
+];
+
+const features = [
+  { icon: '🏛️', zh: '战役管理', en: 'Campaigns', zhd: 'SQLite/PostgreSQL 双后端、Alembic 迁移、DAG 存档树、分支读档、战役记忆修订追踪', end: 'SQLite/PostgreSQL, Alembic migrations, DAG save tree, branch-aware restore, revisioned memory' },
+  { icon: '🎲', zh: '规则检索', en: 'Rule Search', zhd: '三层混合搜索：精确 + FTS5 BM25 全文索引 + 可选 ChromaDB 语义搜索。中文查询自动英文扩展', end: '3-layer hybrid: exact + FTS5 BM25 + optional ChromaDB. CN query auto-expands EN terms' },
+  { icon: '📖', zh: '模组导入', en: 'Module Import', zhd: 'PDF/Markdown 解析、结构感知分块、场景索引。D&D 中英双语合并，CoC solo 节点识别', end: 'PDF/Markdown parsing, structure-aware chunking, scene indexes. CN/EN merge, CoC solo detection' },
+  { icon: '⚔️', zh: '战斗引擎', en: 'Combat', zhd: 'd20 真随机、先攻/命中/暴击、回合追踪。CoC d100/对抗、SAN/疯狂、追逐', end: 'True d20 initiative/hit/crit, turn tracking. CoC d100/opposed, SAN/insanity, chases' },
+  { icon: '🖥️', zh: '管理面板', en: 'Dashboard', zhd: 'Astro + React 本地管理后台。serve 暴露 JSON API，前端直连', end: 'Astro + React admin dashboard. HTTP API via serve command.' },
+  { icon: '🪶', zh: '零依赖轻量', en: 'Standalone', zhd: '纯 Python 标准库便携版，数据存 ~/.sagasmith/。无 pip 环境可用', end: 'Python stdlib-only portable mode. Data at ~/.sagasmith/. Works without pip.' },
+];
+
+const repos = [
+  { emoji: '🏗️', name: 'sagasmith-core', url: 'https://github.com/SagaSmithAI/Sagasmith-core', zh: '通用引擎', en: 'General engine', stack: 'Python · SQLAlchemy · FTS5 · ChromaDB' },
+  { emoji: '⚔️', name: 'sagasmith-dnd', url: 'https://github.com/SagaSmithAI/Sagasmith-dnd', zh: 'D&D 运行时 + CLI', en: 'D&D runtime + CLI', stack: 'Python · FastAPI · D&D 5e' },
+  { emoji: '🕯️', name: 'sagasmith-coc', url: 'https://github.com/SagaSmithAI/Sagasmith-coc', zh: 'CoC 运行时 + CLI', en: 'CoC runtime + CLI', stack: 'Python · CoC 7e' },
+  { emoji: '🖥️', name: 'sagasmith-dnd-ui', url: 'https://github.com/SagaSmithAI/sagasmith-dnd-ui', zh: 'D&D 管理面板', en: 'D&D admin UI', stack: 'Astro · React · TypeScript' },
+  { emoji: '🖥️', name: 'sagasmith-coc-ui', url: 'https://github.com/SagaSmithAI/sagasmith-coc-ui', zh: 'CoC 守秘人面板', en: 'CoC Keeper UI', stack: 'Astro · React · TypeScript' },
+  { emoji: '🎲', name: 'SagaSmith-agent', url: 'https://github.com/SagaSmithAI/SagaSmith-agent', zh: 'AI DM 运行时', en: 'AI DM runtime', stack: 'NanoBot · Python · 16+ Channels' },
+  { emoji: '📦', name: 'SagaSmith-dnd-skills', url: 'https://github.com/SagaSmithAI/SagaSmith-dnd-skills', zh: 'D&D Skill 定义', en: 'D&D skill defs', stack: 'SKILL.md · full + standalone' },
+  { emoji: '📦', name: 'SagaSmith-coc-skills', url: 'https://github.com/SagaSmithAI/SagaSmith-coc-skills', zh: 'CoC Skill 定义', en: 'CoC skill defs', stack: 'SKILL.md · full + standalone' },
+  { emoji: '✍️', name: 'SagaSmith-module-gen-skills', url: 'https://github.com/SagaSmithAI/SagaSmith-module-gen-skills', zh: '模组生成器', en: 'Module generator', stack: 'SKILL.md · 25 paradigms' },
+];
+---
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SagaSmith — AI 桌游地下城</title>
+  <meta name="description" content="SagaSmith — 自主 AI 地下城主运行时，支持 D&D 5e 和 Call of Cthulhu 7e。SQLite 持久化、FTS5 全文检索、ChromaDB 可选。跨平台 Agent Skills，零依赖轻量版可用。">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;font-size:16px;line-height:1.7;color:#1a1a2e;background:#f8f9fa}
+    [data-lang="zh"] .en-only{display:none}
+    [data-lang="en"] .zh-only{display:none}
+    .lang-toggle{position:fixed;top:14px;right:20px;z-index:100;display:flex;gap:4px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);padding:4px;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+    .lang-btn{border:none;background:transparent;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:13px;color:#666;transition:all .2s}
+    .lang-btn.active{background:#1a1a2e;color:#fff}
+    .container{max-width:1000px;margin:0 auto;padding:0 24px}
+    section{padding:64px 0}
+    h2{font-size:1.8rem;font-weight:700;text-align:center}
+    .hero{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;text-align:center;padding:100px 24px 80px}
+    .hero-logo{width:120px;height:120px;margin-bottom:24px;border-radius:24px;background:rgba(255,255,255,.1);display:inline-flex;align-items:center;justify-content:center;font-size:56px}
+    .hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;margin-bottom:12px}
+    .hero p{font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,.75);max-width:640px;margin:0 auto}
+    .hero-sub{font-style:italic;color:rgba(255,255,255,.5);font-size:.95rem;margin:16px auto 32px}
+    .btn-group{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s}
+    .btn-primary{background:#e94560;color:#fff}.btn-primary:hover{background:#d63850;transform:translateY(-2px);box-shadow:0 8px 24px rgba(233,69,96,.3)}
+    .btn-outline{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}.btn-outline:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+    .grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+    .card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e9ecef;transition:all .2s}
+    .card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+    .card .icon{font-size:1.6rem;display:block;margin-bottom:8px}
+    .card h3{font-size:1.05rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+    .card p{color:#555;font-size:.9rem;line-height:1.6}
+    .card .tag{display:inline-block;font-size:.75rem;padding:2px 10px;border-radius:20px;background:#e9ecef;color:#555;margin-top:10px;margin-right:4px}
+    .card .tag2{background:#5390d9;color:#fff}
+    .f-card{background:#fff;border-radius:14px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e9ecef}
+    .f-card .icon{font-size:2rem;display:block;margin-bottom:12px}
+    .f-card h3{font-size:1.05rem;margin-bottom:6px}
+    .f-card p{color:#555;font-size:.88rem}
+    .sec-sub{text-align:center;color:#666;margin-bottom:48px;font-size:1.05rem}
+    .bg-white{background:#fff}
+    .dual{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+    .vc{border-radius:14px;padding:28px;border:2px solid #e9ecef;background:#fff}
+    .vc-feat{border-color:#e94560;position:relative}
+    .vc-feat::before{content:'RECOMMENDED';position:absolute;top:-10px;right:20px;background:#e94560;color:#fff;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.05em}
+    .vc h3{font-size:1.1rem;margin-bottom:8px}
+    .vc .deps{font-size:.82rem;color:#888;margin-bottom:12px}
+    .vc ul{list-style:none}
+    .vc li{padding:4px 0;font-size:.9rem;color:#444}
+    .vc li::before{content:'✓ ';color:#2563eb;font-weight:700}
+    .vc li.no::before{content:'✗ ';color:#e94560}
+    .code{background:#1a1a2e;border-radius:12px;padding:20px 24px;color:#e9ecef;font-family:"SF Mono","Fira Code",monospace;font-size:.85rem;line-height:1.9;overflow-x:auto;margin:16px 0}
+    .code .c{color:#6c757d}.code .p{color:#72efdd}.code .s{color:#ffd166}
+    .tabs{display:flex;gap:0;border-bottom:2px solid #e5e7eb;margin:32px 0 0;justify-content:center}
+    .tab{background:transparent;border:none;padding:10px 20px;cursor:pointer;font-size:.9rem;font-weight:500;color:#6b7280;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s}
+    .tab.active{color:#e94560;border-bottom-color:#e94560}
+    .panel{display:none}.panel.active{display:block}
+    table{width:100%;border-collapse:collapse;font-size:.88rem}
+    th{text-align:left;padding:10px 12px;color:#6b7280;font-weight:600;border-bottom:2px solid #e5e7eb}
+    td{padding:10px 12px;border-bottom:1px solid #f3f4f6}
+    td a{color:#2563eb;text-decoration:none}
+    td a:hover{text-decoration:underline}
+    .arch{background:#1a1a2e;color:#e9ecef;border-radius:14px;padding:32px;font-family:"SF Mono","Fira Code",monospace;font-size:.82rem;line-height:1.8;overflow-x:auto;white-space:pre;margin-top:32px}
+    .hl{color:#e94560}.hl2{color:#5390d9}.hl3{color:#72efdd}
+    footer{background:#1a1a2e;color:rgba(255,255,255,.5);text-align:center;padding:40px 24px;font-size:.85rem}
+    footer a{color:rgba(255,255,255,.7);text-decoration:none}
+    footer a:hover{color:#fff}
+    .flinks{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+    @media(max-width:640px){.dual{grid-template-columns:1fr}.hero{padding:60px 20px 50px}.lang-toggle{top:10px;right:10px}}
+  </style>
+</head>
+<body>
+<div class="lang-toggle">
+  <button class="lang-btn active" data-lang-btn="zh">中文</button>
+  <button class="lang-btn" data-lang-btn="en">EN</button>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-logo">🐉</div>
+  <h1>SagaSmith</h1>
+  <p class="zh-only">自主 AI 地下城主运行时 — 规则书为经文，模组为地图，骰子为审判官。</p>
+  <p class="en-only">Autonomous AI Dungeon Master runtime — the rulebooks are scripture, the module is the map, the dice are the judge.</p>
+  <p class="hero-sub zh-only">跨平台 · SQLite 持久化 · FTS5 全文检索 · ChromaDB 可选 · 零依赖轻量版</p>
+  <p class="hero-sub en-only">Cross-platform · SQLite persistence · FTS5 full-text · ChromaDB optional · Zero-dep standalone</p>
+  <div class="btn-group">
+    <a class="btn btn-primary zh-only" href="#quickstart">快速开始</a>
+    <a class="btn btn-primary en-only" href="#quickstart">Quick Start</a>
+    <a class="btn btn-outline" href="https://github.com/SagaSmithAI" target="_blank">GitHub ›</a>
+  </div>
+</section>
+
+<!-- Features -->
+<section>
+  <div class="container">
+    <h2 class="zh-only">核心能力</h2><h2 class="en-only">Core Capabilities</h2>
+    <p class="sec-sub zh-only">完整的 AI 地下城主工具集</p>
+    <p class="sec-sub en-only">A complete AI Dungeon Master toolkit</p>
+    <div class="grid-3">
+      {features.map(f => <div class="f-card">
+        <span class="icon">{f.icon}</span>
+        <h3 class="zh-only">{f.zh}</h3><h3 class="en-only">{f.en}</h3>
+        <p class="zh-only">{f.zhd}</p><p class="en-only">{f.end}</p>
+      </div>)}
+    </div>
+  </div>
+</section>
+
+<!-- Ecosystem -->
+<section class="bg-white">
+  <div class="container">
+    <h2 class="zh-only">生态</h2><h2 class="en-only">Ecosystem</h2>
+    <p class="sec-sub zh-only">9 个仓库协同工作</p>
+    <p class="sec-sub en-only">Nine repositories working together</p>
+    <div class="grid-3">
+      {ecosystems.map(e => <div class="card">
+        <span class="icon">{e.emoji}</span>
+        <h3>{e.name}</h3>
+        <p class="zh-only">{e.zh}</p><p class="en-only">{e.en}</p>
+        <span class="tag">{e.tag}</span>
+        {e.tag2 && <span class="tag tag2">{e.tag2}</span>}
+      </div>)}
+    </div>
+  </div>
+</section>
+
+<!-- Variants -->
+<section>
+  <div class="container">
+    <h2 class="zh-only">两种使用方式</h2><h2 class="en-only">Two Ways to Use</h2>
+    <p class="sec-sub zh-only">由你选择，Agent 执行</p>
+    <p class="sec-sub en-only">You choose, your agent executes.</p>
+    <div class="dual">
+      <div class="vc vc-feat">
+        <h3 class="zh-only">📦 完整版</h3><h3 class="en-only">📦 Full Runtime</h3>
+        <p class="deps zh-only">依赖：sagasmith-dnd / sagasmith-coc Python 包</p>
+        <p class="deps en-only">Requires: sagasmith-dnd / sagasmith-coc Python package</p>
+        <ul>
+          <li class="zh-only">SQLite/PostgreSQL 持久化 + FTS5 BM25 全文检索</li><li class="en-only">SQLite/PostgreSQL persistence + FTS5 BM25</li>
+          <li class="zh-only">ChromaDB 向量语义搜索（可选）</li><li class="en-only">ChromaDB vector search (optional)</li>
+          <li class="zh-only">PDF 直接导入 + 结构感知分块</li><li class="en-only">Direct PDF import + structure-aware chunking</li>
+          <li class="zh-only">HTTP API serve — 前端可连</li><li class="en-only">HTTP API serve — connect frontend</li>
+          <li class="zh-only">Snapshot DAG 分支读档 + 战役记忆</li><li class="en-only">Snapshot DAG branch restore + memory</li>
+          <li class="zh-only">管理面板 (sagasmith-dnd/coc-ui)</li><li class="en-only">Admin dashboard (sagasmith-dnd/coc-ui)</li>
+        </ul>
+      </div>
+      <div class="vc">
+        <h3 class="zh-only">🪶 轻量版 (Standalone)</h3><h3 class="en-only">🪶 Standalone</h3>
+        <p class="deps zh-only">依赖：Python 3.11+ 标准库</p>
+        <p class="deps en-only">Requires: Python 3.11+ stdlib</p>
+        <ul>
+          <li class="zh-only">纯文本文件存储 (~/.sagasmith/)</li><li class="en-only">Plain text files (~/.sagasmith/)</li>
+          <li class="zh-only">词法搜索 + 中英查询扩展</li><li class="en-only">Lexical search + CN/EN expansion</li>
+          <li class="zh-only">零 pip 依赖，即装即用</li><li class="en-only">Zero pip deps, instant setup</li>
+          <li class="zh-only">战役 / 角色 / 模组 CRUD</li><li class="en-only">Campaign / character / module CRUD</li>
+          <li class="zh-only">Snapshot 目录级快照</li><li class="en-only">Directory-level snapshot saves</li>
+          <li class="no zh-only">不支持 PDF 导入 / FTS5 / ChromaDB</li><li class="no en-only">No PDF import / FTS5 / ChromaDB</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Quick Start -->
+<section class="bg-white" id="quickstart">
+  <div class="container">
+    <h2 class="zh-only">快速开始</h2><h2 class="en-only">Quick Start</h2>
+    <div class="tabs">
+      <button class="tab active" data-tab="full"><span class="zh-only">完整版</span><span class="en-only">Full</span></button>
+      <button class="tab" data-tab="standalone"><span class="zh-only">轻量版</span><span class="en-only">Standalone</span></button>
+      <button class="tab" data-tab="ui"><span class="zh-only">管理面板</span><span class="en-only">Dashboard</span></button>
+      <button class="tab" data-tab="agent">Agent</button>
+    </div>
+
+    <div class="panel active" id="p-full">
+      <div class="code"><span class="c zh-only"># 安装 D&D 完整版</span><span class="c en-only"># Install D&D full runtime</span>
+<span class="p">$</span> pip install <span class="s">"sagasmith-dnd[documents]"</span>
+<span class="p">$</span> sagasmith-dnd doctor --json
+<span class="c zh-only"># 可选：ChromaDB 语义搜索</span><span class="c en-only"># Optional: ChromaDB</span>
+<span class="p">$</span> pip install <span class="s">"sagasmith-dnd[all]"</span>
+<span class="p">$</span> export CHROMA_DB_PATH=~/.sagasmith/chroma_db
+<span class="c zh-only"># 启动 HTTP API</span><span class="c en-only"># Start HTTP API</span>
+<span class="p">$</span> pip install <span class="s">"sagasmith-dnd[serve]"</span>
+<span class="p">$</span> sagasmith-dnd serve --port 3000</div>
+    </div>
+
+    <div class="panel" id="p-standalone">
+      <div class="code"><span class="c zh-only"># 克隆 skill 仓库，切到 standalone/</span><span class="c en-only"># Clone repo, cd standalone/</span>
+<span class="p">$</span> cd standalone/
+<span class="p">$</span> python portable.py doctor
+<span class="p">$</span> python portable.py campaign start --name <span class="s">"Campaign"</span> --edition 2024
+<span class="p">$</span> python portable.py roll check --dc 15 --score 16 --proficient --level 5
+<span class="p">$</span> python portable.py save create --campaign <span class="s">"cid"</span> --label <span class="s">"Before boss"</span></div>
+    </div>
+
+    <div class="panel" id="p-ui">
+      <div class="code"><span class="c zh-only"># 终端1: 启动 API</span><span class="c en-only"># Terminal 1: API</span>
+<span class="p">$</span> sagasmith-dnd serve --port 3000
+<span class="c zh-only"># 终端2: 启动 D&D 管理面板</span><span class="c en-only"># Terminal 2: D&D dashboard</span>
+<span class="p">$</span> git clone https://github.com/SagaSmithAI/sagasmith-dnd-ui.git
+<span class="p">$</span> cd sagasmith-dnd-ui && npm run dev
+<span class="c zh-only"># 终端3: 启动 CoC 守秘人面板</span><span class="c en-only"># Terminal 3: CoC dashboard</span>
+<span class="p">$</span> git clone https://github.com/SagaSmithAI/sagasmith-coc-ui.git
+<span class="p">$</span> cd sagasmith-coc-ui && npm run dev</div>
+    </div>
+
+    <div class="panel" id="p-agent">
+      <div class="code"><span class="c zh-only"># 告诉 Agent：帮我装 https://github.com/SagaSmithAI/SagaSmith-dnd-skills</span><span class="c en-only"># Tell your agent: Install https://github.com/SagaSmithAI/SagaSmith-dnd-skills</span>
+<span class="c zh-only"># Agent 会问你要完整版还是轻量版</span><span class="c en-only"># Agent asks full or standalone</span>
+<span class="c zh-only"># 完整版 → pip install + 加载 full/SKILL.md</span><span class="c en-only"># Full → pip install + load full/SKILL.md</span>
+<span class="c zh-only"># 轻量版 → cd standalone/ + 加载 SKILL.md</span><span class="c en-only"># Standalone → cd standalone/ + load SKILL.md</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section>
+  <div class="container">
+    <h2 class="zh-only">架构</h2><h2 class="en-only">Architecture</h2>
+    <div class="arch">┌─────────────────────────────────────────────────┐
+│   <span class="hl3">Agent Platforms</span>                                   │
+│ Claude Code · NanoBot · Cursor · Codex · Hermes │
+└───────────────────────┬─────────────────────────┘
+                        │  SKILL.md
+┌───────────────────────▼─────────────────────────┐
+│   <span class="hl">SagaSmith Agent Skills</span>                          │
+│  full/  ┌──────────────┐  ┌──────────────┐      │
+│         │ dnd-dm       │  │ coc7-keeper  │      │
+│         │ ...manager   │  │ ...manager   │      │
+│         └──────────────┘  └──────────────┘      │
+│  standalone/ portable.py (零依赖降级)             │
+└───────────────────────┬─────────────────────────┘
+                        │  --json CLI
+┌───────────────────────▼─────────────────────────┐
+│   <span class="hl2">System Runtimes</span>                                  │
+│  sagasmith-dnd ── serve:3000 ── dnd-ui          │
+│  sagasmith-coc ── serve:3001 ── coc-ui          │
+└───────────────────────┬─────────────────────────┘
+                        │  entry-point
+┌───────────────────────▼─────────────────────────┐
+│   <span class="hl">sagasmith-core</span>                                      │
+│  Campaigns · Characters · Rules · Documents     │
+│  Modules · Scenes · Chunks · Scene Progress     │
+│  FTS5 BM25 · Lexical · ChromaDB (opt)           │
+│  Snapshots (DAG) · Memory · Events · Migrations │
+└──────────┬─────────────────────┬────────────────┘
+           │                     │
+     ┌─────▼─────────┐     ┌────▼──────┐
+     │  SQLite/PgSQL  │     │ ChromaDB  │
+     │  + FTS5        │     │ (opt)     │
+     └───────────────┘     └───────────┘</div>
+  </div>
+</section>
+
+<!-- Repos -->
+<section class="bg-white">
+  <div class="container">
+    <h2 class="zh-only">所有仓库</h2><h2 class="en-only">All Repositories</h2>
+    <div style="overflow-x:auto;margin-top:24px">
+      <table>
+        <thead><tr><th class="zh-only">仓库</th><th class="en-only">Repo</th><th class="zh-only">定位</th><th class="en-only">Role</th><th>Stack</th></tr></thead>
+        <tbody>
+          {repos.map(r => <tr>
+            <td><a href={r.url}>{r.emoji} {r.name}</a></td>
+            <td class="zh-only">{r.zh}</td><td class="en-only">{r.en}</td>
+            <td style="color:#6b7280;font-size:.82rem">{r.stack}</td>
+          </tr>)}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flinks">
+    <a href="https://github.com/SagaSmithAI" target="_blank">GitHub</a>
+    <a href="https://github.com/SagaSmithAI/SagaSmith-dnd-skills/releases" target="_blank">Releases</a>
+    <a href="https://github.com/SagaSmithAI/SagaSmith-dnd-skills/tree/main/standalone" target="_blank">Standalone</a>
+  </div>
+  <p>© 2026 SagaSmithAI. MIT Licensed.</p>
+  <p style="margin-top:8px;font-size:.78rem;color:#495057">D&D 5e SRD 5.2.1 © Wizards of the Coast, used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#72efdd">CC-BY-4.0</a></p>
+</footer>
+
+<script>
+// Lang toggle
+document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.getAttribute('data-lang-btn');
+    document.documentElement.setAttribute('data-lang', lang);
+    document.querySelectorAll('[data-lang-btn]').forEach(b => b.classList.toggle('active', b === btn));
+  });
+});
+// Tab switch
+document.querySelectorAll('[data-tab]').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('[data-tab]').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('p-' + tab.getAttribute('data-tab')).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
