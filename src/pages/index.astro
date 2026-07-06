@@ -1,5 +1,8 @@
 ---
 // ── Data ──────────────────────────────────────────────────────
+import { loadNews } from '../lib/news';
+const news = await loadNews(3);
+
 const ecosystems = [
   { emoji: '🏗️', name: 'sagasmith-core', zh: '通用引擎 — DB、文档、RAG、FTS5、快照、插件系统', en: 'System-neutral engine — DB, docs, RAG, FTS5, snapshots, plugin system', tag: 'Core' },
   { emoji: '⚔️', name: 'sagasmith-dnd', zh: 'D&D 5e 2014/2024 运行时 + CLI + HTTP API serve', en: 'D&D 5e 2014/2024 runtime + CLI + HTTP API serve', tag: 'System', tag2: 'serve' },
@@ -187,10 +190,13 @@ const repos = [
     .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:10px 24px;border-radius:10px;font-size:.85rem;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none}
     .toast.show{opacity:1}
 
-    /* ── Copy button ── */
-    .copy-btn{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:8px 18px;border-radius:8px;font-size:.8rem;font-weight:500;border:1.5px solid #eef0f2;background:#fff;cursor:pointer;transition:all .2s;color:#4b5563}
-    .copy-btn:hover{background:#f9fafb;border-color:#d1d5db}
-    .copy-btn.copied{background:#d1fae5;border-color:#6ee7b7;color:#065f46}
+    /* ── News ── */
+    .news-section{background:linear-gradient(135deg,#0f0f1a,#1a1a2e);color:rgba(255,255,255,.8);text-align:center;padding:40px 24px}
+    .news-section h2{color:#f0c040;font-size:1.1rem;font-weight:600;margin-bottom:16px}
+    .news-item{max-width:600px;margin:0 auto 12px;padding:12px 20px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+    .news-item .date{font-size:.72rem;color:rgba(240,192,64,.5);margin-bottom:2px}
+    .news-item .title{font-weight:600;font-size:.9rem;color:#fff}
+    .news-item p{font-size:.82rem;color:rgba(255,255,255,.6);margin-top:4px;line-height:1.5}
 
     footer{background:#0f0f1a;color:rgba(255,255,255,.4);text-align:center;padding:48px 24px;font-size:.82rem}
     footer a{color:rgba(255,255,255,.6);text-decoration:none}
@@ -225,6 +231,18 @@ const repos = [
     <a class="btn btn-primary en-only" href="#quickstart">Quick Start</a>
     <a class="btn btn-outline" href="https://github.com/SagaSmithAI" target="_blank">GitHub ›</a>
   </div>
+</section>
+
+<!-- News -->
+<section class="news-section">
+  <h2 class="zh-only">📡 最新动态</h2>
+  <h2 class="en-only">📡 Latest News</h2>
+  {news.map(item => <div class="news-item">
+    <div class="date">{item.date}</div>
+    <div class="title">{item.title}</div>
+    <p>{item.content.split('\n')[0]}</p>
+  </div>)}
+  {news.length === 0 && <p style="color:rgba(255,255,255,.3);font-size:.85rem">暂无</p>}
 </section>
 
 <!-- Features -->
@@ -666,3 +684,4 @@ document.querySelectorAll('[data-ui]').forEach(tab => {
 </script>
 </body>
 </html>
+
