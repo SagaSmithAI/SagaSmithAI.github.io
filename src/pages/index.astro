@@ -161,6 +161,40 @@ const repos = [
     .arch{background:#0f0f1a;color:#e2e8f0;border-radius:16px;padding:36px;font-family:"SF Mono","Fira Code",monospace;font-size:.8rem;line-height:1.9;overflow-x:auto;white-space:pre;margin-top:32px}
     .hl{color:#f0c040}.hl2{color:#5390d9}.hl3{color:#72efdd}.hl-d{color:#6b7280}
 
+    /* ── Arch layers ── */
+    .arch{display:flex;flex-direction:column;gap:8px;margin-top:32px}
+    .arch-layer{border-radius:14px;padding:18px 22px;position:relative}
+    .arch-layer h3{font-size:.88rem;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+    .arch-layer p{font-size:.8rem;line-height:1.6}
+    .arch-layer .tag{font-size:.7rem;padding:1px 8px;border-radius:4px;display:inline-block;margin:2px}
+    .arch-arrow{text-align:center;font-size:.7rem;color:#9ca3af;padding:2px 0;position:relative}
+    .arch-arrow::before{content:'▲';font-size:.6rem}
+    .arch-layer.l1{background:linear-gradient(135deg,#eef2ff,#e0e7ff);border:1px solid #c7d2fe}
+    .arch-layer.l1 .tag{background:#c7d2fe;color:#3730a3}
+    .arch-layer.l2{background:linear-gradient(135deg,#fef9e7,#fef3c7);border:1px solid #fde68a}
+    .arch-layer.l2 .tag{background:#fde68a;color:#92400e}
+    .arch-layer.l3{background:linear-gradient(135deg,#f0fdf4,#d1fae5);border:1px solid #a7f3d0}
+    .arch-layer.l3 .tag{background:#a7f3d0;color:#065f46}
+    .arch-layer.l4{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1px solid #ddd6fe}
+    .arch-layer.l4 .tag{background:#ddd6fe;color:#5b21b6}
+    .arch-layer.l5{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border:1px solid #dee2e6}
+    .arch-layer.l5 .tag{background:#dee2e6;color:#495057}
+    .arch-layer .chip{display:inline-block;font-size:.7rem;padding:2px 10px;border-radius:20px;margin:1px 2px}
+
+    /* ── Copy button ── */
+    .copy-btn{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:8px 18px;border-radius:8px;font-size:.8rem;font-weight:500;border:1.5px solid #eef0f2;background:#fff;cursor:pointer;transition:all .2s;color:#4b5563}
+    .copy-btn:hover{background:#f9fafb;border-color:#d1d5db}
+    .copy-btn.copied{background:#d1fae5;border-color:#6ee7b7;color:#065f46}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:10px 24px;border-radius:10px;font-size:.85rem;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none}
+    .toast.show{opacity:1}
+
+    /* ── Copy button ── */
+    .copy-btn{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:8px 18px;border-radius:8px;font-size:.8rem;font-weight:500;border:1.5px solid #eef0f2;background:#fff;cursor:pointer;transition:all .2s;color:#4b5563}
+    .copy-btn:hover{background:#f9fafb;border-color:#d1d5db}
+    .copy-btn.copied{background:#d1fae5;border-color:#6ee7b7;color:#065f46}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:10px 24px;border-radius:10px;font-size:.85rem;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none}
+    .toast.show{opacity:1}
+
     footer{background:#0f0f1a;color:rgba(255,255,255,.4);text-align:center;padding:48px 24px;font-size:.82rem}
     footer a{color:rgba(255,255,255,.6);text-decoration:none}
     footer a:hover{color:#f0c040}
@@ -425,6 +459,10 @@ const repos = [
           <li class="zh-only">Snapshot DAG 分支读档 + 战役记忆</li><li class="en-only">Snapshot DAG branch restore + memory</li>
           <li class="zh-only">管理面板 (sagasmith-dnd/coc-ui)</li><li class="en-only">Admin dashboard (sagasmith-dnd/coc-ui)</li>
         </ul>
+        <button class="copy-btn" onclick="copyPrompt('full')">
+          <span class="zh-only">📋 复制 Agent 指令</span>
+          <span class="en-only">📋 Copy Agent Command</span>
+        </button>
       </div>
       <div class="vc">
         <h3 class="zh-only">🪶 轻量版 (Standalone)</h3><h3 class="en-only">🪶 Standalone</h3>
@@ -438,6 +476,10 @@ const repos = [
           <li class="zh-only">Snapshot 目录级快照</li><li class="en-only">Directory-level snapshot saves</li>
           <li class="no zh-only">不支持 PDF 导入 / FTS5 / ChromaDB</li><li class="no en-only">No PDF import / FTS5 / ChromaDB</li>
         </ul>
+        <button class="copy-btn" onclick="copyPrompt('standalone')">
+          <span class="zh-only">📋 复制 Agent 指令</span>
+          <span class="en-only">📋 Copy Agent Command</span>
+        </button>
       </div>
     </div>
   </div>
@@ -499,38 +541,46 @@ const repos = [
 <section class="sec-alt">
   <div class="container">
     <h2 class="zh-only">架构</h2><h2 class="en-only">Architecture</h2>
-    <div class="arch">┌─────────────────────────────────────────────────┐
-│   <span class="hl3">Agent Platforms</span>                                   │
-│ Claude Code · NanoBot · Cursor · Codex · Hermes │
-└───────────────────────┬─────────────────────────┘
-                        │  SKILL.md
-┌───────────────────────▼─────────────────────────┐
-│   <span class="hl">SagaSmith Agent Skills</span>                          │
-│  full/  ┌──────────────┐  ┌──────────────┐      │
-│         │ dnd-dm       │  │ coc7-keeper  │      │
-│         │ ...manager   │  │ ...manager   │      │
-│         └──────────────┘  └──────────────┘      │
-│  standalone/ portable.py (零依赖降级)             │
-└───────────────────────┬─────────────────────────┘
-                        │  --json CLI
-┌───────────────────────▼─────────────────────────┐
-│   <span class="hl2">System Runtimes</span>                                  │
-│  sagasmith-dnd ── serve:3000 ── dnd-ui          │
-│  sagasmith-coc ── serve:3001 ── coc-ui          │
-└───────────────────────┬─────────────────────────┘
-                        │  entry-point
-┌───────────────────────▼─────────────────────────┐
-│   <span class="hl">sagasmith-core</span>                                      │
-│  Campaigns · Characters · Rules · Documents     │
-│  Modules · Scenes · Chunks · Scene Progress     │
-│  FTS5 BM25 · Lexical · ChromaDB (opt)           │
-│  Snapshots (DAG) · Memory · Events · Migrations │
-└──────────┬─────────────────────┬────────────────┘
-           │                     │
-     ┌─────▼─────────┐     ┌────▼──────┐
-     │  SQLite/PgSQL  │     │ ChromaDB  │
-     │  + FTS5        │     │ (opt)     │
-     └───────────────┘     └───────────┘</div>
+    <div class="arch">
+      <div class="arch-layer l1">
+        <h3>🧠 Agent Platforms</h3>
+        <p><span class="tag">Claude Code</span> <span class="tag">NanoBot</span> <span class="tag">Cursor</span> <span class="tag">Codex</span> <span class="tag">Hermes</span></p>
+        <div style="font-size:.72rem;color:#6b7280;margin-top:4px">← SKILL.md 标准入口</div>
+      </div>
+      <div class="arch-arrow"></div>
+      <div class="arch-layer l2">
+        <h3>📜 SagaSmith Agent Skills</h3>
+        <p>
+          <span class="tag">dnd-dm</span> <span class="tag">dnd-campaign-manager</span>
+          <span class="tag">coc7-keeper</span> <span class="tag">coc7-campaign-manager</span>
+        </p>
+        <p style="font-size:.75rem;color:#92400e;margin-top:4px">🪶 standalone/portable.py · 零依赖降级</p>
+      </div>
+      <div class="arch-arrow"></div>
+      <div class="arch-layer l3">
+        <h3>⚙️ System Runtimes</h3>
+        <p>
+          <span class="tag" style="background:#a7f3d0;color:#065f46">⚔️ sagasmith-dnd</span>
+          <span style="font-size:.75rem;color:#065f46">serve:3000 → dnd-ui</span>
+        </p>
+        <p>
+          <span class="tag" style="background:#a7f3d0;color:#065f46">🕯️ sagasmith-coc</span>
+          <span style="font-size:.75rem;color:#065f46">serve:3001 → coc-ui</span>
+        </p>
+      </div>
+      <div class="arch-arrow"></div>
+      <div class="arch-layer l4">
+        <h3>🏗️ sagasmith-core</h3>
+        <p>Campaigns · Characters · Rules · Documents · Modules · Scenes</p>
+        <p>FTS5 BM25 · Lexical · ChromaDB <span style="color:#9ca3af;font-size:.75rem">(opt)</span></p>
+        <p>Snapshots (DAG) · Memory · Events · Migrations</p>
+      </div>
+      <div class="arch-arrow"></div>
+      <div class="arch-layer l5" style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:120px"><h3>🗄️ SQLite / PostgreSQL</h3><p style="font-size:.75rem">+ FTS5 全文索引</p></div>
+        <div style="flex:1;min-width:120px"><h3>🔍 ChromaDB</h3><p style="font-size:.75rem">可选向量加速</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -560,10 +610,36 @@ const repos = [
     <a href="https://github.com/SagaSmithAI/SagaSmith-dnd-skills/tree/main/standalone" target="_blank">Standalone</a>
   </div>
   <p>© 2026 SagaSmithAI. MIT Licensed.</p>
-  <p style="margin-top:8px;font-size:.78rem;color:#495057">D&D 5e SRD 5.2.1 © Wizards of the Coast, used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#72efdd">CC-BY-4.0</a></p>
+  <p style="margin-top:8px;font-size:.75rem;color:rgba(255,255,255,.25)">D&D 5e SRD 5.2.1 © Wizards of the Coast, used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:rgba(240,192,64,.4)">CC-BY-4.0</a></p>
 </footer>
 
+<div class="toast" id="toast"></div>
+
 <script>
+const TOAST = document.getElementById('toast');
+let toastTimer = null;
+function showToast(t) {
+  TOAST.textContent = t;
+  TOAST.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => TOAST.classList.remove('show'), 2000);
+}
+function copyPrompt(mode) {
+  const url = 'https://github.com/SagaSmithAI/SagaSmith-dnd-skills';
+  const lang = document.documentElement.getAttribute('data-lang') || 'zh';
+  if (mode === 'full') {
+    const txt = lang === 'zh'
+      ? `帮我装 ${url}，用完整版`
+      : `Install ${url}, full version`;
+    navigator.clipboard.writeText(txt).then(() => showToast(lang === 'zh' ? '✅ 已复制！告诉 Agent：' + txt : '✅ Copied! Tell your agent: ' + txt));
+  } else {
+    const txt = lang === 'zh'
+      ? `帮我装 ${url}，用轻量版`
+      : `Install ${url}, standalone version`;
+    navigator.clipboard.writeText(txt).then(() => showToast(lang === 'zh' ? '✅ 已复制！告诉 Agent：' + txt : '✅ Copied! Tell your agent: ' + txt));
+  }
+}
+
 // Lang toggle
 document.querySelectorAll('[data-lang-btn]').forEach(btn => {
   btn.addEventListener('click', () => {
