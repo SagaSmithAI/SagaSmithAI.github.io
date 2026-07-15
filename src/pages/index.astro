@@ -6,13 +6,14 @@ const news = await loadNews(3);
 const repositories = [
   { layer: 'HOST', name: 'SagaSmith-agent', desc: '身份、会话、多渠道与 MCP 编排', descEn: 'Identity, sessions, channels, and MCP orchestration', status: 'ALPHA', url: 'https://github.com/SagaSmithAI/SagaSmith-agent' },
   { layer: 'MCP', name: 'SagaSmith-dnd-mcp', desc: 'D&D 能力服务与会话级工具暴露', descEn: 'D&D capability service and session exposure', status: 'REFERENCE', url: 'https://github.com/SagaSmithAI/SagaSmith-dnd-mcp' },
+  { layer: 'MCP', name: 'SagaSmith-coc-mcp', desc: 'CoC 能力服务、角色知识与会话级工具暴露', descEn: 'CoC capability service, actor knowledge, and session exposure', status: 'TESTABLE', url: 'https://github.com/SagaSmithAI/SagaSmith-coc-mcp' },
   { layer: 'CORE', name: 'sagasmith-core', desc: '分支、知识、导入、规则包与持久化', descEn: 'Branches, knowledge, imports, rule packs, persistence', status: 'ACTIVE', url: 'https://github.com/SagaSmithAI/sagasmith-core' },
   { layer: 'RULES', name: 'sagasmith-dnd', desc: 'D&D 5e 2014/2024 规则与结构化战斗', descEn: 'D&D 5e 2014/2024 rules and structured combat', status: 'ACTIVE', url: 'https://github.com/SagaSmithAI/Sagasmith-dnd' },
   { layer: 'RULES', name: 'sagasmith-coc', desc: 'CoC 7e 检定、SAN、追逐与模组解析', descEn: 'CoC 7e checks, sanity, chases, and scenarios', status: 'ACTIVE', url: 'https://github.com/SagaSmithAI/Sagasmith-coc' },
   { layer: 'SKILLS', name: 'SagaSmith-dnd-skills', desc: 'D&D 主持、战役管理与参考资料', descEn: 'D&D GM operations, campaigns, and references', status: 'MCP-FIRST', url: 'https://github.com/SagaSmithAI/SagaSmith-dnd-skills' },
   { layer: 'SKILLS', name: 'SagaSmith-coc-skills', desc: 'CoC 守秘、调查团与场景工作流', descEn: 'CoC Keeper, campaign, and scene workflows', status: 'CLI-FULL', url: 'https://github.com/SagaSmithAI/SagaSmith-coc-skills' },
   { layer: 'CREATE', name: 'SagaSmith-module-gen-skills', desc: '25 种范式的结构化冒险生成', descEn: 'Structured adventure design across 25 paradigms', status: 'SKILL', url: 'https://github.com/SagaSmithAI/SagaSmith-module-gen-skills' },
-  { layer: 'UI', name: 'sagasmith-dnd-ui', desc: '面向开团现场的 D&D DM 工作台', descEn: 'A D&D DM workbench for live sessions', status: 'ALPHA', url: 'https://github.com/SagaSmithAI/sagasmith-dnd-ui' },
+  { layer: 'UI', name: 'sagasmith-dnd-ui', desc: 'Scene Atlas、空间证据与临时战斗地图', descEn: 'Scene Atlas, spatial evidence, and temporary combat maps', status: 'TESTABLE', url: 'https://github.com/SagaSmithAI/sagasmith-dnd-ui' },
   { layer: 'UI', name: 'sagasmith-coc-ui', desc: 'CoC Keeper 客户端探索', descEn: 'CoC Keeper client exploration', status: 'PROTOTYPE', url: 'https://github.com/SagaSmithAI/sagasmith-coc-ui' },
   { layer: 'UI', name: 'sagasmith-ui', desc: '跨系统客户端探索', descEn: 'Cross-system client exploration', status: 'PROTOTYPE', url: 'https://github.com/SagaSmithAI/sagasmith-ui' },
 ];
@@ -244,15 +245,15 @@ const repositories = [
           <div class="status-copy">
             <span class="section-index">05 / STATUS</span>
             <h2><span class="zh">先打通一条真实路径</span><span class="en">Prove one real path first</span></h2>
-            <p class="zh">D&D 是当前端到端参考实现：从 Agent 会话 exposure、规则书/模组导入、角色与知识、非战斗到结构化战斗和 Snapshot。CoC 与 UI 正向同一边界演进。</p>
-            <p class="en">D&D is the current end-to-end reference: session exposure, rulebook and module ingestion, characters and knowledge, play, structured combat, and snapshots. CoC and the UI are converging on the same boundary.</p>
+            <p class="zh">D&D 是当前端到端参考实现：从 Agent 会话 exposure、规则书/模组导入、角色与知识、Scene Atlas、非战斗到临时战斗地图和 Snapshot。CoC 已打通独立 MCP、玩家角色授权、调查模组、SAN/战斗/追逐判定与持久化重启链路。</p>
+            <p class="en">D&D remains the end-to-end reference, including the principal-aware UI gateway and combat map. CoC now has an independent MCP vertical slice covering player/actor authorization, scenarios, sanity/combat/chase resolution, and restart-safe persistence.</p>
             <a href="https://github.com/SagaSmithAI/.github/blob/main/profile/README.md"><span class="zh">阅读平台总览</span><span class="en">Read the platform overview</span> →</a>
           </div>
           <div class="maturity">
             <div><span>D&D MCP PATH</span><div><i style="width: 84%"></i></div><b>REFERENCE</b></div>
             <div><span>CORE RUNTIME</span><div><i style="width: 78%"></i></div><b>ACTIVE</b></div>
-            <div><span>CoC SYSTEM PATH</span><div><i style="width: 56%"></i></div><b>CONVERGING</b></div>
-            <div><span>CLIENT UI</span><div><i style="width: 38%"></i></div><b>ALPHA</b></div>
+            <div><span>CoC MCP PATH</span><div><i style="width: 66%"></i></div><b>TESTABLE</b></div>
+            <div><span>CLIENT UI</span><div><i style="width: 58%"></i></div><b>INTEGRATED ALPHA</b></div>
             <small class="zh">进度条表达相对成熟度，不是发布完成百分比。</small>
             <small class="en">Bars show relative maturity, not release-completion percentages.</small>
           </div>
