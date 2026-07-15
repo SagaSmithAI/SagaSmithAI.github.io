@@ -1,46 +1,45 @@
-# Astro Starter Kit: Basics
+# SagaSmithAI Website
 
-```sh
-npm create astro@latest -- --template basics
+The source for [sagasmithai.github.io](https://sagasmithai.github.io): the public home of the AI-native TTRPG platform.
+
+## What the site communicates
+
+- the platform positioning and design principles;
+- the `lobby` → `play` → `combat` D&D MCP lifecycle;
+- Agent/MCP/rules/Core ownership boundaries;
+- repository map and honest maturity labels;
+- short architecture and field-note updates.
+
+The site is bilingual (Chinese/English), static, and deliberately contains no runtime dashboard or user campaign data.
+
+## Development
+
+Requires Node.js 22.12+.
+
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+Main files:
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/pages/index.astro   Homepage, content, styles, interactions
+src/lib/news.ts         Local field-note loader
+news/                   Dated Markdown field notes
+public/                 Logo and favicons
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Content rules
 
-## 🧞 Commands
+- Describe SagaSmithAI as an **AI-native TTRPG platform**, not a single AI DM.
+- Present D&D as the end-to-end reference path and label CoC/UI maturity honestly.
+- Keep domain state out of the website; link to MCP/Agent setup instead.
+- Do not claim bundled access to commercial rulebooks or modules.
+- Update the organization Profile and platform README when the platform map changes.
 
-All commands are run from the root of the project, from a terminal:
+## License
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+MIT
