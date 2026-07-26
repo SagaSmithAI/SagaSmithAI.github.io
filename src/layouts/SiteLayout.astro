@@ -1,0 +1,123 @@
+---
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description: string;
+  page?: 'home' | 'developers';
+}
+
+const {
+  title,
+  description,
+  page = 'home',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const homePrefix = page === 'home' ? '' : '/';
+---
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#171a18" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/png" href="/logo-mark.png" />
+    <link rel="alternate icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="SagaSmithAI home">
+        <img class="brand-wordmark" src="/logo-wordmark.png" alt="SagaSmith" />
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <a href={`${homePrefix}#experience`}><span class="zh">体验</span><span class="en">Experience</span></a>
+        <a href={`${homePrefix}#roles`}><span class="zh">DM 与玩家</span><span class="en">DMs & players</span></a>
+        <a href={`${homePrefix}#systems`}><span class="zh">支持系统</span><span class="en">Systems</span></a>
+        <a href={`${homePrefix}#progress`}><span class="zh">最新进展</span><span class="en">Progress</span></a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="language" type="button" aria-label="Switch language">
+          <span data-lang-label>EN</span>
+        </button>
+        <a class={`developer-link ${page === 'developers' ? 'active' : ''}`} href="/developers" aria-label="Developer overview">
+          <span class="zh">开发者</span><span class="en">Developers</span>
+          <b>↗</b>
+        </a>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="footer shell">
+      <a class="brand" href="/" aria-label="SagaSmithAI home">
+        <img class="brand-wordmark" src="/logo-wordmark.png" alt="SagaSmith" />
+      </a>
+      <p>
+        <span class="zh">为会记得的世界而造 · 开源 · 活跃 Alpha</span>
+        <span class="en">BUILT FOR WORLDS THAT REMEMBER · OPEN SOURCE · ACTIVE ALPHA</span>
+      </p>
+      <div class="footer-links">
+        <a href="/developers"><span class="zh">开发者</span><span class="en">Developers</span></a>
+        <a href="https://github.com/SagaSmithAI" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/SagaSmithAI/.github/blob/main/profile/README.md" target="_blank" rel="noreferrer">
+          <span class="zh">项目概览</span><span class="en">Overview</span>
+        </a>
+      </div>
+    </footer>
+
+    <script is:inline>
+      const root = document.documentElement;
+      const button = document.querySelector('.language');
+      const label = document.querySelector('[data-lang-label]');
+
+      const setLanguage = (lang) => {
+        root.dataset.lang = lang;
+        root.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        if (label) label.textContent = lang === 'zh' ? 'EN' : '中';
+        try {
+          localStorage.setItem('sagasmith-language', lang);
+        } catch {}
+      };
+
+      let storedLanguage;
+      try {
+        storedLanguage = localStorage.getItem('sagasmith-language');
+      } catch {}
+
+      setLanguage(storedLanguage || (navigator.language.startsWith('zh') ? 'zh' : 'en'));
+      button?.addEventListener('click', () => setLanguage(root.dataset.lang === 'zh' ? 'en' : 'zh'));
+
+      const revealElements = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        revealElements.forEach((element) => observer.observe(element));
+      } else {
+        revealElements.forEach((element) => element.classList.add('visible'));
+      }
+    </script>
+  </body>
+</html>
