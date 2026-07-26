@@ -1,10 +1,10 @@
 ---
-title: "CoC 独立 MCP 垂直链路可实测"
-titleEn: "The independent CoC MCP vertical slice is testable"
-date: "2026-07-15"
-tag: "MCP"
-summary: "CoC 7e 现在拥有 MCP-owned 存储、Lobby/Play/Combat session exposure、角色知识授权、调查模组 scene index 与规则判定入口。"
-summaryEn: "CoC 7e now has MCP-owned persistence, Lobby/Play/Combat session exposure, actor-scoped knowledge, scenario scene indexes, and rules-resolution tools."
+title: CoC 7e 调查链路进入可测试阶段
+titleEn: The CoC 7e investigation path is now testable
+date: 2026-07-15
+tag: COC 7E
+summary: CoC 7e 已能保存调查进度、角色各自掌握的线索与战役状态，当前仍处于测试阶段。
+summaryEn: CoC 7e can now preserve investigation progress, character-specific clues, and campaign state while the experience remains in testing.
 ---
 
 `SagaSmith-coc-mcp` 让 CoC Agent 不再依赖 CLI 拼接或复制 D&D 工具表。真实 stdio 客户端测试验证了目录级发现、按 session 加载和 `exposure_call` fallback；多人测试验证了 PC 知识互相隔离，并在重启后保留战役、模组、Snapshot 与知识状态。
