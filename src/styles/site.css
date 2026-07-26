@@ -140,6 +140,14 @@ button:focus-visible {
   width: 100%;
 }
 
+.topbar nav a.active {
+  color: var(--orange-dark);
+}
+
+.topbar nav a.active::after {
+  width: 100%;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -158,24 +166,6 @@ button:focus-visible {
 
 .language:hover {
   background: var(--paper-2);
-}
-
-.developer-link {
-  height: 34px;
-  padding: 0 13px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-  background: var(--ink);
-  text-decoration: none;
-  font: 700 10px var(--mono);
-  letter-spacing: .04em;
-}
-
-.developer-link:hover,
-.developer-link.active {
-  background: var(--orange);
 }
 
 .section {
@@ -1745,6 +1735,84 @@ button:focus-visible {
   font-size: clamp(42px, 5vw, 64px);
 }
 
+/* Keep supporting copy compact without making it decorative or hard to scan. */
+.topbar nav a,
+.language,
+.button,
+.eyebrow,
+.section-index {
+  font-size: 12px;
+}
+
+.promise-row,
+.story-track small,
+.role-kicker,
+.role-list li > b,
+.hosting-grid small,
+.lab-tag,
+.bridge-actions > a:last-child,
+.closing-actions > a:last-child,
+.footer p,
+.footer-links a,
+.dev-status-card p b,
+.dev-principle-grid h3 {
+  font-size: 11px;
+}
+
+.window-head,
+.scene-banner small,
+.perspective small,
+.perspective header em,
+.choice-node,
+.choice-node b,
+.alpha-note,
+.system-card > header,
+.system-card li,
+.experiment-code,
+.boundary-grid article > span,
+.news-card header,
+.dev-status-card > header,
+.dev-status-card p small,
+.dev-status-card > div > strong,
+.dev-status-card footer,
+.architecture-stack article > span,
+.architecture-stack article small,
+.stack-connector code,
+.repo-group > header > span,
+.repo-group > header small,
+.repo-row em {
+  font-size: 10px;
+}
+
+.scene-banner p,
+.architecture-stack article p,
+.repo-row p {
+  font-size: 13px;
+}
+
+.story-track p,
+.role-list p,
+.hosting-grid p,
+.system-card > p,
+.experiment-note p,
+.boundary-grid p,
+.news-card > p,
+.developer-bridge p,
+.dev-principle-grid p,
+.experiment-details li,
+.repo-row strong {
+  font-size: 14px;
+}
+
+.avatar,
+.perspective header strong {
+  font-size: 11px;
+}
+
+.perspective li {
+  font-size: 12px;
+}
+
 @media (max-width: 1120px) {
   .topbar nav {
     display: none;
@@ -1881,20 +1949,6 @@ button:focus-visible {
     margin-top: 8px;
     padding: 0 11px;
     top: 8px;
-  }
-
-  .developer-link {
-    width: 34px;
-    padding: 0;
-    justify-content: center;
-  }
-
-  .developer-link > span {
-    display: none !important;
-  }
-
-  .developer-link b {
-    font-size: 13px;
   }
 
   .hero,
