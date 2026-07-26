@@ -50,16 +50,15 @@ const homePrefix = page === 'home' ? '' : '/';
         <a href={`${homePrefix}#roles`}><span class="zh">DM 与玩家</span><span class="en">DMs & players</span></a>
         <a href={`${homePrefix}#systems`}><span class="zh">支持系统</span><span class="en">Systems</span></a>
         <a href={`${homePrefix}#progress`}><span class="zh">最新进展</span><span class="en">Progress</span></a>
+        <a class={page === 'developers' ? 'active' : ''} href="/developers">
+          <span class="zh">开发者</span><span class="en">Developers</span>
+        </a>
       </nav>
 
       <div class="header-actions">
         <button class="language" type="button" aria-label="Switch language">
           <span data-lang-label>EN</span>
         </button>
-        <a class={`developer-link ${page === 'developers' ? 'active' : ''}`} href="/developers" aria-label="Developer overview">
-          <span class="zh">开发者</span><span class="en">Developers</span>
-          <b>↗</b>
-        </a>
       </div>
     </header>
 
