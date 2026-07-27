@@ -54,4 +54,4 @@ public/                      Logo and favicons
 
 ## License
 
-MIT
+Apache-2.0
