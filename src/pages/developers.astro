@@ -17,8 +17,8 @@ const repoGroups = [
     title: '规则与共享运行时',
     titleEn: 'Rules and shared runtime',
     repos: [
-      { name: 'sagasmith-core', status: 'ACTIVE', desc: '分支、知识、导入、检索与持久化', descEn: 'Branches, knowledge, imports, retrieval, and persistence', url: 'https://github.com/SagaSmithAI/sagasmith-core' },
-      { name: 'sagasmith-dnd', status: 'ACTIVE', desc: 'D&D 5e 2014/2024 规则与结构化战斗', descEn: 'D&D 5e 2014/2024 rules and structured combat', url: 'https://github.com/SagaSmithAI/Sagasmith-dnd' },
+      { name: 'sagasmith-core', status: 'ACTIVE', desc: '分支、知识、portable 内容、检索与持久化', descEn: 'Branches, knowledge, portable content, retrieval, and persistence', url: 'https://github.com/SagaSmithAI/sagasmith-core' },
+      { name: 'sagasmith-dnd', status: 'ACTIVE', desc: 'D&D 5e 2014/2024 规则、默认角色包与结构化战斗', descEn: 'D&D 5e 2014/2024 rules, bundled actor packs, and structured combat', url: 'https://github.com/SagaSmithAI/Sagasmith-dnd' },
       { name: 'sagasmith-coc', status: 'ACTIVE', desc: 'CoC 7e 检定、理智、追逐与场景解析', descEn: 'CoC 7e checks, sanity, chases, and scene parsing', url: 'https://github.com/SagaSmithAI/Sagasmith-coc' },
     ],
   },
@@ -99,6 +99,23 @@ const repoGroups = [
       </div>
     </section>
 
+    <section class="dev-principles section" data-reveal>
+      <div class="shell">
+        <header class="section-heading centered">
+          <span class="section-index">03 / PORTABLE CONTENT</span>
+          <h2><span class="zh">分享内容，不复制运行时身份</span><span class="en">Share content without copying runtime identity</span></h2>
+          <p class="zh">同一格式连接创作、分发与导入，同时把战役账本留在原来的权威边界。</p>
+          <p class="en">One format connects authoring, distribution, and import while campaign ledgers stay with their authority.</p>
+        </header>
+        <div class="dev-principle-grid">
+          <article><span>A</span><h3>ACTOR CARD</h3><p class="zh">PC、NPC 与怪物共用完整角色卡；导入生成新 id，不复制 actor knowledge。</p><p class="en">PCs, NPCs, and monsters share one complete card; import creates a new id and no ActorKnowledge.</p></article>
+          <article><span>B</span><h3>PRESET PACK</h3><p class="zh">2014/2024 SRD 怪物与 NPC 作为带来源、许可和 checksum 的默认卡库。</p><p class="en">2014/2024 SRD monsters and NPCs ship as sourced, licensed, checksum-bound card libraries.</p></article>
+          <article><span>C</span><h3>MODULE PACK</h3><p class="zh">Scene Atlas、资产、审核内容、NPC/怪物/预设 PC 与稳定关联可以自包含迁移。</p><p class="en">Scene Atlas data, assets, reviews, NPCs, monsters, pregens, and stable bindings can migrate together.</p></article>
+          <article><span>D</span><h3>PACK ≠ SAVE</h3><p class="zh">权限、进度、世界状态、记忆、随机流、分支与 Snapshot 永不随内容包迁移。</p><p class="en">Permissions, progress, world state, memory, random streams, branches, and Snapshots never ride with content packages.</p></article>
+        </div>
+      </div>
+    </section>
+
     <section class="dev-experiment section" data-reveal>
       <div class="shell experiment-panel">
         <div class="experiment-title">
@@ -119,7 +136,7 @@ const repoGroups = [
 
     <section class="repositories section shell" id="repositories" data-reveal>
       <header class="section-heading split-heading">
-        <div><span class="section-index">03 / REPOSITORIES</span><h2><span class="zh">按所有权进入，<br />而不是猜仓库</span><span class="en">Enter by ownership,<br />not by guesswork</span></h2></div>
+        <div><span class="section-index">04 / REPOSITORIES</span><h2><span class="zh">按所有权进入，<br />而不是猜仓库</span><span class="en">Enter by ownership,<br />not by guesswork</span></h2></div>
         <div><p class="zh">每个仓库独立版本与测试。状态标签表达当前定位，不隐含生产就绪。</p><p class="en">Each repository versions and tests independently. Status labels describe current positioning without implying production readiness.</p></div>
       </header>
       <div class="repo-groups">
