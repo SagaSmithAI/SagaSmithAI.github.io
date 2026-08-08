@@ -1,0 +1,28 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+<SiteLayout
+  title="SagaSmith D&D Content Library"
+  description="Browse every redistributable SagaSmith D&D preset and addon package, including actor cards, rules, sources, and licensed character art."
+  page="library"
+>
+  <main class="public-library-page">
+    <header>
+      <span>PUBLIC / CHECKSUM-BOUND / READ-ONLY</span>
+      <h1><span class="zh">D&D Preset 与 Addon 公共库</span><span class="en">D&D Preset & Addon Library</span></h1>
+      <p class="zh">这里展示经过许可门禁的完整便携包。浏览不等于安装或启用；这些动作仍由 MCP 的权限与战役规则锁控制。</p>
+      <p class="en">This catalog contains complete portable packages that passed the redistribution gate. Browsing never installs or activates content; MCP authority and campaign locks still govern those actions.</p>
+    </header>
+    <iframe title="SagaSmith D&D portable content browser" src="/dnd-ui/library/" loading="eager"></iframe>
+    <noscript><p>JavaScript is required for the package browser. The raw <a href="/content-library/index.json">library index</a> remains available.</p></noscript>
+  </main>
+</SiteLayout>
+
+<style>
+  .public-library-page { padding: 120px 24px 50px; }
+  .public-library-page > header { width: min(1180px,100%); margin: 0 auto 24px; }
+  .public-library-page > header > span { color: #c54b2d; font: 700 11px monospace; letter-spacing: .14em; }
+  .public-library-page h1 { margin: 12px 0; font-size: clamp(34px,5vw,68px); }
+  .public-library-page p { max-width: 850px; color: #686e68; }
+  iframe { width: min(1500px,100%); height: max(780px,calc(100vh - 190px)); display: block; margin: 0 auto; border: 1px solid #333a34; background: #f2ede3; }
+</style>

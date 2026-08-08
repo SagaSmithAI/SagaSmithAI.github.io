@@ -4,7 +4,7 @@ import '../styles/site.css';
 interface Props {
   title: string;
   description: string;
-  page?: 'home' | 'developers';
+  page?: 'home' | 'developers' | 'library';
 }
 
 const {
@@ -53,6 +53,7 @@ const homePrefix = page === 'home' ? '' : '/';
         <a class={page === 'developers' ? 'active' : ''} href="/developers">
           <span class="zh">开发者</span><span class="en">Developers</span>
         </a>
+        <a class={page === 'library' ? 'active' : ''} href="/library">Library</a>
       </nav>
 
       <div class="header-actions">
