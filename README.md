@@ -9,7 +9,10 @@ The source for [sagasmithai.github.io](https://sagasmithai.github.io): the publi
 - persistent choices, actor-scoped knowledge, and clear table boundaries;
 - honest D&D and CoC experience status;
 - extended ruleset import as an explicitly experimental capability;
-- checksum-validated shareable actor, preset, and structured module packages;
+- checksum-validated unified core-rule, addon, module, and preset packages;
+- the separately deployed, license-gated
+  [D&D Content Library](https://sagasmithai.github.io/SagaSmith-dnd-content-library/),
+  visualized by the D&D UI without duplicating package data in this repository;
 - a separate developer path for architecture, repositories, and ownership boundaries;
 - short public-facing platform updates.
 
@@ -51,8 +54,10 @@ public/                      Logo and favicons
   rulebooks or unadapted third-party systems can be imported and run reliably.
 - Keep domain state out of the website; link to MCP/Agent setup instead.
 - Do not claim bundled access to commercial rulebooks or modules.
-- Distinguish portable source/content packages from campaign saves: no permissions,
+- Distinguish unified content packages from campaign saves: no permissions,
   ActorKnowledge, progress, random stream, branches, or Snapshots migrate with them.
+- Describe rule-package imports as validated inactive installations; branch activation
+  remains a separate Owner/DM operation and never implies source authority.
 - Update the organization Profile and platform README when the platform map changes.
 
 ## License

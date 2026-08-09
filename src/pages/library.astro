@@ -3,18 +3,18 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 ---
 <SiteLayout
   title="SagaSmith D&D Content Library"
-  description="Browse every redistributable SagaSmith D&D preset and addon package, including actor cards, rules, sources, and licensed character art."
+  description="Browse SagaSmith D&D core-rule, addon, module, and preset packages, including actors, sources, assets, readiness, and character art."
   page="library"
 >
   <main class="public-library-page">
     <header>
       <span>PUBLIC / CHECKSUM-BOUND / READ-ONLY</span>
-      <h1><span class="zh">D&D Preset 与 Addon 公共库</span><span class="en">D&D Preset & Addon Library</span></h1>
-      <p class="zh">这里展示经过许可门禁的完整便携包。浏览不等于安装或启用；这些动作仍由 MCP 的权限与战役规则锁控制。</p>
-      <p class="en">This catalog contains complete portable packages that passed the redistribution gate. Browsing never installs or activates content; MCP authority and campaign locks still govern those actions.</p>
+      <h1><span class="zh">D&D 统一内容包公共库</span><span class="en">D&D Unified Content Library</span></h1>
+      <p class="zh">统一格式支持核心规则、Addon、模组与预设；这个公共实例只展示具备可验证开放许可的 SRD 包。完整商业语料包及其角色图保留在用户本地私有库。浏览不等于安装或启用；这些动作仍由 MCP 的权限与战役规则锁控制。</p>
+      <p class="en">The unified format supports core rules, addons, modules, and presets; this public instance contains only SRD packages with verifiable open-license evidence. Complete commercial-source packages and their actor art remain in the user's local private library. Browsing never installs or activates content; MCP authority and campaign locks still govern those actions.</p>
     </header>
-    <iframe title="SagaSmith D&D portable content browser" src="/dnd-ui/library/" loading="eager"></iframe>
-    <noscript><p>JavaScript is required for the package browser. The raw <a href="/content-library/index.json">library index</a> remains available.</p></noscript>
+    <iframe title="SagaSmith D&D unified content browser" src="https://sagasmithai.github.io/SagaSmith-dnd-content-library/ui/library/" loading="eager"></iframe>
+    <noscript><p>JavaScript is required for the package browser. The raw <a href="https://sagasmithai.github.io/SagaSmith-dnd-content-library/content-library/index.json">library index</a> remains available.</p></noscript>
   </main>
 </SiteLayout>
 
