@@ -218,7 +218,7 @@ const news = await loadNews(3);
             <div class="system-emblem">D20</div>
             <h3><span class="zh">长期冒险与现场战斗</span><span class="en">Long adventures and live combat</span></h3>
             <p class="zh">当前参考体验覆盖独立主持循环、战役连续性、场景索引、角色知识、规则来源与临时战斗地图，适合本地集成测试。</p>
-            <p class="en">The current reference experience covers the autonomous hosting loop, campaign continuity, scene indexes, character knowledge, rule evidence, and temporary combat maps for local integrated testing.</p>
+            <p class="en">The current reference experience covers the autonomous hosting loop, campaign continuity, scene indexes, character knowledge, rule evidence, and explicit grid/Agent combat positioning for local integrated testing.</p>
             <ul>
               <li><span class="zh">场景与人物持续状态</span><span class="en">Persistent scenes and characters</span></li>
               <li><span class="zh">DM / 玩家知识边界</span><span class="en">DM / player knowledge boundaries</span></li>
@@ -245,8 +245,8 @@ const news = await loadNews(3);
           <span class="lab-tag"><i></i><span class="zh">实验功能</span><span class="en">EXPERIMENTAL</span></span>
           <div>
             <h3><span class="zh">扩展规则集导入仍处于实验阶段</span><span class="en">Extended ruleset import remains experimental</span></h3>
-            <p class="zh">目前它用于验证受控的规则扩展流程。已审核规则包可以携带完整来源与稳定引用迁移，但导入后仍未安装、未启用；这不代表 SagaSmith 已能自动理解或可靠运行任意规则书与第三方系统。完整系统支持仍需要明确的规则适配、验证与测试。</p>
-            <p class="en">It validates a controlled rules-extension flow. Reviewed packs can migrate with complete sources and stable citations, but imports remain uninstalled and inactive. This does not mean SagaSmith can automatically understand or reliably run arbitrary rulebooks or third-party systems; full support still requires explicit adapters, validation, and testing.</p>
+            <p class="zh">目前它用于验证受控的规则扩展流程。已定稿 Pack 可以携带完整来源与稳定引用迁移，但导入后仍未激活；这不代表 SagaSmith 已能自动理解或可靠运行任意规则书与第三方系统。完整系统支持仍需要明确的规则适配、Agent 审查与验证。</p>
+            <p class="en">It validates a controlled rules-extension flow. Finalized Packs can migrate with complete sources and stable citations, but imported Packs remain inactive until explicit campaign activation. This does not mean SagaSmith can automatically understand or reliably run arbitrary rulebooks or third-party systems; full support still requires explicit adapters, Agent review, and validation.</p>
           </div>
           <span class="experiment-code">LAB / RULESET-IMPORT</span>
         </aside>
@@ -262,7 +262,7 @@ const news = await loadNews(3);
       </header>
 
       <div class="boundary-grid">
-        <article><span>DM</span><h3><span class="zh">主持权与裁决方式由你选择</span><span class="en">You choose the hosting and ruling mode</span></h3><p class="zh">人类主持时，DM 保留最终裁决；独立主持时，SagaSmith 按已安装规则与当前战役状态推进，并明确标记歧义和临时裁决。</p><p class="en">With a human host, the DM keeps the final ruling. In autonomous mode, SagaSmith advances from installed rules and campaign state while making ambiguity and provisional rulings explicit.</p></article>
+        <article><span>DM</span><h3><span class="zh">主持权与裁决方式由你选择</span><span class="en">You choose the hosting and ruling mode</span></h3><p class="zh">人类主持时，DM 保留最终裁决；独立主持时，SagaSmith 按已激活 Pack 与当前战役状态推进，来源无冲突的语境歧义由 Agent 裁决。</p><p class="en">With a human host, the DM keeps the final ruling. In autonomous mode, SagaSmith advances from activated Packs and campaign state, with the Agent settling contextual ambiguity when source evidence is not missing or conflicting.</p></article>
         <article><span>PC</span><h3><span class="zh">秘密不会靠“提醒 AI”保管</span><span class="en">Secrets do not rely on reminding the AI</span></h3><p class="zh">玩家与角色只看到服务端允许的视角，幕后事实不会因为表达失误而混入回答。</p><p class="en">Players and characters receive only the view allowed for them. Backstage truth cannot leak through a careless answer.</p></article>
         <article><span>IP</span><h3><span class="zh">分享格式不等于内容授权</span><span class="en">A sharing format is not a content license</span></h3><p class="zh">每个统一内容包都保留独立许可与署名；规则书、角色或模组只能由获得相应授权的人导入与分享。</p><p class="en">Every unified content package retains its own license and attribution. Books, actors, and adventures may be imported or shared only by authorized users.</p></article>
         <article class="boundary-experimental"><span>LAB</span><h3><span class="zh">实验不等于承诺</span><span class="en">Experiment is not a promise</span></h3><p class="zh">扩展规则集导入、更多系统与部分客户端体验仍在实验或原型阶段，并会持续明确标注。</p><p class="en">Extended ruleset import, additional systems, and parts of the client experience remain experimental or prototyped and will stay clearly labeled.</p></article>

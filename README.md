@@ -56,7 +56,7 @@ public/                      Logo and favicons
 - Do not claim bundled access to commercial rulebooks or modules.
 - Distinguish unified content packages from campaign saves: no permissions,
   ActorKnowledge, progress, random stream, branches, or Snapshots migrate with them.
-- Describe rule-package imports as validated inactive installations; branch activation
+- Describe rule-package imports as validated inactive storage; branch activation
   remains a separate Owner/DM operation and never implies source authority.
 - Update the organization Profile and platform README when the platform map changes.
 
