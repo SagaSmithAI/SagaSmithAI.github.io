@@ -1,5 +1,7 @@
 # SagaSmithAI Website
 
+[Live site](https://sagasmithai.github.io) · [Platform overview](https://github.com/SagaSmithAI/.github/blob/main/profile/README.md) · [Hosted service](https://github.com/SagaSmithAI/SagaSmith-service) · [Content catalog](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
+
 The source for [sagasmithai.github.io](https://sagasmithai.github.io): the public home of the AI-native TTRPG platform.
 
 ## What the site communicates
@@ -10,9 +12,11 @@ The source for [sagasmithai.github.io](https://sagasmithai.github.io): the publi
 - honest D&D and CoC experience status;
 - extended ruleset import as an explicitly experimental capability;
 - checksum-validated unified core-rule, addon, module, and preset packages;
-- the separately deployed, license-gated
-  [D&D Content Library](https://sagasmithai.github.io/SagaSmith-dnd-content-library/),
-  visualized by the D&D UI without duplicating package data in this repository;
+- the public-source hosted [SagaSmith Service](https://github.com/SagaSmithAI/SagaSmith-service),
+  while keeping game-state authority in system MCPs;
+- the public, rights-aware
+  [Content Pack repository](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
+  and checksum catalog, without treating repository visibility as a content license;
 - a separate developer path for architecture, repositories, and ownership boundaries;
 - short public-facing platform updates.
 
@@ -34,11 +38,12 @@ Main files:
 ```text
 src/pages/index.astro        DM/player homepage and autonomous-hosting story
 src/pages/developers.astro   Developer architecture and repository map
+src/pages/library.astro      Rights-aware public Content Pack catalog frame
 src/layouts/SiteLayout.astro Shared metadata, navigation, language, and footer
 src/styles/site.css          Shared responsive visual system
 src/lib/news.ts              Local field-note loader
 news/                        Dated Markdown field notes
-public/                      Logo and favicons
+public/                      Logo, favicons, and social preview image
 ```
 
 ## Content rules
@@ -53,7 +58,11 @@ public/                      Logo and favicons
 - Always label extended ruleset import as experimental; never imply arbitrary
   rulebooks or unadapted third-party systems can be imported and run reliably.
 - Keep domain state out of the website; link to MCP/Agent setup instead.
+- Describe the hosted Service as a public-source orchestration layer, never as
+  the owner of D&D, CoC, or Narrative campaign state.
 - Do not claim bundled access to commercial rulebooks or modules.
+- Treat repository visibility and content licensing as separate facts. Every
+  public catalog entry still requires its own license and distribution rights.
 - Distinguish unified content packages from campaign saves: no permissions,
   ActorKnowledge, progress, random stream, branches, or Snapshots migrate with them.
 - Describe rule-package imports as validated inactive storage; branch activation

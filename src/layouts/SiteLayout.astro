@@ -14,6 +14,7 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL('/og.png', Astro.site);
 const homePrefix = page === 'home' ? '' : '/';
 ---
 <!doctype html>
@@ -28,9 +29,13 @@ const homePrefix = page === 'home' ? '' : '/';
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content="SagaSmithAI — Worlds That Remember" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content="SagaSmithAI — Worlds That Remember" />
     <link rel="icon" type="image/png" href="/logo-mark.png" />
     <link rel="alternate icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
@@ -70,8 +75,8 @@ const homePrefix = page === 'home' ? '' : '/';
         <img class="brand-wordmark" src="/logo-wordmark.png" alt="SagaSmith" />
       </a>
       <p>
-        <span class="zh">为会记得的世界而造 · 开源 · 活跃 Alpha</span>
-        <span class="en">BUILT FOR WORLDS THAT REMEMBER · OPEN SOURCE · ACTIVE ALPHA</span>
+        <span class="zh">为会记得的世界而造 · 公开开发 · 活跃 Alpha</span>
+        <span class="en">BUILT FOR WORLDS THAT REMEMBER · PUBLIC DEVELOPMENT · ACTIVE ALPHA</span>
       </p>
       <div class="footer-links">
         <a href="/developers"><span class="zh">开发者</span><span class="en">Developers</span></a>

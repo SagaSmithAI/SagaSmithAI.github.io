@@ -8,10 +8,14 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 >
   <main class="public-library-page">
     <header>
-      <span>PUBLIC / CHECKSUM-BOUND / READ-ONLY</span>
-      <h1><span class="zh">D&D 统一内容包公共库</span><span class="en">D&D Unified Content Library</span></h1>
-      <p class="zh">统一格式支持核心规则、Addon、模组与预设；这个公共实例只展示具备可验证开放许可的 SRD 包。完整商业语料包及其角色图保留在用户本地私有库。浏览不等于安装或启用；这些动作仍由 MCP 的权限与战役规则锁控制。</p>
-      <p class="en">The unified format supports core rules, addons, modules, and presets; this public instance contains only SRD packages with verifiable open-license evidence. Complete commercial-source packages and their actor art remain in the user's local private library. Browsing never imports or activates content; MCP authority and campaign locks still govern those actions.</p>
+      <span>PUBLIC REPOSITORY / CHECKSUM-BOUND / RIGHTS-AWARE</span>
+      <h1><span class="zh">SagaSmith 当前内容包目录</span><span class="en">SagaSmith Current Content Pack Catalog</span></h1>
+      <p class="zh">仓库与机器可读索引现已公开，统一列出 D&amp;D 5e 与 CoC 7e 的 core rules、Addon、模组和预设。公开可见不等于开放内容许可：每个 Pack、来源与资产仍保留自己的许可、署名和分发限制。请只下载、导入或再分发你有权使用的内容；安装与战役启用仍由 MCP 权限和规则锁控制。</p>
+      <p class="en">The repository and machine-readable index are now public, covering current D&amp;D 5e and CoC 7e core rules, addons, modules, and presets. Public visibility is not an open-content license: every Pack, source, and asset retains its own license, attribution, and distribution restrictions. Download, import, or redistribute only what you are authorized to use; MCP permissions and campaign locks still govern installation and activation.</p>
+      <div class="library-actions">
+        <a href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library" target="_blank" rel="noreferrer"><span class="zh">查看公开仓库</span><span class="en">View public repository</span> ↗</a>
+        <a href="https://sagasmithai.github.io/SagaSmith-dnd-content-library/content-library/index.json" target="_blank" rel="noreferrer"><span class="zh">机器可读索引</span><span class="en">Machine-readable index</span> ↗</a>
+      </div>
     </header>
     <iframe title="SagaSmith D&D unified content browser" src="https://sagasmithai.github.io/SagaSmith-dnd-content-library/ui/library/" loading="eager"></iframe>
     <noscript><p>JavaScript is required for the package browser. The raw <a href="https://sagasmithai.github.io/SagaSmith-dnd-content-library/content-library/index.json">library index</a> remains available.</p></noscript>
@@ -24,5 +28,8 @@ import SiteLayout from '../layouts/SiteLayout.astro';
   .public-library-page > header > span { color: #c54b2d; font: 700 11px monospace; letter-spacing: .14em; }
   .public-library-page h1 { margin: 12px 0; font-size: clamp(34px,5vw,68px); }
   .public-library-page p { max-width: 850px; color: #686e68; }
+  .library-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
+  .library-actions a { color: #c54b2d; font: 700 12px monospace; letter-spacing: .06em; text-decoration: none; }
+  .library-actions a:hover { text-decoration: underline; }
   iframe { width: min(1500px,100%); height: max(780px,calc(100vh - 190px)); display: block; margin: 0 auto; border: 1px solid #333a34; background: #f2ede3; }
 </style>

@@ -8,8 +8,10 @@ const repoGroups = [
     titleEn: 'Runtime and capability services',
     repos: [
       { name: 'SagaSmith-agent', status: 'ALPHA', desc: '身份、会话、多渠道与 MCP 编排', descEn: 'Identity, sessions, channels, and MCP orchestration', url: 'https://github.com/SagaSmithAI/SagaSmith-agent' },
+      { name: 'SagaSmith-service', status: 'PUBLIC SOURCE', desc: '托管账户、房间、Agent 调度与多系统服务编排', descEn: 'Hosted accounts, rooms, Agent dispatch, and multi-system orchestration', url: 'https://github.com/SagaSmithAI/SagaSmith-service' },
       { name: 'SagaSmith-dnd-mcp', status: 'REFERENCE', desc: 'D&D 能力服务与会话级工具暴露', descEn: 'D&D capability service and session exposure', url: 'https://github.com/SagaSmithAI/SagaSmith-dnd-mcp' },
       { name: 'SagaSmith-coc-mcp', status: 'TESTABLE', desc: 'CoC 能力服务、角色知识与会话状态', descEn: 'CoC capability service, actor knowledge, and session state', url: 'https://github.com/SagaSmithAI/SagaSmith-coc-mcp' },
+      { name: 'SagaSmith-narrative-mcp', status: 'TESTABLE', desc: '系统无关长线叙事、连续性与可选冲突阶段', descEn: 'System-neutral long-form narrative, continuity, and optional conflict phase', url: 'https://github.com/SagaSmithAI/SagaSmith-narrative-mcp' },
     ],
   },
   {
@@ -24,12 +26,14 @@ const repoGroups = [
   },
   {
     label: 'WORKFLOWS & SURFACES',
-    title: '工作流与界面探索',
-    titleEn: 'Workflows and interface exploration',
+    title: '工作流、内容与界面',
+    titleEn: 'Workflows, content, and interfaces',
     repos: [
       { name: 'SagaSmith-dnd-skills', status: 'MCP-FIRST', desc: 'D&D 主持与战役工作流', descEn: 'D&D GM and campaign workflows', url: 'https://github.com/SagaSmithAI/SagaSmith-dnd-skills' },
-      { name: 'SagaSmith-coc-skills', status: 'CLI-FULL', desc: 'CoC 守秘与调查工作流', descEn: 'CoC Keeper and investigation workflows', url: 'https://github.com/SagaSmithAI/SagaSmith-coc-skills' },
+      { name: 'SagaSmith-coc-skills', status: 'MCP-FIRST', desc: 'CoC 守秘与调查工作流', descEn: 'CoC Keeper and investigation workflows', url: 'https://github.com/SagaSmithAI/SagaSmith-coc-skills' },
+      { name: 'SagaSmith-narrative-skills', status: 'MCP-FIRST', desc: '系统无关长线叙事与连续性工作流', descEn: 'System-neutral long-form narrative and continuity workflows', url: 'https://github.com/SagaSmithAI/SagaSmith-narrative-skills' },
       { name: 'SagaSmith-module-gen-skills', status: 'SKILL', desc: '结构化冒险设计技能', descEn: 'Structured adventure-design skills', url: 'https://github.com/SagaSmithAI/SagaSmith-module-gen-skills' },
+      { name: 'SagaSmith-dnd-content-library', status: 'PUBLIC CATALOG', desc: '校验和绑定的当前 Content Pack 索引与归档', descEn: 'Checksum-bound current Content Pack index and archives', url: 'https://github.com/SagaSmithAI/SagaSmith-dnd-content-library' },
       { name: 'sagasmith-dnd-ui', status: 'ALPHA', desc: 'D&D DM Workbench 与 Scene Atlas', descEn: 'D&D DM Workbench and Scene Atlas', url: 'https://github.com/SagaSmithAI/sagasmith-dnd-ui' },
       { name: 'sagasmith-coc-ui', status: 'PROTOTYPE', desc: 'CoC Keeper 客户端探索', descEn: 'CoC Keeper client exploration', url: 'https://github.com/SagaSmithAI/sagasmith-coc-ui' },
       { name: 'sagasmith-ui', status: 'PROTOTYPE', desc: '跨系统客户端探索', descEn: 'Cross-system client exploration', url: 'https://github.com/SagaSmithAI/sagasmith-ui' },
@@ -39,13 +43,13 @@ const repoGroups = [
 ---
 <SiteLayout
   title="SagaSmithAI for Developers — Open campaign infrastructure"
-  description="Explore SagaSmithAI's open architecture, system plugins, MCP capability services, client boundaries, repositories, and current experimental limits."
+  description="Explore SagaSmithAI's publicly developed architecture, hosted service, system plugins, MCP capability services, client boundaries, repositories, and current experimental limits."
   page="developers"
 >
   <main class="developer-main">
     <section class="dev-hero shell">
       <div>
-        <div class="eyebrow"><span class="pulse"></span>OPEN SOURCE · ACTIVE ALPHA</div>
+        <div class="eyebrow"><span class="pulse"></span>PUBLIC DEVELOPMENT · ACTIVE ALPHA</div>
         <h1><span class="zh">为会记得的世界，<br /><em>打造可靠的边界。</em></span><span class="en">Build reliable boundaries<br /><em>for worlds that remember.</em></span></h1>
         <p class="lede zh">SagaSmithAI 把 Agent Host、领域 MCP、规则系统与共享战役运行时分开，让每一层只拥有它真正应该拥有的状态。</p>
         <p class="lede en">SagaSmithAI separates the Agent Host, domain MCPs, rule systems, and shared campaign runtime so every layer owns only the state it should.</p>
@@ -58,6 +62,7 @@ const repoGroups = [
         <header><span>PLATFORM STATUS</span><em>2026 / ALPHA</em></header>
         <div><span class="status-signal live"></span><p><b>D&D REFERENCE PATH</b><small><span class="zh">本地集成可测试</span><span class="en">LOCAL INTEGRATION TESTABLE</span></small></p><strong>ACTIVE</strong></div>
         <div><span class="status-signal testing"></span><p><b>COC VERTICAL PATH</b><small><span class="zh">独立链路可测试</span><span class="en">VERTICAL PATH TESTABLE</span></small></p><strong>TESTING</strong></div>
+        <div><span class="status-signal testing"></span><p><b>HOSTED MULTI-SYSTEM ROOMS</b><small><span class="zh">公开源码 · 集成验证中</span><span class="en">PUBLIC SOURCE · INTEGRATION TESTING</span></small></p><strong>ALPHA</strong></div>
         <div><span class="status-signal experimental"></span><p><b>RULESET IMPORT</b><small><span class="zh">受控实验功能</span><span class="en">CONTROLLED EXPERIMENT</span></small></p><strong>LAB</strong></div>
         <footer><span class="zh">状态标签描述当前证据，不代表发布完成度。</span><span class="en">Labels describe current evidence, not release completion.</span></footer>
       </aside>
