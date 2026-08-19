@@ -22,6 +22,21 @@ The source for [sagasmithai.github.io](https://sagasmithai.github.io): the publi
 
 The site is bilingual (Chinese/English), static, and deliberately contains no runtime dashboard or user campaign data.
 
+## Current repository map
+
+| Layer | Current repository |
+|---|---|
+| Neutral runtime | [`sagasmith-core`](https://github.com/SagaSmithAI/sagasmith-core) |
+| D&D Domain / MCP / Skills / UI | [`sagasmith-dnd`](https://github.com/SagaSmithAI/sagasmith-dnd) |
+| CoC Domain / MCP / Skills / UI | [`sagasmith-coc`](https://github.com/SagaSmithAI/sagasmith-coc) |
+| Narrative Domain / MCP / Skills | [`sagasmith-narrative`](https://github.com/SagaSmithAI/sagasmith-narrative) |
+| Agent host | [`SagaSmith-agent`](https://github.com/SagaSmithAI/SagaSmith-agent) |
+| Hosted control plane | [`SagaSmith-service`](https://github.com/SagaSmithAI/SagaSmith-service) |
+| Content catalog | [`SagaSmith-dnd-content-library`](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library) |
+
+Former standalone MCP, Skills, UI, and generic Module Generator repositories
+are archived history and are not current documentation or release entry points.
+
 ## Development
 
 Requires Node.js 22.12+.
