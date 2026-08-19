@@ -37,6 +37,15 @@ The site is bilingual (Chinese/English), static, and deliberately contains no ru
 Former standalone MCP, Skills, UI, and generic Module Generator repositories
 are archived history and are not current documentation or release entry points.
 
+## Verified integration baseline
+
+The public status published on 2026-08-20 is backed by a current-source hosted
+run: Service-signed principal context reached session-scoped Agent/MCP tools,
+and the D&D and CoC reference campaigns completed concurrently without a
+reported regression gap. The D&D path recorded a legal ending. Catalog-wide
+discovery and exclusions remain machine-readable; the site must not describe
+this reference run as complete playthrough coverage for every Pack or branch.
+
 ## Development
 
 Requires Node.js 22.12+.
@@ -83,6 +92,8 @@ public/                      Logo, favicons, and social preview image
 - Describe rule-package imports as validated inactive storage; branch activation
   remains a separate Owner/DM operation and never implies source authority.
 - Update the organization Profile and platform README when the platform map changes.
+- Tie verification claims to dated, machine-readable regression evidence and keep
+  unexecuted modules or paths explicit.
 
 ## License
 
