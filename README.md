@@ -61,6 +61,12 @@ npm run build
 npm run preview
 ```
 
+The Pages workflow publishes `/dnd-ui` from `apps/ui` in the current
+[`sagasmith-dnd`](https://github.com/SagaSmithAI/Sagasmith-dnd) vertical
+repository. That external release input is pinned to a full commit SHA in
+`.github/workflows/deploy.yml` and is advanced only after the replacement
+revision passes the D&D workbench CI.
+
 Main files:
 
 ```text
