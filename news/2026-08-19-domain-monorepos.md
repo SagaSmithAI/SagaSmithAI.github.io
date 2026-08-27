@@ -13,9 +13,9 @@ Skills、领域 UI（如有）和对应的 Pack/项目创作流程，同时继�
 职责与权限边界。
 
 原独立 MCP、Skills、UI 和通用 Module Generator 仓库已经归档。它们仍可用于历史
-审计，但不再接收当前 Issue、发布或集成，也不会被 Agent、Service 或安装器作为
+审计，但不再接收当前 Issue、发布或集成，也不会被 Agent、SagaSmith Web 或安装器作为
 兼容回退。
 
 `sagasmith-core`、`SagaSmith-agent`、`SagaSmith-service`、内容目录、官网与组织文档
-继续独立。开发者页和各仓库 README 已切换到当前拓扑，Service 的组件锁也只保留
-实际参与当前构建的仓库。
+继续独立。开发者页、活跃仓库 README 与 SagaSmith Web 组件锁只把当前 vertical
+仓库作为发布和集成输入；归档仓库的入口文档应仅重定向到对应 vertical 仓库。

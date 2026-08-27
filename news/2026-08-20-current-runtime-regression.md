@@ -8,7 +8,7 @@ summaryEn: The long regression now rebuilds the hosted stack from the current Ag
 ---
 
 长回归会先从当前 `SagaSmith-agent`、`sagasmith-core`、三个领域仓库与
-`SagaSmith-service` 源码重建并重建容器，再开始任何房间动作。Service 使用临时共享
+`SagaSmith-service` 源码重建并重建容器，再开始任何房间动作。SagaSmith Web 使用临时共享
 密钥签发带时效的 `sagasmith.auth-context/v1`，Agent 将 principal context 传给
 会话作用域 MCP；领域服务仍在实际调用边界重新校验身份、角色、战役与 revision。
 

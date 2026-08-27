@@ -16,11 +16,19 @@ import SiteLayout from '../layouts/SiteLayout.astro';
       <p class="en">On 2026-08-20 the current-source hosted stack completed the D&amp;D and CoC reference campaigns concurrently. The regression runner discovers every catalog module and preserves unexecuted items and mutually exclusive paths as machine-readable exclusions; one reference pass is not complete playthrough certification for all 46 Packs.</p>
       <div class="library-actions">
         <a href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library" target="_blank" rel="noreferrer"><span class="zh">查看公开仓库</span><span class="en">View public repository</span> ↗</a>
-        <a href="https://sagasmithai.github.io/SagaSmith-dnd-content-library/content-library/index.json" target="_blank" rel="noreferrer"><span class="zh">机器可读索引</span><span class="en">Machine-readable index</span> ↗</a>
+        <a href="https://raw.githubusercontent.com/SagaSmithAI/SagaSmith-dnd-content-library/main/content-library/index.json" target="_blank" rel="noreferrer"><span class="zh">机器可读索引</span><span class="en">Machine-readable index</span> ↗</a>
       </div>
     </header>
-    <iframe title="SagaSmith D&D unified content browser" src="https://sagasmithai.github.io/SagaSmith-dnd-content-library/ui/library/" loading="eager"></iframe>
-    <noscript><p>JavaScript is required for the package browser. The raw <a href="https://sagasmithai.github.io/SagaSmith-dnd-content-library/content-library/index.json">library index</a> remains available.</p></noscript>
+    <section class="catalog-source">
+      <span>CANONICAL CATALOG SOURCE</span>
+      <h2><span class="zh">目录以校验和索引为准</span><span class="en">The checksum index is the catalog authority</span></h2>
+      <p class="zh">Content Library 仓库目前没有独立 GitHub Pages 部署。请通过公开仓库审阅 Pack、许可与验证证据，或直接读取 raw JSON 索引；本站不再嵌入不存在的 Pages UI。</p>
+      <p class="en">The Content Library repository currently has no separate GitHub Pages deployment. Review Packs, rights metadata, and validation evidence in the public repository or consume the raw JSON index; this site no longer embeds a nonexistent Pages UI.</p>
+      <div class="library-actions">
+        <a href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library/tree/main/content-library" target="_blank" rel="noreferrer"><span class="zh">浏览目录源码</span><span class="en">Browse catalog source</span> ↗</a>
+        <a href="https://raw.githubusercontent.com/SagaSmithAI/SagaSmith-dnd-content-library/main/content-library/index.json" target="_blank" rel="noreferrer"><span class="zh">打开 JSON</span><span class="en">Open JSON</span> ↗</a>
+      </div>
+    </section>
   </main>
 </SiteLayout>
 
@@ -33,5 +41,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
   .library-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
   .library-actions a { color: #c54b2d; font: 700 12px monospace; letter-spacing: .06em; text-decoration: none; }
   .library-actions a:hover { text-decoration: underline; }
-  iframe { width: min(1500px,100%); height: max(780px,calc(100vh - 190px)); display: block; margin: 0 auto; border: 1px solid #333a34; background: #f2ede3; }
+  .catalog-source { width: min(1180px,100%); margin: 0 auto; padding: clamp(28px,5vw,64px); border: 1px solid #333a34; background: #f2ede3; }
+  .catalog-source > span { color: #c54b2d; font: 700 11px monospace; letter-spacing: .14em; }
+  .catalog-source h2 { margin: 12px 0; font-size: clamp(26px,4vw,46px); }
 </style>

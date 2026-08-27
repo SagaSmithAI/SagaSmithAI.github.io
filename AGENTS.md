@@ -12,8 +12,10 @@ documentation.
 - `sagasmith-core`: system-neutral runtime primitives.
 - `sagasmith-dnd`, `sagasmith-coc`, `sagasmith-narrative`: vertical domain
   repositories owning Domain, MCP, Skills, and UI where present.
-- `SagaSmith-agent`: Agent host and channels.
-- `SagaSmith-service`: hosted control plane.
+- `SagaSmith-agent`: generic Agent host, channels, and MCP consumer for local and hosted workers.
+- **SagaSmith Web**: the hosted browser product in the repository currently named
+  `SagaSmith-service`; it includes the frontend, API/BFF, hosted control plane, collaboration,
+  Forge, Module Studio, Agent orchestration, and operations.
 - `SagaSmith-dnd-content-library`: rights-aware Content Pack catalog.
 - `.github`: organization profile and contribution/release policy.
 
@@ -26,8 +28,11 @@ accurate historical references.
 
 - Describe fully autonomous hosting as the primary experience and human-DM
   collaboration as a supported mode.
-- Keep Agent, Domain, MCP, Core, Service, client, and content-rights authorities
+- Keep Agent, Domain, MCP, Core, SagaSmith Web, client, and content-rights authorities
   distinct.
+- Present Local Agent Kit and SagaSmith Web as two deployments of the same authoritative MCP
+  contract. Their transport, authentication, storage, and deployment may differ; their tool
+  schemas, rule/state writes, revision behavior, and idempotency may not.
 - Treat repository visibility, software licensing, and Pack/source/asset rights
   as separate facts.
 - Do not claim bundled commercial rules or modules.
