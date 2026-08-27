@@ -1,6 +1,6 @@
 # SagaSmithAI Website
 
-[Live site](https://sagasmithai.github.io) · [Platform overview](https://github.com/SagaSmithAI/.github/blob/main/profile/README.md) · [Hosted service](https://github.com/SagaSmithAI/SagaSmith-service) · [Content catalog](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
+[Live site](https://sagasmithai.github.io) · [Platform overview](https://github.com/SagaSmithAI/.github/blob/main/profile/README.md) · [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-service) · [Content catalog](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
 
 The source for [sagasmithai.github.io](https://sagasmithai.github.io): the public home of the AI-native TTRPG platform.
 
@@ -12,8 +12,10 @@ The source for [sagasmithai.github.io](https://sagasmithai.github.io): the publi
 - honest D&D and CoC experience status;
 - extended ruleset import as an explicitly experimental capability;
 - checksum-validated unified core-rule, addon, module, and preset packages;
-- the public-source hosted [SagaSmith Service](https://github.com/SagaSmithAI/SagaSmith-service),
+- the public-source hosted [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-service),
+  currently kept in the `SagaSmith-service` repository,
   while keeping game-state authority in system MCPs;
+- Local Agent Kit and Hosted Web as two deployments of the same authoritative MCP contract;
 - the public, rights-aware
   [Content Pack repository](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
   and checksum catalog, without treating repository visibility as a content license;
@@ -31,16 +33,18 @@ The site is bilingual (Chinese/English), static, and deliberately contains no ru
 | CoC Domain / MCP / Skills / UI | [`sagasmith-coc`](https://github.com/SagaSmithAI/sagasmith-coc) |
 | Narrative Domain / MCP / Skills | [`sagasmith-narrative`](https://github.com/SagaSmithAI/sagasmith-narrative) |
 | Agent host | [`SagaSmith-agent`](https://github.com/SagaSmithAI/SagaSmith-agent) |
-| Hosted control plane | [`SagaSmith-service`](https://github.com/SagaSmithAI/SagaSmith-service) |
+| Hosted Web product | [SagaSmith Web (`SagaSmith-service`)](https://github.com/SagaSmithAI/SagaSmith-service) |
 | Content catalog | [`SagaSmith-dnd-content-library`](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library) |
 
 Former standalone MCP, Skills, UI, and generic Module Generator repositories
-are archived history and are not current documentation or release entry points.
+are archived history, do not accept new issues, and are not current documentation,
+release inputs, or compatibility fallbacks. Their landing READMEs should point to the matching
+vertical repository.
 
 ## Verified integration baseline
 
 The public status published on 2026-08-20 is backed by a current-source hosted
-run: Service-signed principal context reached session-scoped Agent/MCP tools,
+run: SagaSmith Web-signed principal context reached session-scoped Agent/MCP tools,
 and the D&D and CoC reference campaigns completed concurrently without a
 reported regression gap. The D&D path recorded a legal ending. Catalog-wide
 discovery and exclusions remain machine-readable; the site must not describe
@@ -82,8 +86,10 @@ public/                      Logo, favicons, and social preview image
 - Always label extended ruleset import as experimental; never imply arbitrary
   rulebooks or unadapted third-party systems can be imported and run reliably.
 - Keep domain state out of the website; link to MCP/Agent setup instead.
-- Describe the hosted Service as a public-source orchestration layer, never as
-  the owner of D&D, CoC, or Narrative campaign state.
+- Describe SagaSmith Web as the full hosted browser product, with its control plane as one backend
+  responsibility, never as the owner of D&D, CoC, or Narrative campaign state.
+- Keep the Local Agent Kit independent from SagaSmith Web and require both deployments to preserve
+  the same MCP schemas, capabilities, errors, authority, revision, and idempotency behavior.
 - Do not claim bundled access to commercial rulebooks or modules.
 - Treat repository visibility and content licensing as separate facts. Every
   public catalog entry still requires its own license and distribution rights.

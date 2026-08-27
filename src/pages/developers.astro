@@ -3,12 +3,12 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 
 const repoGroups = [
   {
-    label: 'HOST & SERVICE',
-    title: 'Host 与托管服务',
-    titleEn: 'Host and hosted service',
+    label: 'HOST & WEB PRODUCT',
+    title: 'Host 与托管 Web 产品',
+    titleEn: 'Host and hosted Web product',
     repos: [
       { name: 'SagaSmith-agent', status: 'ALPHA', desc: '身份、会话、多渠道与 MCP 编排', descEn: 'Identity, sessions, channels, and MCP orchestration', url: 'https://github.com/SagaSmithAI/SagaSmith-agent' },
-      { name: 'SagaSmith-service', status: 'PUBLIC SOURCE', desc: '托管账户、房间、Agent 调度与多系统服务编排', descEn: 'Hosted accounts, rooms, Agent dispatch, and multi-system orchestration', url: 'https://github.com/SagaSmithAI/SagaSmith-service' },
+      { name: 'SagaSmith Web · SagaSmith-service', status: 'PUBLIC SOURCE', desc: '浏览器前端、API/BFF、托管控制面、协作、Forge、Module Studio 与运维', descEn: 'Browser frontend, API/BFF, hosted control plane, collaboration, Forge, Module Studio, and operations', url: 'https://github.com/SagaSmithAI/SagaSmith-service' },
     ],
   },
   {
@@ -36,7 +36,7 @@ const repoGroups = [
 ---
 <SiteLayout
   title="SagaSmithAI for Developers — Open campaign infrastructure"
-  description="Explore SagaSmithAI's publicly developed architecture, hosted service, system plugins, MCP capability services, client boundaries, repositories, and current experimental limits."
+  description="Explore SagaSmithAI's Local Agent Kit, hosted SagaSmith Web product, shared authoritative MCP contracts, repositories, and current experimental limits."
   page="developers"
 >
   <main class="developer-main">
@@ -44,8 +44,8 @@ const repoGroups = [
       <div>
         <div class="eyebrow"><span class="pulse"></span>PUBLIC DEVELOPMENT · ACTIVE ALPHA</div>
         <h1><span class="zh">为会记得的世界，<br /><em>打造可靠的边界。</em></span><span class="en">Build reliable boundaries<br /><em>for worlds that remember.</em></span></h1>
-        <p class="lede zh">SagaSmithAI 把 Agent Host、领域 MCP、规则系统与共享战役运行时分开，让每一层只拥有它真正应该拥有的状态。</p>
-        <p class="lede en">SagaSmithAI separates the Agent Host, domain MCPs, rule systems, and shared campaign runtime so every layer owns only the state it should.</p>
+        <p class="lede zh">SagaSmithAI 用同一套领域 MCP 权威契约连接本地 Agent Kit 与托管 Web，让每一层只拥有它真正应该拥有的状态。</p>
+        <p class="lede en">SagaSmithAI connects the Local Agent Kit and hosted Web through one authoritative domain MCP contract, so every layer owns only the right state.</p>
         <div class="hero-actions">
           <a class="button primary" href="https://github.com/SagaSmithAI" target="_blank" rel="noreferrer">GitHub <b>↗</b></a>
           <a class="button secondary" href="#architecture"><span class="zh">查看架构</span><span class="en">Explore architecture</span><b>↓</b></a>
@@ -55,7 +55,7 @@ const repoGroups = [
         <header><span>PLATFORM STATUS</span><em>2026 / ALPHA</em></header>
         <div><span class="status-signal live"></span><p><b>D&D REFERENCE PATH</b><small><span class="zh">本地集成可测试</span><span class="en">LOCAL INTEGRATION TESTABLE</span></small></p><strong>ACTIVE</strong></div>
         <div><span class="status-signal testing"></span><p><b>COC VERTICAL PATH</b><small><span class="zh">独立链路可测试</span><span class="en">VERTICAL PATH TESTABLE</span></small></p><strong>TESTING</strong></div>
-        <div><span class="status-signal testing"></span><p><b>HOSTED MULTI-SYSTEM ROOMS</b><small><span class="zh">公开源码 · 集成验证中</span><span class="en">PUBLIC SOURCE · INTEGRATION TESTING</span></small></p><strong>ALPHA</strong></div>
+        <div><span class="status-signal testing"></span><p><b>SAGASMITH WEB</b><small><span class="zh">浏览器产品 · 集成验证中</span><span class="en">BROWSER PRODUCT · INTEGRATION TESTING</span></small></p><strong>ALPHA</strong></div>
         <div><span class="status-signal live"></span><p><b>PARALLEL REFERENCE REGRESSION</b><small><span class="zh">D&amp;D + CoC · 2026-08-20 已验证</span><span class="en">D&amp;D + COC · VERIFIED 2026-08-20</span></small></p><strong>PASS</strong></div>
         <div><span class="status-signal experimental"></span><p><b>RULESET IMPORT</b><small><span class="zh">受控实验功能</span><span class="en">CONTROLLED EXPERIMENT</span></small></p><strong>LAB</strong></div>
         <footer><span class="zh">状态标签描述当前证据，不代表发布完成度。</span><span class="en">Labels describe current evidence, not release completion.</span></footer>
@@ -79,15 +79,33 @@ const repoGroups = [
       </div>
     </section>
 
+    <section class="dev-principles section" data-reveal>
+      <div class="shell">
+        <header class="section-heading centered">
+          <span class="section-index">02 / TWO DEPLOYMENTS</span>
+          <h2><span class="zh">部署可以不同，权威契约不能分叉</span><span class="en">Deploy differently without forking authority</span></h2>
+          <p class="zh">本地与 Hosted 只在 transport、authentication、storage 和 deployment 上不同；工具 schema、错误、规则写入、revision 与 idempotency 必须一致。</p>
+          <p class="en">Local and hosted deployments may differ in transport, authentication, storage, and deployment; tool schemas, errors, rule writes, revisions, and idempotency must remain identical.</p>
+        </header>
+        <div class="dev-principle-grid">
+          <article><span>L</span><h3>LOCAL AGENT KIT</h3><p class="zh">Discord、QQ、Telegram Bot 可由 SagaSmith Agent 承载；Codex、Claude Code、OpenClaw 等 MCP client 也可通过 stdio 或 localhost HTTP 直连领域 MCP，使用 SQLite 与本地文件。</p><p class="en">SagaSmith Agent can host Discord, QQ, and Telegram bots; Codex, Claude Code, OpenClaw, and other MCP clients can also connect directly over stdio or localhost HTTP with SQLite and local files.</p></article>
+          <article><span>W</span><h3>SAGASMITH WEB</h3><p class="zh">Browser/PWA 进入 API/BFF、托管控制面与 principal-scoped Agent worker，再调用同一领域 MCP；PostgreSQL、Redis 与对象存储只承担 Hosted 职责。</p><p class="en">Browser/PWA traffic crosses the API/BFF, hosted control plane, and principal-scoped Agent worker before reaching the same domain MCP; PostgreSQL, Redis, and object storage remain hosted concerns.</p></article>
+        </div>
+      </div>
+    </section>
+
     <section class="dev-architecture section shell" id="architecture" data-reveal>
       <header class="section-heading split-heading">
-        <div><span class="section-index">02 / ARCHITECTURE</span><h2><span class="zh">每一层只拥有<br />它该拥有的状态</span><span class="en">Each layer owns<br />only the right state</span></h2></div>
+        <div><span class="section-index">03 / ARCHITECTURE</span><h2><span class="zh">每一层只拥有<br />它该拥有的状态</span><span class="en">Each layer owns<br />only the right state</span></h2></div>
         <div><p class="zh">规则可以升级、系统可以扩展、Host 可以更换，而不需要复制领域逻辑或让客户端承担权限边界。</p><p class="en">Rules can evolve, systems can expand, and hosts can change without copying domain logic or moving authorization into clients.</p></div>
       </header>
       <div class="architecture-stack">
-        <article><span>01</span><small>HUMAN SURFACES</small><h3>Players · DM · Channels · UI</h3><p><span class="zh">对话、控制与桌面体验</span><span class="en">Conversation, controls, and table experience</span></p></article>
-        <div class="stack-connector"><i></i><code>signed principal context + session</code></div>
-        <article><span>02</span><small>AGENT HOST</small><h3>SagaSmith Agent</h3><p><span class="zh">身份、会话、模型、workspace 与多渠道</span><span class="en">Identity, sessions, models, workspace, and channels</span></p></article>
+        <article><span>01</span><small>HUMAN & AGENT CLIENTS</small><h3>Players · DM · Bots · Generic Agents</h3><p><span class="zh">浏览器、PWA、频道与通用 MCP 客户端</span><span class="en">Browser, PWA, channels, and generic MCP clients</span></p></article>
+        <div class="stack-connector"><i></i><code>local stdio/http · hosted https/session</code></div>
+        <div class="stack-pair">
+          <article><span>02A</span><small>LOCAL HOST</small><h3>SagaSmith Agent</h3><p><span class="zh">Bot、会话、模型、workspace 与多渠道</span><span class="en">Bots, sessions, models, workspace, and channels</span></p></article>
+          <article><span>02B</span><small>HOSTED PRODUCT</small><h3>SagaSmith Web</h3><p><span class="zh">前端、API/BFF、控制面、协作、Forge 与 Agent worker</span><span class="en">Frontend, API/BFF, control plane, collaboration, Forge, and Agent workers</span></p></article>
+        </div>
         <div class="stack-connector"><i></i><code>MCP · tools · resources · prompts</code></div>
         <article class="stack-focus"><span>03</span><small>CAPABILITY PLANE</small><h3>Domain MCP Servers</h3><p><span class="zh">发现、会话暴露、授权、幂等与审计</span><span class="en">Discovery, session exposure, authorization, idempotency, and audit</span></p></article>
         <div class="stack-connector"><i></i><code>validated domain operations</code></div>
@@ -101,10 +119,10 @@ const repoGroups = [
     <section class="dev-principles section" data-reveal>
       <div class="shell">
         <header class="section-heading centered">
-          <span class="section-index">03 / VERIFIED HOST PATH</span>
+          <span class="section-index">04 / VERIFIED HOST PATH</span>
           <h2><span class="zh">身份可验证，证据可复查</span><span class="en">Verifiable identity, reviewable evidence</span></h2>
-          <p class="zh">2026-08-20 的当前源码回归从 Service 签名身份开始，经 Agent 的会话作用域动态工具进入 D&amp;D 与 CoC MCP，并发完成两条参考战役且未记录回归缺口。D&amp;D 路径记录了合法结局；未执行模组与互斥路径仍保留为机器可读 exclusion。</p>
-          <p class="en">The 2026-08-20 current-source regression starts with Service-signed identity, crosses the Agent's session-scoped dynamic tools, and completes concurrent D&amp;D and CoC reference campaigns without a reported regression gap. The D&amp;D path records a legal ending; unexecuted modules and mutually exclusive paths remain machine-readable exclusions.</p>
+          <p class="zh">2026-08-20 的当前源码回归从 SagaSmith Web 签名身份开始，经 Agent 的会话作用域动态工具进入 D&amp;D 与 CoC MCP，并发完成两条参考战役且未记录回归缺口。D&amp;D 路径记录了合法结局；未执行模组与互斥路径仍保留为机器可读 exclusion。</p>
+          <p class="en">The 2026-08-20 current-source regression starts with SagaSmith Web-signed identity, crosses the Agent's session-scoped dynamic tools, and completes concurrent D&amp;D and CoC reference campaigns without a reported regression gap. The D&amp;D path records a legal ending; unexecuted modules and mutually exclusive paths remain machine-readable exclusions.</p>
         </header>
       </div>
     </section>
@@ -112,7 +130,7 @@ const repoGroups = [
     <section class="dev-principles section" data-reveal>
       <div class="shell">
         <header class="section-heading centered">
-          <span class="section-index">04 / UNIFIED CONTENT</span>
+          <span class="section-index">05 / UNIFIED CONTENT</span>
           <h2><span class="zh">分享内容，不复制运行时身份</span><span class="en">Share content without copying runtime identity</span></h2>
           <p class="zh">同一格式连接创作、分发与导入，同时把战役账本留在原来的权威边界。</p>
           <p class="en">One format connects authoring, distribution, and import while campaign ledgers stay with their authority.</p>
@@ -147,7 +165,7 @@ const repoGroups = [
 
     <section class="repositories section shell" id="repositories" data-reveal>
       <header class="section-heading split-heading">
-        <div><span class="section-index">05 / REPOSITORIES</span><h2><span class="zh">按所有权进入，<br />而不是猜仓库</span><span class="en">Enter by ownership,<br />not by guesswork</span></h2></div>
+        <div><span class="section-index">06 / REPOSITORIES</span><h2><span class="zh">按所有权进入，<br />而不是猜仓库</span><span class="en">Enter by ownership,<br />not by guesswork</span></h2></div>
         <div><p class="zh">每个仓库独立版本与测试。状态标签表达当前定位，不隐含生产就绪。</p><p class="en">Each repository versions and tests independently. Status labels describe current positioning without implying production readiness.</p></div>
       </header>
       <div class="repo-groups">
