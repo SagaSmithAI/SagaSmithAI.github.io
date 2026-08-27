@@ -4,7 +4,7 @@ import '../styles/site.css';
 interface Props {
   title: string;
   description: string;
-  page?: 'home' | 'developers' | 'library';
+  page?: 'home' | 'start' | 'developers' | 'library';
 }
 
 const {
@@ -16,6 +16,15 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL('/og.png', Astro.site);
 const homePrefix = page === 'home' ? '' : '/';
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'SagaSmithAI',
+  url: Astro.site?.toString(),
+  logo: new URL('/logo-mark.png', Astro.site).toString(),
+  sameAs: ['https://github.com/SagaSmithAI'],
+  description,
+};
 ---
 <!doctype html>
 <html lang="zh-CN" data-lang="zh">
@@ -36,13 +45,15 @@ const homePrefix = page === 'home' ? '' : '/';
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
     <meta name="twitter:image:alt" content="SagaSmithAI — Worlds That Remember" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/logo-mark.png" />
-    <link rel="alternate icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content"><span class="zh">跳到主要内容</span><span class="en">Skip to content</span></a>
     <div class="grain" aria-hidden="true"></div>
 
     <header class="topbar">
@@ -51,10 +62,9 @@ const homePrefix = page === 'home' ? '' : '/';
       </a>
 
       <nav aria-label="Primary navigation">
+        <a class={page === 'start' ? 'active' : ''} href="/start"><span class="zh">开始使用</span><span class="en">Get started</span></a>
         <a href={`${homePrefix}#experience`}><span class="zh">体验</span><span class="en">Experience</span></a>
-        <a href={`${homePrefix}#roles`}><span class="zh">DM 与玩家</span><span class="en">DMs & players</span></a>
         <a href={`${homePrefix}#systems`}><span class="zh">支持系统</span><span class="en">Systems</span></a>
-        <a href={`${homePrefix}#progress`}><span class="zh">最新进展</span><span class="en">Progress</span></a>
         <a class={page === 'developers' ? 'active' : ''} href="/developers">
           <span class="zh">开发者</span><span class="en">Developers</span>
         </a>
@@ -62,13 +72,23 @@ const homePrefix = page === 'home' ? '' : '/';
       </nav>
 
       <div class="header-actions">
+        <details class="mobile-menu">
+          <summary><span class="zh">导航</span><span class="en">Menu</span></summary>
+          <nav aria-label="Mobile navigation">
+            <a href="/start"><span class="zh">开始使用</span><span class="en">Get started</span></a>
+            <a href={`${homePrefix}#experience`}><span class="zh">体验</span><span class="en">Experience</span></a>
+            <a href={`${homePrefix}#systems`}><span class="zh">支持系统</span><span class="en">Systems</span></a>
+            <a href="/developers"><span class="zh">开发者</span><span class="en">Developers</span></a>
+            <a href="/library">Library</a>
+          </nav>
+        </details>
         <button class="language" type="button" aria-label="Switch language">
           <span data-lang-label>EN</span>
         </button>
       </div>
     </header>
 
-    <slot />
+    <div id="main-content" tabindex="-1"><slot /></div>
 
     <footer class="footer shell">
       <a class="brand" href="/" aria-label="SagaSmithAI home">
@@ -79,6 +99,7 @@ const homePrefix = page === 'home' ? '' : '/';
         <span class="en">BUILT FOR WORLDS THAT REMEMBER · PUBLIC DEVELOPMENT · ACTIVE ALPHA</span>
       </p>
       <div class="footer-links">
+        <a href="/start"><span class="zh">开始使用</span><span class="en">Get started</span></a>
         <a href="/developers"><span class="zh">开发者</span><span class="en">Developers</span></a>
         <a href="https://github.com/SagaSmithAI" target="_blank" rel="noreferrer">GitHub</a>
         <a href="https://github.com/SagaSmithAI/.github/blob/main/profile/README.md" target="_blank" rel="noreferrer">
@@ -108,6 +129,11 @@ const homePrefix = page === 'home' ? '' : '/';
 
       setLanguage(storedLanguage || (navigator.language.startsWith('zh') ? 'zh' : 'en'));
       button?.addEventListener('click', () => setLanguage(root.dataset.lang === 'zh' ? 'en' : 'zh'));
+
+      const mobileMenu = document.querySelector('.mobile-menu');
+      mobileMenu?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => mobileMenu.removeAttribute('open'));
+      });
 
       const revealElements = document.querySelectorAll('[data-reveal]');
       if ('IntersectionObserver' in window) {
