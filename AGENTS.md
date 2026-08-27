@@ -13,8 +13,8 @@ documentation.
 - `sagasmith-dnd`, `sagasmith-coc`, `sagasmith-narrative`: vertical domain
   repositories owning Domain, MCP, Skills, and UI where present.
 - `SagaSmith-agent`: generic Agent host, channels, and MCP consumer for local and hosted workers.
-- **SagaSmith Web**: the hosted browser product in the repository currently named
-  `SagaSmith-service`; it includes the frontend, API/BFF, hosted control plane, collaboration,
+- **SagaSmith Web**: the hosted browser product in `SagaSmith-Web`; it includes the frontend,
+  API/BFF, hosted control plane, collaboration,
   Forge, Module Studio, Agent orchestration, and operations.
 - `SagaSmith-dnd-content-library`: rights-aware Content Pack catalog.
 - `.github`: organization profile and contribution/release policy.
@@ -40,6 +40,8 @@ accurate historical references.
   or unadapted systems can run safely.
 - Keep Chinese and English claims aligned and update the organization profile
   when the public topology changes.
+- Keep `/start` commands synchronized with the current `SagaSmith-agent` Local Kit manifest,
+  CLI, transport contract, and credential-free templates.
 
 ## Development
 

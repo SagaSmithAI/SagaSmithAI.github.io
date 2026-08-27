@@ -1,6 +1,6 @@
 # SagaSmithAI Website
 
-[Live site](https://sagasmithai.github.io) · [Platform overview](https://github.com/SagaSmithAI/.github/blob/main/profile/README.md) · [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-service) · [Content catalog](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
+[Live site](https://sagasmithai.github.io) · [Platform overview](https://github.com/SagaSmithAI/.github/blob/main/profile/README.md) · [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-Web) · [Content catalog](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
 
 The source for [sagasmithai.github.io](https://sagasmithai.github.io): the public home of the AI-native TTRPG platform.
 
@@ -12,8 +12,7 @@ The source for [sagasmithai.github.io](https://sagasmithai.github.io): the publi
 - honest D&D and CoC experience status;
 - extended ruleset import as an explicitly experimental capability;
 - checksum-validated unified core-rule, addon, module, and preset packages;
-- the public-source hosted [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-service),
-  currently kept in the `SagaSmith-service` repository,
+- the public-source hosted [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-Web),
   while keeping game-state authority in system MCPs;
 - Local Agent Kit and Hosted Web as two deployments of the same authoritative MCP contract;
 - the public, rights-aware
@@ -33,7 +32,7 @@ The site is bilingual (Chinese/English), static, and deliberately contains no ru
 | CoC Domain / MCP / Skills / UI | [`sagasmith-coc`](https://github.com/SagaSmithAI/sagasmith-coc) |
 | Narrative Domain / MCP / Skills | [`sagasmith-narrative`](https://github.com/SagaSmithAI/sagasmith-narrative) |
 | Agent host | [`SagaSmith-agent`](https://github.com/SagaSmithAI/SagaSmith-agent) |
-| Hosted Web product | [SagaSmith Web (`SagaSmith-service`)](https://github.com/SagaSmithAI/SagaSmith-service) |
+| Hosted Web product | [SagaSmith Web (`SagaSmith-Web`)](https://github.com/SagaSmithAI/SagaSmith-Web) |
 | Content catalog | [`SagaSmith-dnd-content-library`](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library) |
 
 Former standalone MCP, Skills, UI, and generic Module Generator repositories
@@ -71,6 +70,7 @@ Main files:
 
 ```text
 src/pages/index.astro        DM/player homepage and autonomous-hosting story
+src/pages/start.astro        Executable Local Kit, MCP-client, and Hosted Web entry paths
 src/pages/developers.astro   Developer architecture and repository map
 src/pages/library.astro      Rights-aware public Content Pack catalog frame
 src/layouts/SiteLayout.astro Shared metadata, navigation, language, and footer

@@ -20,7 +20,7 @@ jobs:
           repository: SagaSmithAI/Sagasmith-dnd
           # Production inputs stay reproducible. Bump this revision only after
           # the D&D workbench CI passes at the replacement commit.
-          ref: 710bb1e76d63bc53a165a92283997b944b04c462
+          ref: 25ee1ce4994f1950d6febd50145d364dbf621dbe
           path: sagasmith-dnd
       - uses: actions/setup-node@v7
         with:
