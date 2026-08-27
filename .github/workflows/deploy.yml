@@ -14,15 +14,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           repository: SagaSmithAI/Sagasmith-dnd
           # Production inputs stay reproducible. Bump this revision only after
           # the D&D workbench CI passes at the replacement commit.
           ref: 710bb1e76d63bc53a165a92283997b944b04c462
           path: sagasmith-dnd
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -40,7 +40,7 @@ jobs:
           SAGASMITH_UI_SITE: https://SagaSmithAI.github.io
           PUBLIC_SAGASMITH_LIBRARY_URL: https://SagaSmithAI.github.io/content-library/index.json
       - run: cp -R sagasmith-dnd/apps/ui/dist dist/dnd-ui
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist/
   deploy:
@@ -51,4 +51,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
