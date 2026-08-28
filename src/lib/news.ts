@@ -21,10 +21,10 @@ export async function loadNews(limit = 5): Promise<NewsItem[]> {
     const items: NewsItem[] = [];
     for (const file of files) {
       const raw = await fs.readFile(path.join(dir, file), 'utf-8');
-      const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
       if (!match) continue;
       const meta: Record<string, string> = {};
-      match[1].split('\n').forEach(line => {
+      match[1].split(/\r?\n/).forEach(line => {
         const sep = line.indexOf(': ');
         if (sep > 0) meta[line.slice(0, sep).trim()] = cleanMeta(line.slice(sep + 2));
       });

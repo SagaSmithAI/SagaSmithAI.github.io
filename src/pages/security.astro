@@ -1,0 +1,39 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+<SiteLayout
+  title="安全与私密报告"
+  titleEn="Security and private reporting"
+  description="选择正确的 SagaSmithAI 安全报告入口，并避免在公开 Issue 中泄露漏洞、凭证、私有战役或受限制来源内容。"
+  descriptionEn="Choose the correct SagaSmithAI security reporting path without exposing vulnerabilities, credentials, private campaigns, or restricted source material in public issues."
+  page="security"
+>
+  <article class="prose">
+    <p class="eyebrow"><span class="zh">安全</span><span class="en">Security</span></p>
+    <h1><span class="zh">敏感问题，请私密报告。</span><span class="en">Report sensitive issues privately.</span></h1>
+    <p class="lede"><span class="zh">不要在公开 Issue、Pull Request、日志或截图中放入漏洞利用细节、token、cookie、provider 响应、私有战役、个人数据、商业来源材料或受限 Pack 内容。</span><span class="en">Do not put exploit details, tokens, cookies, provider responses, private campaigns, personal data, commercial source material, or restricted Pack content in public issues, pull requests, logs, or screenshots.</span></p>
+
+    <section>
+      <h2><span class="zh">选择拥有边界的仓库</span><span class="en">Choose the repository that owns the boundary</span></h2>
+      <p><span class="zh">如果问题属于 SagaSmith Web 的账户、session、API/BFF、托管 worker、Forge、Module Studio 或部署基础设施，请使用 Web 仓库的 GitHub Private Vulnerability Reporting。</span><span class="en">For SagaSmith Web accounts, sessions, API/BFF, hosted workers, Forge, Module Studio, or deployment infrastructure, use the Web repository's GitHub Private Vulnerability Reporting.</span></p>
+      <p><a href="https://github.com/SagaSmithAI/SagaSmith-Web/security/advisories/new" target="_blank" rel="noreferrer"><span class="zh">私密报告 SagaSmith Web 漏洞</span><span class="en">Privately report a SagaSmith Web vulnerability</span> ↗</a></p>
+      <p><span class="zh">如果问题属于 Agent、Core、D&D、CoC、Narrative 或内容目录，请先打开对应仓库的 <code>SECURITY.md</code> 或组织安全入口，并遵循其当前私密渠道。</span><span class="en">For Agent, Core, D&D, CoC, Narrative, or the content catalog, open the matching repository's current <code>SECURITY.md</code> or the organization security entry point and follow its private channel.</span></p>
+      <p><a href="https://github.com/SagaSmithAI/.github/blob/main/SECURITY.md" target="_blank" rel="noreferrer"><span class="zh">组织安全政策</span><span class="en">Organization security policy</span> ↗</a></p>
+    </section>
+
+    <section>
+      <h2><span class="zh">请提供最少且可用的证据</span><span class="en">Provide minimal, usable evidence</span></h2>
+      <ul>
+        <li><span class="zh">受影响的仓库与 commit/release；</span><span class="en">Affected repository and commit or release;</span></li>
+        <li><span class="zh">受影响的信任边界与最小复现；</span><span class="en">Affected trust boundary and minimal reproduction;</span></li>
+        <li><span class="zh">操作系统、Python/Node 版本与脱敏错误；</span><span class="en">Operating system, Python and Node versions, and redacted errors;</span></li>
+        <li><span class="zh">不会暴露其他人的战役、账户或来源内容的证明材料。</span><span class="en">Evidence that does not expose another person's campaign, account, or source content.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><span class="zh">不要测试他人的生产数据</span><span class="en">Do not test against someone else's production data</span></h2>
+      <p><span class="zh">未经明确授权，不要访问他人的 campaign、账户或部署，也不要扩大最小复现。找不到安全的私密渠道时，先通过组织安全政策中列出的联系入口说明“存在敏感问题”，不要公开细节。</span><span class="en">Without explicit authorization, do not access another person's campaign, account, or deployment, and do not expand a minimal reproduction. If no safe private channel is available, use the organization security policy's contact path to report that a sensitive issue exists without publishing details.</span></p>
+    </section>
+  </article>
+</SiteLayout>

@@ -1,329 +1,208 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { loadNews } from '../lib/news';
+import { systemStatus } from '../lib/site';
 
 const news = await loadNews(3);
 ---
 <SiteLayout
-  title="SagaSmithAI — 没有固定 DM，也能完整开团"
-  description="SagaSmithAI 是公开开发的 AI 原生 TTRPG 平台，提供本地运行时与托管多系统房间，可以独立承担完整主持循环，也支持人类 DM 协作。"
+  title="让世界记得每一次选择"
+  titleEn="Worlds that remember every choice"
+  description="SagaSmithAI 是 AI 原生 TTRPG 平台：可本地运行，也可构建为 SagaSmith Web；两种形态共享同一权威领域 MCP 契约。"
+  descriptionEn="SagaSmithAI is an AI-native TTRPG platform for local and hosted play, with both deployment shapes sharing one authoritative domain MCP contract."
+  page="home"
 >
-  <main id="top" class="home-main">
-    <section class="hero shell">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="pulse"></span><span class="zh">完整独立主持 · 也支持人类 DM 协作</span><span class="en">FULLY AUTONOMOUS HOSTING · HUMAN DM COLLABORATION</span></div>
-        <h1>
-          <span class="zh">没有固定 DM，<br /><em>也能完整开团。</em></span>
-          <span class="en">No regular DM?<br /><em>Run the whole campaign.</em></span>
-        </h1>
-        <p class="lede zh">SagaSmith 可以承担开场准备、场景推进、NPC 演绎、规则结算、战斗节奏和状态写回，独立完成从开团到收团的主持循环。世界会记得，而故事仍由玩家的选择推动。</p>
-        <p class="lede en">SagaSmith can prepare the opening, advance scenes, portray NPCs, resolve rules, pace combat, and write back campaign state as a complete hosting loop. The world remembers; player choices still drive the story.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#hosting"><span class="zh">看它如何完整主持</span><span class="en">See how it hosts a full game</span><b>↓</b></a>
-          <a class="button secondary" href="#systems"><span class="zh">了解当前可体验内容</span><span class="en">See what is available</span></a>
+  <section class="hero shell">
+    <div class="hero-copy" data-reveal>
+      <p class="eyebrow"><span class="zh">AI 原生 TTRPG 平台</span><span class="en">AI-native TTRPG platform</span></p>
+      <h1>
+        <span class="zh">让世界记得，<em>让规则落槌。</em></span>
+        <span class="en">Worlds remember. <em>Rules settle.</em></span>
+      </h1>
+      <p class="lede">
+        <span class="zh">Agent 理解桌上的意图，领域运行时确定性结算，MCP 守住身份、权限、状态与时间线。你可以在自己的机器上运行完整 Local Agent Kit，也可以构建托管浏览器产品 SagaSmith Web。</span>
+        <span class="en">Agents understand intent at the table. Domain runtimes settle rules deterministically. MCP protects identity, authority, state, and timelines. Run the complete Local Agent Kit yourself, or build the hosted browser product, SagaSmith Web.</span>
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="/start"><span class="zh">选择运行方式</span><span class="en">Choose how to run</span><span aria-hidden="true">→</span></a>
+        <a class="button" href="/developers"><span class="zh">查看架构边界</span><span class="en">See the architecture</span></a>
+      </div>
+      <ul class="hero-proof" aria-label="Platform characteristics">
+        <li><span class="zh">本地优先可选</span><span class="en">Local-first option</span></li>
+        <li><span class="zh">权威状态可验证</span><span class="en">Verifiable authority</span></li>
+        <li><span class="zh">Active Alpha</span><span class="en">Active Alpha</span></li>
+      </ul>
+    </div>
+
+    <div class="contract-map" data-reveal aria-label="Local and hosted deployments converge on one authoritative MCP contract">
+      <div class="contract-head">
+        <span>DEPLOYMENT MAP / v1</span>
+        <b>CONTRACT LOCKED</b>
+      </div>
+      <div class="contract-body">
+        <div class="contract-lanes">
+          <section class="contract-lane">
+            <small>LOCAL / YOU OPERATE</small>
+            <h2>Local Agent Kit</h2>
+            <p><span class="zh">Bot、SagaSmith Agent 或通用 MCP Host；SQLite 与本地文件。</span><span class="en">Bot, SagaSmith Agent, or a generic MCP host; SQLite and local files.</span></p>
+            <span class="lane-status">stdio · localhost HTTP</span>
+          </section>
+          <section class="contract-lane">
+            <small>HOSTED / WEB PRODUCT</small>
+            <h2>SagaSmith Web</h2>
+            <p><span class="zh">浏览器/PWA、API/BFF、协作、Forge 与 principal-scoped Agent worker。</span><span class="en">Browser/PWA, API/BFF, collaboration, Forge, and principal-scoped Agent workers.</span></p>
+            <span class="lane-status">account · session · worker</span>
+          </section>
         </div>
-        <div class="promise-row" aria-label="SagaSmith promises">
-          <span><i></i><span class="zh">完整主持循环</span><span class="en">COMPLETE HOSTING LOOP</span></span>
-          <span><i></i><span class="zh">玩家推动故事</span><span class="en">PLAYER-DRIVEN STORY</span></span>
-          <span><i></i><span class="zh">世界持续记忆</span><span class="en">PERSISTENT WORLD MEMORY</span></span>
+        <div class="contract-junction" aria-hidden="true"><i></i></div>
+        <div class="contract-stack">
+          <section class="contract-core">
+            <small>ONE AUTHORITATIVE CONTRACT</small>
+            <strong>sagasmith.authoritative-mcp/v1</strong>
+            <p><span class="zh">同一 handlers、schemas、errors、authority、revision 与 idempotency。</span><span class="en">The same handlers, schemas, errors, authority, revisions, and idempotency.</span></p>
+          </section>
+          <div class="runtime-grid" aria-label="Domain runtimes">
+            <div class="runtime-node"><small>DOMAIN</small>D&amp;D</div>
+            <div class="runtime-node"><small>DOMAIN</small>CoC</div>
+            <div class="runtime-node"><small>DOMAIN</small>Narrative</div>
+          </div>
         </div>
       </div>
+      <p class="contract-foot">
+        <span><strong><span class="zh">允许不同</span><span class="en">May differ</span></strong> · transport / auth / storage / deployment</span>
+        <span><strong><span class="zh">不得分叉</span><span class="en">Must not fork</span></strong> · tools / rules / writes / revisions</span>
+      </p>
+    </div>
+  </section>
 
-      <div class="campaign-window" aria-label="The same campaign scene from the DM and player perspectives">
-        <header class="window-head">
-          <div><i></i><i></i><i></i></div>
-          <span class="zh">幻想 D20 战役 · 第 7 场</span>
-          <span class="en">FANTASY D20 CAMPAIGN · SESSION 07</span>
-          <b><span class="zh">游戏中</span><span class="en">IN PLAY</span></b>
-        </header>
-
-        <div class="scene-banner">
-          <div>
-            <small><span class="zh">当前场景</span><span class="en">CURRENT SCENE</span></small>
-            <h2><span class="zh">灰烬钟楼下的地城</span><span class="en">The Dungeon Beneath the Ashen Bell</span></h2>
-            <p><span class="zh">一支 5 级冒险小队刚在废弃祭坛旁发现断裂的银色徽记。</span><span class="en">A 5th-level party has found a broken silver sigil beside an abandoned altar.</span></p>
-          </div>
-          <span class="scene-mark">D20</span>
-        </div>
-
-        <div class="perspective-grid">
-          <article class="perspective player-perspective">
-            <header>
-              <span class="avatar">V</span>
-              <div><small><span class="zh">玩家视角</span><span class="en">PLAYER VIEW</span></small><strong>VARIS</strong></div>
-              <em><span class="zh">已知 3</span><span class="en">3 KNOWN</span></em>
-            </header>
-            <ul>
-              <li><span class="fact-dot found"></span><span class="zh">徽记来自北门工坊</span><span class="en">The sigil came from the North Gate forge</span></li>
-              <li><span class="fact-dot found"></span><span class="zh">商人阿洛认得这个图案</span><span class="en">The merchant Arlo recognized the mark</span></li>
-              <li class="muted"><span class="fact-dot"></span><span class="zh">其余线索尚未发现</span><span class="en">More remains undiscovered</span></li>
-            </ul>
-          </article>
-
-          <article class="perspective dm-perspective">
-            <header>
-              <span class="avatar dm">SS</span>
-              <div><small><span class="zh">主持视角</span><span class="en">HOST VIEW</span></small><strong>SAGA HOST</strong></div>
-              <em><span class="zh">主持专用</span><span class="en">HOST ONLY</span></em>
-            </header>
-            <ul>
-              <li><span class="fact-dot sealed"></span><span class="zh">阿洛正在为钟楼主人传信</span><span class="en">Arlo carries messages for the bell's master</span></li>
-              <li><span class="fact-dot sealed"></span><span class="zh">放走他会改变第三场后的会面</span><span class="en">Sparing him changes a meeting three sessions later</span></li>
-              <li class="muted"><span class="lock">◆</span><span class="zh">不会暴露给玩家视角</span><span class="en">Never exposed to the player view</span></li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="choice-thread">
-          <span class="choice-node"><b>01</b><span class="zh">放走阿洛</span><span class="en">SPARE ARLO</span></span>
-          <i></i>
-          <span class="choice-node current"><b>03</b><span class="zh">旧承诺被兑现</span><span class="en">A PROMISE RETURNS</span></span>
-        </div>
-        <div class="window-seal"><img src="/logo-mark.png" alt="" /></div>
-      </div>
-    </section>
-
-    <section class="experience section" id="experience" data-reveal>
-      <div class="shell">
-        <header class="section-heading centered">
-          <span class="section-index">01 / <span class="zh">战役连续性</span><span class="en">CAMPAIGN CONTINUITY</span></span>
-          <h2><span class="zh">散场，不是世界的重置键</span><span class="en">The world does not reset when the table clears</span></h2>
-          <p class="zh">一次看似微小的决定，可以穿过数场游戏，在正确的人面前、以正确的方式重新出现。</p>
-          <p class="en">A small decision can travel across sessions and return to the right person in the right way.</p>
-        </header>
-
-        <div class="story-track">
-          <article>
-            <span class="story-number">01</span>
-            <small><span class="zh">第一场 · 选择</span><span class="en">SESSION ONE · CHOICE</span></small>
-            <h3><span class="zh">队伍放走了可疑商人</span><span class="en">The party spared a suspicious merchant</span></h3>
-            <p class="zh">DM 没有被迫选一条“正确剧情”。SagaSmith 只记录这件事，以及谁亲眼看见了它。</p>
-            <p class="en">The DM is not forced into a “correct plot.” SagaSmith records what happened and who witnessed it.</p>
-          </article>
-          <span class="story-arrow" aria-hidden="true">→</span>
-          <article class="story-focus">
-            <span class="story-number">02</span>
-            <small><span class="zh">第三场 · 回应</span><span class="en">SESSION THREE · RESPONSE</span></small>
-            <h3><span class="zh">旧承诺在另一座城兑现</span><span class="en">The old promise returns in another city</span></h3>
-            <p class="zh">人物关系和世界状态沿着真实战役继续，而不是依赖所有人记住几周前的笔记。</p>
-            <p class="en">Relationships and world state carry forward without relying on everyone remembering weeks-old notes.</p>
-          </article>
-          <span class="story-arrow" aria-hidden="true">→</span>
-          <article>
-            <span class="story-number">03</span>
-            <small><span class="zh">此刻 · 秘密</span><span class="en">NOW · A SECRET</span></small>
-            <h3><span class="zh">只有一名角色知道原因</span><span class="en">Only one character knows why</span></h3>
-            <p class="zh">玩家不会因为 AI 多说了一句而获得不该知道的事实，角色视角始终各不相同。</p>
-            <p class="en">A stray AI sentence cannot reveal hidden truth. Every character keeps a distinct point of view.</p>
-          </article>
-        </div>
-
-        <blockquote class="table-promise">
-          <span class="quote-mark">“</span>
-          <p class="zh">SagaSmith 可以坐上主持席，<strong>但故事始终由玩家在桌上的选择向前推动。</strong></p>
-          <p class="en">SagaSmith can take the host's seat, <strong>while the players' choices keep driving the story forward.</strong></p>
-        </blockquote>
-      </div>
-    </section>
-
-    <section class="roles section shell" id="roles" data-reveal>
-      <header class="section-heading split-heading">
-        <div>
-          <span class="section-index">02 / <span class="zh">同一张桌子</span><span class="en">ONE TABLE</span></span>
-          <h2><span class="zh">同一个世界，<br />不同的视角</span><span class="en">One world.<br />Different views.</span></h2>
-        </div>
-        <div>
-          <p class="zh">DM 需要掌握全局，玩家需要相信自己的选择。SagaSmith 同时服务两者，但从不混淆他们的边界。</p>
-          <p class="en">DMs need the whole picture. Players need to trust their choices. SagaSmith serves both without confusing their boundaries.</p>
-        </div>
-      </header>
-
-      <div class="role-grid">
-        <article class="role-card dm-card">
-          <header>
-            <span class="role-kicker">FOR THE DM</span>
-            <span class="role-glyph">D</span>
-          </header>
-          <h3><span class="zh">你掌握世界，<br />不必独自记住一切</span><span class="en">Own the world.<br />Do not carry it alone.</span></h3>
-          <ul class="role-list">
-            <li><b>01</b><div><strong><span class="zh">接着上次继续</span><span class="en">Continue where you left off</span></strong><p class="zh">场景、NPC、约定和未完成事件保持连贯。</p><p class="en">Scenes, NPCs, promises, and unfinished events stay coherent.</p></div></li>
-            <li><b>02</b><div><strong><span class="zh">秘密留在幕后</span><span class="en">Keep secrets backstage</span></strong><p class="zh">隐藏事实只在你决定的时候进入玩家视野。</p><p class="en">Hidden truths enter the player view only when you decide.</p></div></li>
-            <li><b>03</b><div><strong><span class="zh">规则协助，不是夺权</span><span class="en">Rules support, not replacement</span></strong><p class="zh">确定的数值交给系统，目标、例外与叙事代价仍由你裁决。</p><p class="en">The system handles settled mechanics; targets, exceptions, and narrative cost remain yours.</p></div></li>
-            <li><b>04</b><div><strong><span class="zh">安全探索另一种可能</span><span class="en">Explore another possibility</span></strong><p class="zh">从关键选择创建分支，而不覆盖原来的战役历史。</p><p class="en">Branch from a key choice without overwriting campaign history.</p></div></li>
-          </ul>
-        </article>
-
-        <article class="role-card player-card">
-          <header>
-            <span class="role-kicker">FOR THE PLAYER</span>
-            <span class="role-glyph">P</span>
-          </header>
-          <h3><span class="zh">你的选择，<br />会被世界认真对待</span><span class="en">Your choices<br />stay with the world.</span></h3>
-          <ul class="role-list">
-            <li><b>01</b><div><strong><span class="zh">过去会回来</span><span class="en">The past returns</span></strong><p class="zh">曾经帮助、欺骗或放走的人，会在未来做出回应。</p><p class="en">People you helped, deceived, or spared can answer later.</p></div></li>
-            <li><b>02</b><div><strong><span class="zh">角色有自己的认知</span><span class="en">Your character has a point of view</span></strong><p class="zh">你看到的是角色真正发现的内容，而不是幕后全知答案。</p><p class="en">You see what your character discovered, never an all-knowing backstage answer.</p></div></li>
-            <li><b>03</b><div><strong><span class="zh">成长跨越每次聚会</span><span class="en">Growth carries across sessions</span></strong><p class="zh">人物状态、关系与经历不会在聊天记录里消失。</p><p class="en">Character state, relationships, and history do not vanish into a chat log.</p></div></li>
-            <li><b>04</b><div><strong><span class="zh">结果可以理解</span><span class="en">Results make sense</span></strong><p class="zh">规则结果有依据；独立主持时的歧义与临时裁决会被明确说明。</p><p class="en">Rules have evidence; ambiguity and provisional rulings are made explicit in autonomous play.</p></div></li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="hosting-modes" id="hosting">
-        <header>
-          <span class="section-index">PRIMARY EXPERIENCE / AUTONOMOUS HOSTING</span>
-          <h2><span class="zh">不只是协助记录，<br />而是完整独立主持</span><span class="en">Not just campaign assistance.<br />A complete autonomous host.</span></h2>
-          <p class="zh">SagaSmith 的主推体验是让没有固定 DM 的玩家也能完整开团；人类 DM 协作模式使用同一套可靠的战役基础。</p>
-          <p class="en">SagaSmith's primary experience lets groups play a complete campaign without a regular DM. Human-led tables use the same reliable campaign foundation.</p>
-        </header>
-        <div class="hosting-grid">
-          <article class="autonomous-host">
-            <span class="hosting-number">01</span>
-            <div>
-              <small><span class="zh">主推 · 完全独立主持</span><span class="en">PRIMARY · FULLY AUTONOMOUS HOSTING</span></small>
-              <h3><span class="zh">没有固定 DM，也能完整开团</span><span class="en">Run a complete game without a regular DM</span></h3>
-              <p class="zh">SagaSmith 承担开场准备、场景推进、NPC 演绎、信息揭示、规则检定、战斗节奏与场后状态写回，形成从开团到收团的完整主持循环。</p>
-              <p class="en">SagaSmith prepares the opening, advances scenes, portrays NPCs, reveals information, resolves rules, paces combat, and writes back session state as a complete hosting loop.</p>
-              <span class="alpha-note"><i></i><span class="zh">当前为活跃 Alpha，能力与界面仍在持续验证</span><span class="en">ACTIVE ALPHA · CAPABILITIES AND SURFACES ARE STILL BEING VALIDATED</span></span>
-            </div>
-          </article>
-          <article>
-            <span class="hosting-number">02</span>
-            <div>
-              <small><span class="zh">人类 DM 协作</span><span class="en">HUMAN DM COLLABORATION</span></small>
-              <h3><span class="zh">你决定世界如何回应</span><span class="en">You decide how the world answers</span></h3>
-              <p class="zh">SagaSmith 协助整理连续性、角色知识、规则证据与现场状态；故事方向、例外和叙事代价仍由 DM 决定。</p>
-              <p class="en">SagaSmith supports continuity, character knowledge, rule evidence, and live state while the DM owns direction, exceptions, and narrative cost.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="systems section" id="systems" data-reveal>
-      <div class="shell">
-        <header class="section-heading split-heading inverse">
-          <div>
-            <span class="section-index">03 / <span class="zh">当前体验</span><span class="en">CURRENT EXPERIENCE</span></span>
-            <h2><span class="zh">从一条真实路径开始</span><span class="en">Start with one real path</span></h2>
-          </div>
-          <div>
-            <p class="zh">SagaSmith 仍在早期阶段。我们宁愿清楚说明哪些已经可以体验、哪些正在测试，也不把未来计划写成现成功能。</p>
-            <p class="en">SagaSmith is still early. We would rather show what can be tried, what is in testing, and what remains experimental than present a roadmap as a finished product.</p>
-          </div>
-        </header>
-
-        <div class="system-grid">
-          <article class="system-card featured">
-            <header><span>D&D 5E · 2014 / 2024</span><em><span class="status-dot"></span><span class="zh">早期可体验</span><span class="en">EARLY ALPHA</span></em></header>
-            <div class="system-emblem">D20</div>
-            <h3><span class="zh">长期冒险与现场战斗</span><span class="en">Long adventures and live combat</span></h3>
-            <p class="zh">当前参考体验覆盖独立主持循环、战役连续性、场景索引、角色知识、规则来源与两种战斗空间模式；2026-08-20 已与 CoC 参考战役在同一最新托管栈中并发完成，并记录一个合法 D&amp;D 结局。</p>
-            <p class="en">The current reference experience covers the autonomous hosting loop, campaign continuity, scene indexes, character knowledge, rule evidence, and both combat spatial modes. On 2026-08-20 it completed concurrently with the CoC reference campaign on the current hosted stack and recorded a legal D&amp;D ending.</p>
-            <ul>
-              <li><span class="zh">场景与人物持续状态</span><span class="en">Persistent scenes and characters</span></li>
-              <li><span class="zh">DM / 玩家知识边界</span><span class="en">DM / player knowledge boundaries</span></li>
-              <li><span class="zh">结构化规则与战斗</span><span class="en">Structured rules and combat</span></li>
-              <li><span class="zh">可分享角色卡与 Scene Atlas 模组包</span><span class="en">Shareable actor cards and Scene Atlas modules</span></li>
-            </ul>
-          </article>
-
-          <article class="system-card">
-            <header><span>CALL OF CTHULHU 7E</span><em><span class="status-dot testing"></span><span class="zh">测试中</span><span class="en">IN TESTING</span></em></header>
-            <div class="system-emblem rune">C7</div>
-            <h3><span class="zh">调查、线索与逐渐逼近的真相</span><span class="en">Investigation, clues, and approaching truth</span></h3>
-            <p class="zh">CoC 7e 已能验证调查场景、检定、理智、追逐、角色知识、权威结果展示与战役持久化；2026-08-20 已与 D&amp;D 参考战役在同一最新托管栈中并发完成，完整体验仍处于 Alpha。</p>
-            <p class="en">CoC 7e validates investigations, checks, sanity, chases, character knowledge, authoritative result presentation, and campaign persistence. On 2026-08-20 it completed concurrently with the D&amp;D reference campaign on the current hosted stack; the complete experience remains Alpha.</p>
-            <ul>
-              <li><span class="zh">调查场景与线索进度</span><span class="en">Investigation scenes and clue progress</span></li>
-              <li><span class="zh">调查员各自掌握的信息</span><span class="en">Investigator-specific knowledge</span></li>
-              <li><span class="zh">检定、理智与追逐流程</span><span class="en">Checks, sanity, and chases</span></li>
-            </ul>
-          </article>
-        </div>
-
-        <aside class="experiment-note" aria-label="Experimental ruleset import boundary">
-          <span class="lab-tag"><i></i><span class="zh">实验功能</span><span class="en">EXPERIMENTAL</span></span>
-          <div>
-            <h3><span class="zh">扩展规则集导入仍处于实验阶段</span><span class="en">Extended ruleset import remains experimental</span></h3>
-            <p class="zh">目前它用于验证受控的规则扩展流程。已定稿 Pack 可以携带完整来源与稳定引用迁移，但导入后仍未激活；这不代表 SagaSmith 已能自动理解或可靠运行任意规则书与第三方系统。完整系统支持仍需要明确的规则适配、Agent 审查与验证。</p>
-            <p class="en">It validates a controlled rules-extension flow. Finalized Packs can migrate with complete sources and stable citations, but imported Packs remain inactive until explicit campaign activation. This does not mean SagaSmith can automatically understand or reliably run arbitrary rulebooks or third-party systems; full support still requires explicit adapters, Agent review, and validation.</p>
-          </div>
-          <span class="experiment-code">LAB / RULESET-IMPORT</span>
-        </aside>
-      </div>
-    </section>
-
-    <section class="boundaries section shell" data-reveal>
-      <header class="section-heading centered">
-        <span class="section-index">04 / <span class="zh">明确边界</span><span class="en">CLEAR BOUNDARIES</span></span>
-        <h2><span class="zh">有些决定，始终属于桌上的人</span><span class="en">Some decisions always belong to the table</span></h2>
-        <p class="zh">可靠的战役伙伴不只是能力更多，也必须知道什么时候不该越界。</p>
-        <p class="en">A trustworthy campaign companion needs more than capability. It needs to know where to stop.</p>
-      </header>
-
-      <div class="boundary-grid">
-        <article><span>DM</span><h3><span class="zh">主持权与裁决方式由你选择</span><span class="en">You choose the hosting and ruling mode</span></h3><p class="zh">人类主持时，DM 保留最终裁决；独立主持时，SagaSmith 按已激活 Pack 与当前战役状态推进，来源无冲突的语境歧义由 Agent 裁决。</p><p class="en">With a human host, the DM keeps the final ruling. In autonomous mode, SagaSmith advances from activated Packs and campaign state, with the Agent settling contextual ambiguity when source evidence is not missing or conflicting.</p></article>
-        <article><span>PC</span><h3><span class="zh">秘密不会靠“提醒 AI”保管</span><span class="en">Secrets do not rely on reminding the AI</span></h3><p class="zh">玩家与角色只看到服务端允许的视角，幕后事实不会因为表达失误而混入回答。</p><p class="en">Players and characters receive only the view allowed for them. Backstage truth cannot leak through a careless answer.</p></article>
-        <article><span>IP</span><h3><span class="zh">分享格式不等于内容授权</span><span class="en">A sharing format is not a content license</span></h3><p class="zh">每个统一内容包都保留独立许可与署名；规则书、角色或模组只能由获得相应授权的人导入与分享。</p><p class="en">Every unified content package retains its own license and attribution. Books, actors, and adventures may be imported or shared only by authorized users.</p></article>
-        <article class="boundary-experimental"><span>LAB</span><h3><span class="zh">实验不等于承诺</span><span class="en">Experiment is not a promise</span></h3><p class="zh">扩展规则集导入、更多系统与部分客户端体验仍在实验或原型阶段，并会持续明确标注。</p><p class="en">Extended ruleset import, additional systems, and parts of the client experience remain experimental or prototyped and will stay clearly labeled.</p></article>
-      </div>
-    </section>
-
-    <section class="progress section" id="progress" data-reveal>
-      <div class="shell">
-        <header class="section-heading split-heading">
-          <div>
-            <span class="section-index">05 / <span class="zh">最新进展</span><span class="en">LATEST PROGRESS</span></span>
-            <h2><span class="zh">锻造中的下一场游戏</span><span class="en">Forging the next session</span></h2>
-          </div>
-          <div>
-            <p class="zh">我们公开记录哪些体验已经向前一步，也诚实保留尚未解决的边界。</p>
-            <p class="en">We record what moved forward and keep the unresolved boundaries visible.</p>
-          </div>
-        </header>
-
-        <div class="news-grid">
-          {news.map((item) => (
-            <article class="news-card">
-              <header><span>{item.tag}</span><time datetime={item.date}>{item.date}</time></header>
-              <h3 class="zh">{item.title}</h3>
-              <h3 class="en">{item.titleEn}</h3>
-              <p class="zh">{item.summary}</p>
-              <p class="en">{item.summaryEn}</p>
-            </article>
-          ))}
-        </div>
-
-        <aside class="developer-bridge">
-          <div class="bridge-mark">{`{ }`}</div>
-          <div>
-            <span class="section-index">FOR BUILDERS</span>
-            <h2><span class="zh">想为这张桌子继续打造工具？</span><span class="en">Want to build for this table?</span></h2>
-            <p class="zh">开发者可以探索公开开发的架构、Local Agent Kit、SagaSmith Web、规则系统插件、共享 MCP 权威契约、客户端边界与贡献入口。技术细节保留完整，但不再要求每位玩家先理解它们。</p>
-            <p class="en">Builders can explore the publicly developed architecture, Local Agent Kit, SagaSmith Web, system plugins, shared authoritative MCP contract, client boundaries, and contribution paths—without making every player learn the stack first.</p>
-          </div>
-          <div class="bridge-actions">
-            <a class="button light" href="/developers"><span class="zh">进入开发者页面</span><span class="en">Developer overview</span><b>→</b></a>
-            <a href="https://github.com/SagaSmithAI/SagaSmith-Web" target="_blank" rel="noreferrer"><span class="zh">SagaSmith Web 源码</span><span class="en">SagaSmith Web source</span> ↗</a>
-            <a href="https://github.com/SagaSmithAI" target="_blank" rel="noreferrer">GitHub ↗</a>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="closing" id="early-access">
-      <div class="closing-rings" aria-hidden="true"></div>
-      <div class="closing-mark"><img src="/logo-mark.png" alt="" /></div>
+  <section id="experience" class="section shell">
+    <div class="section-head split" data-reveal>
       <div>
-        <span class="section-index"><span class="zh">下一场战役</span><span class="en">THE NEXT CAMPAIGN</span></span>
-        <h2><span class="zh">不必从遗忘中<br />重新开始。</span><span class="en">Do not begin again<br />from forgetting.</span></h2>
-        <p class="zh">SagaSmith 仍在早期阶段。关注当前进展，看看一个真正会记得的世界如何逐步成形。</p>
-        <p class="en">SagaSmith is still early. Follow the work and watch a world that truly remembers take shape.</p>
+        <p class="eyebrow"><span class="zh">一次选择，不止一轮对话</span><span class="en">A choice outlives a chat turn</span></p>
+        <h2><span class="zh">长期战役需要真正的连续性。</span><span class="en">Long campaigns need real continuity.</span></h2>
       </div>
-      <div class="closing-actions">
-        <a class="button primary" href="https://github.com/SagaSmithAI" target="_blank" rel="noreferrer"><span class="zh">关注项目进展</span><span class="en">Follow the project</span><b>↗</b></a>
-        <a href="#systems"><span class="zh">查看当前体验</span><span class="en">Review current experience</span></a>
+      <p><span class="zh">SagaSmith 把主持表达与权威状态分开：模型可以提议、解释和扮演；只有领域 MCP 可以验证并写入战役账本。</span><span class="en">SagaSmith separates facilitation from authoritative state. Models may propose, explain, and portray; only the domain MCP validates and writes the campaign ledger.</span></p>
+    </div>
+    <div class="ledger" data-reveal>
+      <article class="ledger-row">
+        <strong><span class="zh">记住世界</span><span class="en">Remember the world</span></strong>
+        <p><span class="zh">战役 revision、分支、Snapshot、长期事实与检索来源都拥有明确身份，而不是被压进一段聊天摘要。</span><span class="en">Campaign revisions, branches, snapshots, durable facts, and retrieval sources keep explicit identities instead of disappearing into a chat summary.</span></p>
+        <span class="tag">STATE / TIMELINE</span>
+      </article>
+      <article class="ledger-row">
+        <strong><span class="zh">守住视角</span><span class="en">Protect perspective</span></strong>
+        <p><span class="zh">GM、玩家、PC 与 NPC 的知识边界独立。客户端只收到服务端按 principal、actor、campaign 与 phase 过滤后的投影。</span><span class="en">GM, player, PC, and NPC knowledge stays separate. Clients receive only server-filtered projections for the current principal, actor, campaign, and phase.</span></p>
+        <span class="tag">ACTOR KNOWLEDGE</span>
+      </article>
+      <article class="ledger-row">
+        <strong><span class="zh">让规则落槌</span><span class="en">Let rules settle</span></strong>
+        <p><span class="zh">Skills 指导主持流程，Agent 组织意图；确定性规则、随机流、权限与原子写入始终回到匹配的领域运行时。</span><span class="en">Skills guide facilitation and the Agent organizes intent; deterministic rules, random streams, authorization, and atomic writes return to the matching domain runtime.</span></p>
+        <span class="tag">MCP RECEIPT</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow"><span class="zh">同一平台，两种发行形态</span><span class="en">One platform, two distributions</span></p>
+      <h2><span class="zh">从你的桌面开始，或构建完整 Web 产品。</span><span class="en">Start on your machine, or build the full Web product.</span></h2>
+    </div>
+    <div class="mode-grid">
+      <article class="mode-card highlight" data-reveal>
+        <span class="choice-label">LOCAL AGENT KIT</span>
+        <h3><span class="zh">你拥有运行环境。</span><span class="en">You own the runtime.</span></h3>
+        <p><span class="zh">选择 D&D、CoC、Narrative 或 multi-system profile。使用 SagaSmith Agent 连接 Discord、QQ、Telegram，或让 Codex、Claude Code、OpenClaw 等 MCP Host 直接接入。</span><span class="en">Choose a D&D, CoC, Narrative, or multi-system profile. Use SagaSmith Agent for Discord, QQ, or Telegram, or connect an MCP-capable host such as Codex, Claude Code, or OpenClaw.</span></p>
+        <ul class="mode-list">
+          <li><span class="zh">不依赖 SagaSmith Web、账户、配额或 Forge</span><span class="en">No dependency on SagaSmith Web, hosted accounts, quota, or Forge</span></li>
+          <li><span class="zh">stdio 或仅 loopback 的 Streamable HTTP</span><span class="en">stdio or loopback-only Streamable HTTP</span></li>
+          <li><span class="zh">本地 SQLite、文件与用户自有 provider</span><span class="en">Local SQLite, files, and your own model provider</span></li>
+        </ul>
+        <div class="button-row"><a class="button primary" href="/start#local"><span class="zh">安装 Local Kit</span><span class="en">Install the Local Kit</span></a></div>
+      </article>
+      <article class="mode-card" data-reveal>
+        <span class="choice-label">SAGASMITH WEB</span>
+        <h3><span class="zh">托管浏览器产品。</span><span class="en">The hosted browser product.</span></h3>
+        <p><span class="zh">SagaSmith Web 包含浏览器/PWA、API/BFF、托管控制面、协作房间、Forge、Module Studio、Agent 编排与运维；它不成为第二套游戏状态权威。</span><span class="en">SagaSmith Web includes the browser/PWA, API/BFF, hosted control plane, collaborative rooms, Forge, Module Studio, Agent orchestration, and operations. It never becomes a second authority for game state.</span></p>
+        <ul class="mode-list">
+          <li><span class="zh">账户、session、配额、邀请与云端投影属于 Web</span><span class="en">Accounts, sessions, quota, invitations, and cloud projections belong to Web</span></li>
+          <li><span class="zh">每次权威写入仍由领域 MCP 结算</span><span class="en">Every authoritative write is still settled by the domain MCP</span></li>
+          <li><span class="zh">当前为公开可见源码的 Active Alpha，不是生产 SLA</span><span class="en">Publicly visible Active Alpha source, not a production SLA</span></li>
+        </ul>
+        <div class="button-row"><a class="button" href="https://github.com/SagaSmithAI/SagaSmith-Web" target="_blank" rel="noreferrer"><span class="zh">查看 SagaSmith Web</span><span class="en">Explore SagaSmith Web</span> ↗</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="systems" class="section shell">
+    <div class="section-head split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">成熟度透明</span><span class="en">Honest maturity</span></p>
+        <h2><span class="zh">当前能验证什么，就只说什么。</span><span class="en">Claim only what current evidence proves.</span></h2>
       </div>
-    </section>
-  </main>
+      <p><span class="zh">Active Alpha 适合本地开发、集成验证与实团测试。参考战役通过不代表每个 Pack、剧情分支或生产部署都已覆盖。</span><span class="en">Active Alpha is ready for local development, integration validation, and real-table testing. Passing reference campaigns do not prove every Pack, story branch, or production deployment.</span></p>
+    </div>
+    <div class="ledger" data-reveal>
+      {systemStatus.map((system) => (
+        <article class="ledger-row">
+          <strong>{system.name}</strong>
+          <p><span class="zh">{system.zh}</span><span class="en">{system.en}</span></p>
+          <span class="state" data-tone={system.tone}>{system.status}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow"><span class="zh">边界就是产品</span><span class="en">Boundaries are product features</span></p>
+      <h2><span class="zh">不把方便，误写成权威。</span><span class="en">Convenience never impersonates authority.</span></h2>
+    </div>
+    <div class="boundary-grid">
+      <article class="boundary-card" data-reveal>
+        <span class="choice-label">AGENT ≠ DATABASE</span>
+        <h3><span class="zh">Agent 不拥有战役账本</span><span class="en">The Agent does not own the campaign ledger</span></h3>
+        <p><span class="zh">模型、会话、渠道与主持风格属于 Agent；规则、角色权限、战役状态与 receipt 属于领域 MCP。</span><span class="en">Models, sessions, channels, and facilitation style belong to the Agent; rules, actor authority, campaign state, and receipts belong to the domain MCP.</span></p>
+      </article>
+      <article class="boundary-card" data-reveal>
+        <span class="choice-label">PACK ≠ SAVE</span>
+        <h3><span class="zh">内容包不是战役存档</span><span class="en">A content Pack is not a campaign save</span></h3>
+        <p><span class="zh">Pack 不携带权限、ActorKnowledge、进度、随机流、分支或 Snapshot。导入与激活是两次独立、受权威控制的操作。</span><span class="en">Packs do not carry permissions, ActorKnowledge, progress, random streams, branches, or snapshots. Import and activation are separate authoritative operations.</span></p>
+      </article>
+      <article class="boundary-card warning" data-reveal>
+        <span class="choice-label">PUBLIC ≠ LICENSED</span>
+        <h3><span class="zh">仓库公开不等于内容开放</span><span class="en">Public visibility is not a content license</span></h3>
+        <p><span class="zh">商业规则书、模组、图片与衍生资产必须逐项核对许可、署名和分发权。公开索引只证明可发现，不授予使用权。</span><span class="en">Commercial rulebooks, modules, images, and derived assets require item-level license, attribution, and distribution checks. A public index proves discoverability—not permission.</span></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-head split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">公开进展</span><span class="en">Public progress</span></p>
+        <h2><span class="zh">变更留下时间与证据。</span><span class="en">Changes keep their dates and evidence.</span></h2>
+      </div>
+      <div class="button-row"><a class="button" href="/updates"><span class="zh">查看全部进展</span><span class="en">View all updates</span></a></div>
+    </div>
+    <div class="news-grid" data-reveal>
+      {news.map((item) => (
+        <article class="news-card">
+          <div class="news-meta"><span>{item.tag}</span><time datetime={item.date}>{item.date}</time></div>
+          <h3><span class="zh">{item.title}</span><span class="en">{item.titleEn}</span></h3>
+          <p><span class="zh">{item.summary}</span><span class="en">{item.summaryEn}</span></p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="callout" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">选择入口</span><span class="en">Choose an entry point</span></p>
+        <h2><span class="zh">先决定谁来运行，再选择系统。</span><span class="en">Choose who operates it, then choose a system.</span></h2>
+        <p><span class="zh">Local Agent Kit 是完整的本地发行物；SagaSmith Web 是托管产品代码库。两者不是主从关系，也不互作兼容回退。</span><span class="en">The Local Agent Kit is the complete local distribution; SagaSmith Web is the hosted product repository. Neither is a fallback for the other.</span></p>
+      </div>
+      <a class="button primary" href="/start"><span class="zh">开始使用</span><span class="en">Get started</span> →</a>
+    </div>
+  </section>
 </SiteLayout>

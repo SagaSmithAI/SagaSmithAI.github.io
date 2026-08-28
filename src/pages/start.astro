@@ -1,158 +1,184 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-
-const profiles = [
-  {
-    name: 'D&D only',
-    command: 'uv run nanobot sagasmith install --source release --profile dnd-only',
-    zh: 'D&D 5e Domain、MCP、Skills 与 Workbench',
-    en: 'D&D 5e Domain, MCP, Skills, and Workbench',
-  },
-  {
-    name: 'CoC only',
-    command: 'uv run nanobot sagasmith install --source release --profile coc-only',
-    zh: 'CoC 7e Domain、MCP、Skills 与 Workbench',
-    en: 'CoC 7e Domain, MCP, Skills, and Workbench',
-  },
-  {
-    name: 'Narrative only',
-    command: 'uv run nanobot sagasmith install --source release --profile narrative-only',
-    zh: '系统无关长线叙事 Domain、MCP 与 Skills',
-    en: 'System-neutral long-form Narrative Domain, MCP, and Skills',
-  },
-  {
-    name: 'Multi-system',
-    command: 'uv run nanobot sagasmith install --source release --profile multi-system',
-    zh: '一次安装三条当前领域链路',
-    en: 'Install all three current domain paths together',
-  },
-];
+import { localProfiles } from '../lib/site';
 ---
-
 <SiteLayout
-  title="开始使用 SagaSmithAI · Get started"
-  description="选择 SagaSmith Local Agent Kit、通用 MCP 客户端或 SagaSmith Web，沿同一权威 MCP 契约开始一条可验证的本地或托管路径。"
+  title="开始使用 SagaSmith"
+  titleEn="Get started with SagaSmith"
+  description="选择 SagaSmith Local Agent Kit、现有 MCP Host 或 SagaSmith Web；查看最新安装命令、profile、transport 与安全边界。"
+  descriptionEn="Choose the SagaSmith Local Agent Kit, an existing MCP host, or SagaSmith Web, with current install commands, profiles, transports, and security boundaries."
   page="start"
 >
-  <main class="start-main">
-    <section class="start-hero shell">
+  <header class="page-hero shell">
+    <div data-reveal>
+      <p class="eyebrow"><span class="zh">开始使用</span><span class="en">Get started</span></p>
+      <h1><span class="zh">先选择运行边界。</span><span class="en">Choose the operating boundary first.</span></h1>
+      <p class="lede"><span class="zh">想自己运行 Bot、桌面工具或 MCP 服务，选择 Local Agent Kit。想开发账户、多人房间、Forge 与浏览器产品，进入 SagaSmith Web。两条路径执行同一权威领域契约。</span><span class="en">Choose the Local Agent Kit to run bots, desktop tools, or MCP services yourself. Choose SagaSmith Web to develop accounts, multiplayer rooms, Forge, and the browser product. Both paths execute the same authoritative domain contract.</span></p>
+    </div>
+    <aside class="page-hero-aside" data-reveal>
+      <strong>CURRENT REQUIREMENTS</strong>
+      <p><span class="zh">Local Kit：Python 3.11+、uv、Node.js 22.12+（含 npm）。纯后端安装可显式使用 <code>--skip-ui</code>。</span><span class="en">Local Kit: Python 3.11+, uv, and Node.js 22.12+ with npm. Explicitly use <code>--skip-ui</code> for a backend-only install.</span></p>
+    </aside>
+  </header>
+
+  <section class="section shell">
+    <div class="choice-grid">
+      <article class="choice-card" data-reveal>
+        <span class="choice-label">01 / LOCAL AGENT KIT</span>
+        <h2><span class="zh">在自己的机器上运行完整栈</span><span class="en">Run the complete stack on your machine</span></h2>
+        <p><span class="zh">适合本地 AI GM、Discord/QQ/Telegram Bot、Workbench，以及需要直接控制数据、模型 provider 和更新节奏的团队。</span><span class="en">For local AI GMs, Discord/QQ/Telegram bots, Workbenches, and teams that need direct control over data, model providers, and update cadence.</span></p>
+        <div class="button-row"><a class="button primary" href="#local"><span class="zh">查看安装步骤</span><span class="en">See installation</span></a></div>
+      </article>
+      <article class="choice-card" data-reveal>
+        <span class="choice-label">02 / EXISTING MCP HOST</span>
+        <h2><span class="zh">让现有 Agent 直接接入</span><span class="en">Connect an existing Agent directly</span></h2>
+        <p><span class="zh">Codex、Claude Code、OpenClaw 和其他 MCP Host 可以通过 auth bridge 连接选定领域 MCP；无凭证模板不包含 token、密钥、角色授权或 campaign authority。</span><span class="en">Codex, Claude Code, OpenClaw, and other MCP hosts can connect through the auth bridge. Credential-free templates contain no tokens, secrets, role grants, or campaign authority.</span></p>
+        <div class="button-row"><a class="button" href="https://github.com/SagaSmithAI/SagaSmith-agent/tree/main/examples/local-agent-kit" target="_blank" rel="noreferrer"><span class="zh">打开模板</span><span class="en">Open templates</span> ↗</a></div>
+      </article>
+      <article class="choice-card" data-reveal>
+        <span class="choice-label">03 / SAGASMITH WEB</span>
+        <h2><span class="zh">开发托管浏览器产品</span><span class="en">Develop the hosted browser product</span></h2>
+        <p><span class="zh">适合账户/session、协作房间、托管 worker、Forge、Module Studio 与运营基础设施。当前仓库是 proprietary Active Alpha；公开可见不构成生产服务承诺。</span><span class="en">For accounts and sessions, collaborative rooms, hosted workers, Forge, Module Studio, and operations infrastructure. The repository is a proprietary Active Alpha; public visibility is not a production-service promise.</span></p>
+        <div class="button-row"><a class="button" href="#hosted"><span class="zh">查看开发入口</span><span class="en">See the development entry</span></a></div>
+      </article>
+      <article class="choice-card" data-reveal>
+        <span class="choice-label">04 / EXTEND A DOMAIN</span>
+        <h2><span class="zh">扩展 D&D、CoC 或 Narrative</span><span class="en">Extend D&D, CoC, or Narrative</span></h2>
+        <p><span class="zh">进入对应 vertical repository；Domain、MCP、Skills、UI（如有）与创作流程在同一 commit 下版本化。不要从已归档的拆分仓库开始。</span><span class="en">Start in the matching vertical repository, where Domain, MCP, Skills, UI where present, and authoring flow are versioned at one commit. Do not start from archived split repositories.</span></p>
+        <div class="button-row"><a class="button" href="/developers#repositories"><span class="zh">查看当前仓库地图</span><span class="en">See the current repository map</span></a></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="local" class="section shell">
+    <div class="section-head split" data-reveal>
       <div>
-        <span class="section-index">START / ONE CONTRACT</span>
-        <h1><span class="zh">选择入口，<br /><em>不要复制规则。</em></span><span class="en">Choose an entry.<br /><em>Never duplicate authority.</em></span></h1>
-        <p class="lede zh">本地 Agent、通用 MCP 客户端与 Hosted Web 都经过同一套领域 MCP。先选择你要运行在哪里，再选择 D&amp;D、CoC 或 Narrative。</p>
-        <p class="lede en">Local Agent, generic MCP clients, and Hosted Web all cross the same domain MCP contract. Choose where to run first, then select D&amp;D, CoC, or Narrative.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#local"><span class="zh">安装 Local Kit</span><span class="en">Install the Local Kit</span><b>↓</b></a>
-          <a class="button secondary" href="https://github.com/SagaSmithAI/SagaSmith-Web" target="_blank" rel="noreferrer"><span class="zh">查看 SagaSmith Web</span><span class="en">Explore SagaSmith Web</span><b>↗</b></a>
-        </div>
+        <p class="eyebrow">Local Agent Kit</p>
+        <h2><span class="zh">从发行锁安装，不依赖旧仓库。</span><span class="en">Install from the release lock, with no legacy repository dependency.</span></h2>
       </div>
-      <aside class="start-contract" aria-label="Shared authoritative contract">
-        <header><span>DEPLOYMENT</span><strong>AUTHORITY</strong></header>
-        <div><b>LOCAL</b><span>Agent / Codex / Claude Code / OpenClaw</span></div>
-        <i aria-hidden="true">↓</i>
-        <div class="contract-focus"><b>MCP</b><span>tools · schemas · auth · revision · idempotency</span></div>
-        <i aria-hidden="true">↓</i>
-        <div><b>DOMAIN</b><span>D&amp;D · CoC · Narrative runtime</span></div>
-        <footer><span class="zh">Hosted 只替换 transport、authentication、storage 与 deployment。</span><span class="en">Hosted changes only transport, authentication, storage, and deployment.</span></footer>
-      </aside>
-    </section>
-
-    <section class="path-section section" id="paths" data-reveal>
-      <div class="shell">
-        <header class="section-heading centered">
-          <span class="section-index">01 / CHOOSE A PATH</span>
-          <h2><span class="zh">三种入口，一个权威边界</span><span class="en">Three entries, one authority boundary</span></h2>
-          <p class="zh">不要先把整个组织的仓库都克隆下来。按你真正要运行的产品选择入口。</p>
-          <p class="en">Do not begin by cloning the whole organization. Enter through the product you actually want to run.</p>
-        </header>
-        <div class="path-grid">
-          <article>
-            <span>01 · LOCAL KIT</span>
-            <h3><span class="zh">自己运行 Bot 或本地 Agent</span><span class="en">Run your own bot or local Agent</span></h3>
-            <p class="zh">从 <code>SagaSmith-agent</code> 安装所选领域、Skills、本地 SQLite 与可选 Workbench。适合 Discord、QQ、Telegram 和长期小团。</p>
-            <p class="en">Install selected domains, Skills, local SQLite, and optional Workbenches from <code>SagaSmith-agent</code>. Best for Discord, QQ, Telegram, and persistent small groups.</p>
-            <a href="#local"><span class="zh">查看安装步骤</span><span class="en">Open installation steps</span> →</a>
-          </article>
-          <article>
-            <span>02 · BRING YOUR AGENT</span>
-            <h3><span class="zh">让现有 Agent 直接连接 MCP</span><span class="en">Connect an existing Agent directly</span></h3>
-            <p class="zh">Codex、Claude Code、OpenClaw 等客户端可通过 <code>stdio</code> 或 localhost Streamable HTTP 使用同一领域能力，无需运行 SagaSmith Web。</p>
-            <p class="en">Codex, Claude Code, OpenClaw, and other clients can use the same domain capabilities over stdio or localhost Streamable HTTP without SagaSmith Web.</p>
-            <a href="#clients"><span class="zh">查看客户端边界</span><span class="en">Review the client boundary</span> →</a>
-          </article>
-          <article>
-            <span>03 · SAGASMITH WEB</span>
-            <h3><span class="zh">构建浏览器与多人托管产品</span><span class="en">Build the hosted browser product</span></h3>
-            <p class="zh">前端、API/BFF、协作、Forge、Module Studio、Agent worker 与 operations 位于 <code>SagaSmith-Web</code>。当前是公开开发源码，不是公开运营承诺。</p>
-            <p class="en">Frontend, API/BFF, collaboration, Forge, Module Studio, Agent workers, and operations live in <code>SagaSmith-Web</code>. It is public development source, not a production-service promise.</p>
-            <a href="https://github.com/SagaSmithAI/SagaSmith-Web" target="_blank" rel="noreferrer"><span class="zh">打开 Web 仓库</span><span class="en">Open the Web repository</span> ↗</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="local-section section" id="local" data-reveal>
-      <div class="shell">
-        <header class="section-heading split-heading">
-          <div><span class="section-index">02 / LOCAL AGENT KIT</span><h2><span class="zh">从一个发行 profile 开始</span><span class="en">Start from one release profile</span></h2></div>
-          <div><p class="zh">默认安装需要 Python 3.11+、uv 与 Node.js 22.12+（含 npm）；纯后端安装可显式添加 <code>--skip-ui</code>。<code>--source release</code> 会按发行锁克隆并固定所选组件，不导入商业规则书，也不自动激活 Pack。</p><p class="en">The default install requires Python 3.11+, uv, and Node.js 22.12+ with npm; a backend-only install may explicitly add <code>--skip-ui</code>. <code>--source release</code> clones and pins selected components from the release lock; it does not import commercial books or activate Packs.</p></div>
-        </header>
-        <div class="terminal-card">
-          <header><span>01 · CLONE</span><b>SagaSmith-agent</b></header>
-          <pre><code>git clone https://github.com/SagaSmithAI/SagaSmith-agent.git
-cd SagaSmith-agent</code></pre>
-        </div>
-        <div class="profile-grid">
-          {profiles.map((profile) => (
-            <article>
-              <header><strong>{profile.name}</strong><span>PROFILE</span></header>
-              <p class="zh">{profile.zh}</p><p class="en">{profile.en}</p>
-              <pre><code>{profile.command}</code></pre>
-            </article>
-          ))}
-        </div>
-        <div class="terminal-card terminal-final">
-          <header><span>03 · CONFIGURE, VERIFY, START</span><b>repo-local state</b></header>
-          <pre><code>uv run nanobot onboard --wizard --config config/config.json --workspace workspace
-uv run nanobot sagasmith install --verify-only
-uv run nanobot sagasmith doctor --json
-uv run nanobot sagasmith start</code></pre>
-          <p><span class="zh">Windows PowerShell 可把路径分隔符写成 <code>config\config.json</code>。provider 未配置会作为 readiness warning 报告，不会伪装成安装损坏。</span><span class="en">On Windows PowerShell, <code>config\config.json</code> is also accepted. A missing provider is reported as a readiness warning, not as a broken installation.</span></p>
-        </div>
-        <div class="start-actions">
-          <a class="button primary" href="https://github.com/SagaSmithAI/SagaSmith-agent/blob/main/docs/guides/install-full-workspace-windows.zh-CN.md" target="_blank" rel="noreferrer"><span class="zh">Windows 完整指南</span><span class="en">Windows full guide</span><b>↗</b></a>
-          <a class="button secondary" href="https://github.com/SagaSmithAI/SagaSmith-agent/tree/main/examples/local-agent-kit" target="_blank" rel="noreferrer"><span class="zh">Bot 与 MCP 模板</span><span class="en">Bot and MCP templates</span><b>↗</b></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="client-section section" id="clients" data-reveal>
-      <div class="shell client-panel">
+      <p><span class="zh"><code>--source release</code> 会使用 Agent 仓库内的发行锁检出所选当前组件。安装器不会导入商业书籍、生成私有 Pack、配置 provider secret 或自动激活内容。</span><span class="en"><code>--source release</code> uses the Agent repository's release lock to fetch the selected current components. The installer does not import commercial books, create private Packs, configure provider secrets, or activate content.</span></p>
+    </div>
+    <div class="steps">
+      <article class="step" data-reveal>
         <div>
-          <span class="section-index">03 / TRANSPORT</span>
-          <h2><span class="zh">stdio 独占，HTTP 共享</span><span class="en">stdio for one client, HTTP for shared local use</span></h2>
-          <p class="zh"><code>stdio</code> 适合一个 Agent 独占一个 MCP 进程；<code>streamable-http</code> 适合多个本地 Bot 或客户端共享常驻服务。HTTP profile 只监听 loopback。非本机访问必须配置 bearer token 与显式 origin allowlist。</p>
-          <p class="en"><code>stdio</code> fits one Agent owning one MCP process; <code>streamable-http</code> lets several local bots or clients share a resident service. HTTP profiles bind to loopback only. Remote access requires a bearer token and an explicit origin allowlist.</p>
+          <h3><span class="zh">克隆 Agent host</span><span class="en">Clone the Agent host</span></h3>
+          <p><span class="zh">Local Agent Kit 的安装器、发行锁、模板和 doctor 都在当前 <code>SagaSmith-agent</code> 仓库。</span><span class="en">The Local Agent Kit installer, release lock, templates, and doctor live in the current <code>SagaSmith-agent</code> repository.</span></p>
+          <div class="code-block">
+            <header><span>POWERSHELL / BASH</span><span>CLONE</span></header>
+            <pre><code>git clone https://github.com/SagaSmithAI/SagaSmith-agent.git
+cd SagaSmith-agent</code></pre>
+          </div>
         </div>
-        <div class="contract-list">
-          <div><b>UNCHANGED</b><span>handlers · schemas · errors · revision · idempotency · authority</span></div>
-          <div><b>LOCAL ONLY</b><span>SQLite · local files · optional embeddings/OCR · your provider</span></div>
-          <div><b>NEVER REQUIRED</b><span>SagaSmith Web · PostgreSQL · Redis · object storage · quota · Forge</span></div>
+      </article>
+      <article class="step" data-reveal>
+        <div>
+          <h3><span class="zh">选择正式 profile</span><span class="en">Choose a release profile</span></h3>
+          <p><span class="zh">下面以 D&D-only 为例。可换成 CoC、Narrative 或 multi-system；已有同级源码工作区的开发者可按 Agent 指南选择 workspace source。</span><span class="en">The example uses D&D-only. Substitute CoC, Narrative, or multi-system; developers with current sibling source checkouts can follow the Agent guide for workspace source.</span></p>
+          <div class="code-block">
+            <header><span>LOCAL KIT INSTALLER</span><span>RELEASE SOURCE</span></header>
+            <pre><code>uv run nanobot sagasmith install --source release --profile dnd-only</code></pre>
+          </div>
         </div>
-      </div>
-    </section>
+      </article>
+      <article class="step" data-reveal>
+        <div>
+          <h3><span class="zh">配置本地 Agent</span><span class="en">Configure the local Agent</span></h3>
+          <p><span class="zh">向导写入 repo-local 配置与 workspace。provider secret 只应通过环境变量或本机私密配置提供，不要提交填充后的配置。</span><span class="en">The wizard writes repo-local configuration and workspace state. Provide model-provider secrets through environment variables or private local configuration, and never commit filled configuration.</span></p>
+          <div class="code-block">
+            <header><span>ONBOARD</span><span>REPO-LOCAL</span></header>
+            <pre><code>uv run nanobot onboard --wizard --config config/config.json --workspace workspace</code></pre>
+          </div>
+        </div>
+      </article>
+      <article class="step" data-reveal>
+        <div>
+          <h3><span class="zh">先诊断，再启动</span><span class="en">Diagnose before starting</span></h3>
+          <p><span class="zh">doctor 分别报告 MCP/config、领域数据库、Skills、provider 与 transport。provider 未配置是 readiness 警告，不应被误报为安装损坏。</span><span class="en">Doctor reports MCP/config, domain databases, Skills, provider readiness, and transport separately. A missing provider is a readiness warning, not a broken installation.</span></p>
+          <div class="code-block">
+            <header><span>VERIFY + START</span><span>LOCAL</span></header>
+            <pre><code>uv run nanobot sagasmith doctor --json
+uv run nanobot sagasmith start</code></pre>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
 
-    <section class="start-closing">
+  <section class="section shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow"><span class="zh">安装 profile</span><span class="en">Install profiles</span></p>
+      <h2><span class="zh">只装需要的领域。</span><span class="en">Install only the domains you need.</span></h2>
+    </div>
+    <table class="profile-table" data-reveal>
+      <thead><tr><th>Profile</th><th><span class="zh">领域</span><span class="en">Domains</span></th><th><span class="zh">当前仓库输入</span><span class="en">Current repository inputs</span></th></tr></thead>
+      <tbody>
+        {localProfiles.map(([profile, label]) => (
+          <tr>
+            <td>{profile}</td>
+            <td>{label}</td>
+            <td>{profile === 'multi-system' ? 'Agent + Core + D&D + CoC + Narrative' : `Agent + Core + ${label}`}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section shell">
+    <div class="section-head split" data-reveal>
       <div>
-        <span class="section-index">ACTIVE ALPHA</span>
-        <h2><span class="zh">先跑通一条路径，<br />再扩展整张桌子。</span><span class="en">Prove one path.<br />Then expand the table.</span></h2>
-        <p class="zh">SagaSmith 适合本地开发、集成验证与实团测试。遇到问题，请附带仓库、commit、系统版本、命令与脱敏错误。</p>
-        <p class="en">SagaSmith is ready for local development, integration validation, and real-table testing. Reports should include repository, commit, platform, command, and sanitized error.</p>
+        <p class="eyebrow"><span class="zh">同一契约，三种本地 transport</span><span class="en">One contract, three local transports</span></p>
+        <h2><span class="zh">transport 改变进程形态，不改变规则语义。</span><span class="en">Transport changes process shape, not rule semantics.</span></h2>
       </div>
-      <div class="closing-actions">
-        <a class="button light" href="https://github.com/SagaSmithAI/SagaSmith-agent" target="_blank" rel="noreferrer">SagaSmith Agent <b>↗</b></a>
-        <a href="/developers"><span class="zh">查看架构与仓库地图</span><span class="en">Explore architecture and repositories</span> →</a>
+      <p><span class="zh">每种模式都必须执行同一 handlers、schema、错误、revision、idempotency 与 authority 语义。HTTP 仅监听 loopback。</span><span class="en">Every mode executes the same handlers, schemas, errors, revisions, idempotency, and authority semantics. HTTP binds to loopback only.</span></p>
+    </div>
+    <div class="transport-grid">
+      <article class="transport" data-reveal><code>stdio</code><p><span class="zh">一个本地客户端独占每个 MCP 进程；不开放网络监听。</span><span class="en">One local client owns each MCP process; no network listener.</span></p></article>
+      <article class="transport" data-reveal><code>streamable-http</code><p><span class="zh">多个本机客户端共享常驻领域进程；仅 loopback。</span><span class="en">Multiple local clients share long-lived domain processes on loopback only.</span></p></article>
+      <article class="transport" data-reveal><code>mixed</code><p><span class="zh">默认：D&D/CoC 使用 loopback HTTP，Narrative 使用 stdio。</span><span class="en">Default: D&D and CoC use loopback HTTP; Narrative uses stdio.</span></p></article>
+    </div>
+  </section>
+
+  <section id="hosted" class="section shell">
+    <div class="section-head split" data-reveal>
+      <div>
+        <p class="eyebrow">SagaSmith Web</p>
+        <h2><span class="zh">托管产品不是 Local 的必需后端。</span><span class="en">The hosted product is not a required Local backend.</span></h2>
       </div>
-    </section>
-  </main>
+      <p><span class="zh">SagaSmith Web 独立拥有账户、session、配额、邀请、协作、Forge、Module Studio 与云端投影；它通过 principal-scoped worker 调用同一领域 MCP，不直接写领域数据库。</span><span class="en">SagaSmith Web independently owns accounts, sessions, quota, invitations, collaboration, Forge, Module Studio, and cloud projections. Principal-scoped workers call the same domain MCP; Web never writes domain databases directly.</span></p>
+    </div>
+    <div class="steps">
+      <article class="step" data-reveal>
+        <div>
+          <h3><span class="zh">阅读产品与许可边界</span><span class="en">Read the product and license boundaries</span></h3>
+          <p><span class="zh">SagaSmith Web 源码公开可见，但仓库使用 proprietary license。Local 的 Apache-2.0 组件不依赖 Web。</span><span class="en">SagaSmith Web source is publicly visible under a proprietary license. Apache-2.0 Local components do not depend on Web.</span></p>
+        </div>
+      </article>
+      <article class="step" data-reveal>
+        <div>
+          <h3><span class="zh">在隔离开发环境启动</span><span class="en">Start in an isolated development environment</span></h3>
+          <p><span class="zh">当前开发路径使用 Docker Compose 与同级当前源码 worktree；生产/release 形态使用仓库的不可变组件锁。不要把真实凭证、私有战役或商业来源材料放进测试数据。</span><span class="en">The current development path uses Docker Compose with current sibling source worktrees; production and release builds use the repository's immutable component lock. Keep real credentials, private campaigns, and commercial source material out of test data.</span></p>
+          <div class="code-block">
+            <header><span>POWERSHELL</span><span>WEB DEVELOPMENT</span></header>
+            <pre><code>Copy-Item .env.example .env
+docker compose -f compose.yaml -f compose.workspace.yaml up --build</code></pre>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="button-row">
+      <a class="button primary" href="https://github.com/SagaSmithAI/SagaSmith-Web" target="_blank" rel="noreferrer"><span class="zh">打开 SagaSmith Web</span><span class="en">Open SagaSmith Web</span> ↗</a>
+      <a class="button" href="/security"><span class="zh">安全与私密报告</span><span class="en">Security and private reporting</span></a>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="callout" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">仍然不确定？</span><span class="en">Still deciding?</span></p>
+        <h2><span class="zh">从 Local Kit 的单一领域 profile 开始。</span><span class="en">Start with one Local Kit domain profile.</span></h2>
+        <p><span class="zh">它是最小、可逆且不依赖托管基础设施的入口；需要浏览器协作、Forge 或运营能力时，再评估 SagaSmith Web。</span><span class="en">It is the smallest reversible entry with no hosted-infrastructure dependency. Evaluate SagaSmith Web when you need browser collaboration, Forge, or operations.</span></p>
+      </div>
+      <a class="button" href="https://github.com/SagaSmithAI/SagaSmith-agent" target="_blank" rel="noreferrer">SagaSmith-agent ↗</a>
+    </div>
+  </section>
 </SiteLayout>

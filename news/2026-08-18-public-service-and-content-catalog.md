@@ -7,7 +7,7 @@ summary: SagaSmith Web、D&D/CoC 多系统房间与当前 46 个 Content Pack �
 summaryEn: SagaSmith Web, hosted D&D/CoC rooms, and the checksum catalog for 46 current Content Packs are now publicly visible with explicit state and content-rights boundaries.
 ---
 
-`SagaSmith-service` 仓库中的 SagaSmith Web 现在公开展示托管账户、配额、战役房间、主持身份、Agent
+当时名为 `SagaSmith-service`、现为 `SagaSmith-Web` 的 SagaSmith Web 仓库公开展示托管账户、配额、战役房间、主持身份、Agent
 调度、浏览器前端与多系统 MCP 编排。SagaSmith Web 不拥有 D&D 或 CoC 的权威游戏状态；
 每一次领域操作仍交给对应 MCP 重新做权限、revision、阶段和角色范围校验。
 

@@ -1,0 +1,25 @@
+{
+  "name": "SagaSmithAI",
+  "short_name": "SagaSmith",
+  "description": "AI-native TTRPG platform with one authoritative MCP contract across local and hosted deployments.",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0c0d0d",
+  "theme_color": "#0c0d0d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
