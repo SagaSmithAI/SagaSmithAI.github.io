@@ -1,200 +1,121 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-
-const repoGroups = [
-  {
-    label: 'HOST & WEB PRODUCT',
-    title: 'Host 与托管 Web 产品',
-    titleEn: 'Host and hosted Web product',
-    repos: [
-      { name: 'SagaSmith-agent', status: 'ALPHA', desc: '身份、会话、多渠道与 MCP 编排', descEn: 'Identity, sessions, channels, and MCP orchestration', url: 'https://github.com/SagaSmithAI/SagaSmith-agent' },
-      { name: 'SagaSmith-Web', status: 'PUBLIC SOURCE', desc: 'SagaSmith Web：浏览器前端、API/BFF、托管控制面、协作、Forge、Module Studio 与运维', descEn: 'SagaSmith Web: browser frontend, API/BFF, hosted control plane, collaboration, Forge, Module Studio, and operations', url: 'https://github.com/SagaSmithAI/SagaSmith-Web' },
-    ],
-  },
-  {
-    label: 'FOUNDATIONS & DOMAINS',
-    title: '共享基础与垂直领域',
-    titleEn: 'Shared foundation and vertical domains',
-    repos: [
-      { name: 'sagasmith-core', status: 'ACTIVE', desc: '分支、知识、统一内容包、检索与持久化', descEn: 'Branches, knowledge, unified content packages, retrieval, and persistence', url: 'https://github.com/SagaSmithAI/sagasmith-core' },
-      { name: 'sagasmith-dnd', status: 'VERTICAL', desc: 'D&D 5e Domain、MCP、Skills、Workbench 与模组创作', descEn: 'D&D 5e Domain, MCP, Skills, Workbench, and module authoring', url: 'https://github.com/SagaSmithAI/sagasmith-dnd' },
-      { name: 'sagasmith-coc', status: 'VERTICAL', desc: 'CoC 7e Domain、MCP、Skills、Workbench 与模组创作', descEn: 'CoC 7e Domain, MCP, Skills, Workbench, and scenario authoring', url: 'https://github.com/SagaSmithAI/sagasmith-coc' },
-      { name: 'sagasmith-narrative', status: 'VERTICAL', desc: '系统无关 Narrative Domain、MCP、Skills 与项目创作', descEn: 'System-neutral Narrative Domain, MCP, Skills, and project authoring', url: 'https://github.com/SagaSmithAI/sagasmith-narrative' },
-    ],
-  },
-  {
-    label: 'CONTENT & DOCUMENTATION',
-    title: '内容与公共文档',
-    titleEn: 'Content and public documentation',
-    repos: [
-      { name: 'SagaSmith-dnd-content-library', status: 'PUBLIC CATALOG', desc: '校验和绑定的当前 Content Pack 索引与归档', descEn: 'Checksum-bound current Content Pack index and archives', url: 'https://github.com/SagaSmithAI/SagaSmith-dnd-content-library' },
-      { name: 'SagaSmithAI.github.io', status: 'PUBLIC DOCS', desc: '双语产品、开发者与内容目录站点', descEn: 'Bilingual product, developer, and content-catalog site', url: 'https://github.com/SagaSmithAI/SagaSmithAI.github.io' },
-      { name: '.github', status: 'ORG CONTRACT', desc: '组织总览、贡献与发布政策', descEn: 'Organization overview, contribution, and release policy', url: 'https://github.com/SagaSmithAI/.github' },
-    ],
-  },
-];
+import { repositories } from '../lib/site';
 ---
 <SiteLayout
-  title="SagaSmithAI for Developers — Open campaign infrastructure"
-  description="Explore SagaSmithAI's Local Agent Kit, hosted SagaSmith Web product, shared authoritative MCP contracts, repositories, and current experimental limits."
+  title="架构与当前仓库地图"
+  titleEn="Architecture and current repository map"
+  description="SagaSmithAI 当前仓库拓扑、权威 MCP contract、Local/Hosted 边界、Domain/Core/Agent/Web 职责与贡献入口。"
+  descriptionEn="The current SagaSmithAI repository topology, authoritative MCP contract, Local and Hosted boundaries, component ownership, and contribution entry points."
   page="developers"
 >
-  <main class="developer-main">
-    <section class="dev-hero shell">
+  <header class="page-hero shell">
+    <div data-reveal>
+      <p class="eyebrow"><span class="zh">开发者地图</span><span class="en">Developer map</span></p>
+      <h1><span class="zh">一份契约，多条清晰边界。</span><span class="en">One contract. Clear ownership.</span></h1>
+      <p class="lede"><span class="zh">SagaSmith 不是一个把所有功能装进同一后端的仓库。Agent、Hosted Web、Core 与三个领域 vertical 各自拥有明确职责，通过同一 authoritative MCP contract 组合。</span><span class="en">SagaSmith is not a monolith that puts every feature into one backend. Agent, Hosted Web, Core, and three domain verticals own distinct responsibilities and compose through one authoritative MCP contract.</span></p>
+    </div>
+    <aside class="page-hero-aside" data-reveal>
+      <strong>AUTHORITATIVE CONTRACT</strong>
+      <p><code>sagasmith.authoritative-mcp/v1</code><br /><span class="zh">schema · capability · error · revision · idempotency · authority</span><span class="en">schema · capability · error · revision · idempotency · authority</span></p>
+    </aside>
+  </header>
+
+  <section class="section shell">
+    <div class="section-head split" data-reveal>
       <div>
-        <div class="eyebrow"><span class="pulse"></span>PUBLIC DEVELOPMENT · ACTIVE ALPHA</div>
-        <h1><span class="zh">为会记得的世界，<br /><em>打造可靠的边界。</em></span><span class="en">Build reliable boundaries<br /><em>for worlds that remember.</em></span></h1>
-        <p class="lede zh">SagaSmithAI 用同一套领域 MCP 权威契约连接本地 Agent Kit 与托管 Web，让每一层只拥有它真正应该拥有的状态。</p>
-        <p class="lede en">SagaSmithAI connects the Local Agent Kit and hosted Web through one authoritative domain MCP contract, so every layer owns only the right state.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="https://github.com/SagaSmithAI" target="_blank" rel="noreferrer">GitHub <b>↗</b></a>
-          <a class="button secondary" href="#architecture"><span class="zh">查看架构</span><span class="en">Explore architecture</span><b>↓</b></a>
-        </div>
+        <p class="eyebrow"><span class="zh">双发行物</span><span class="en">Two distributions</span></p>
+        <h2><span class="zh">部署可以不同，领域真相不能分叉。</span><span class="en">Deployment may differ. Domain truth may not fork.</span></h2>
       </div>
-      <aside class="dev-status-card">
-        <header><span>PLATFORM STATUS</span><em>2026 / ALPHA</em></header>
-        <div><span class="status-signal live"></span><p><b>D&D REFERENCE PATH</b><small><span class="zh">本地集成可测试</span><span class="en">LOCAL INTEGRATION TESTABLE</span></small></p><strong>ACTIVE</strong></div>
-        <div><span class="status-signal testing"></span><p><b>COC VERTICAL PATH</b><small><span class="zh">独立链路可测试</span><span class="en">VERTICAL PATH TESTABLE</span></small></p><strong>TESTING</strong></div>
-        <div><span class="status-signal testing"></span><p><b>SAGASMITH WEB</b><small><span class="zh">浏览器产品 · 集成验证中</span><span class="en">BROWSER PRODUCT · INTEGRATION TESTING</span></small></p><strong>ALPHA</strong></div>
-        <div><span class="status-signal live"></span><p><b>PARALLEL REFERENCE REGRESSION</b><small><span class="zh">D&amp;D + CoC · 2026-08-20 已验证</span><span class="en">D&amp;D + COC · VERIFIED 2026-08-20</span></small></p><strong>PASS</strong></div>
-        <div><span class="status-signal experimental"></span><p><b>RULESET IMPORT</b><small><span class="zh">受控实验功能</span><span class="en">CONTROLLED EXPERIMENT</span></small></p><strong>LAB</strong></div>
-        <footer><span class="zh">状态标签描述当前证据，不代表发布完成度。</span><span class="en">Labels describe current evidence, not release completion.</span></footer>
-      </aside>
-    </section>
+      <p><span class="zh">Local 与 Hosted 可以采用不同 transport、authentication、storage 和 deployment。它们必须保持相同 handlers、tool schemas、capability discovery、错误、权限、revision、idempotency 与规则写入语义。</span><span class="en">Local and Hosted may use different transport, authentication, storage, and deployment. They must preserve the same handlers, tool schemas, capability discovery, errors, authority, revisions, idempotency, and rule-write semantics.</span></p>
+    </div>
+    <div class="mode-grid">
+      <article class="mode-card highlight" data-reveal>
+        <span class="choice-label">LOCAL AGENT KIT</span>
+        <h3>Host → Domain MCP → Runtime → Core</h3>
+        <ul class="mode-list">
+          <li><span class="zh">Host：SagaSmith Agent、Bot 或通用 MCP Agent</span><span class="en">Host: SagaSmith Agent, a bot, or a generic MCP agent</span></li>
+          <li><span class="zh">Transport：stdio 或仅 loopback 的 Streamable HTTP</span><span class="en">Transport: stdio or loopback-only Streamable HTTP</span></li>
+          <li><span class="zh">Storage：SQLite 与本地文件</span><span class="en">Storage: SQLite and local files</span></li>
+          <li><span class="zh">不依赖 Web、PostgreSQL、Redis、对象存储、账户或 Forge</span><span class="en">No dependency on Web, PostgreSQL, Redis, object storage, accounts, or Forge</span></li>
+        </ul>
+      </article>
+      <article class="mode-card" data-reveal>
+        <span class="choice-label">SAGASMITH WEB</span>
+        <h3>Browser → API/BFF → Agent worker → Domain MCP</h3>
+        <ul class="mode-list">
+          <li><span class="zh">Web 拥有账户、session、配额、邀请、协作、Forge 与云端投影</span><span class="en">Web owns accounts, sessions, quota, invitations, collaboration, Forge, and cloud projections</span></li>
+          <li><span class="zh">principal-scoped worker 将身份交给动态 MCP 工具</span><span class="en">Principal-scoped workers pass identity to dynamic MCP tools</span></li>
+          <li><span class="zh">领域服务在每次调用边界重新验证权限与 revision</span><span class="en">Domain services revalidate authority and revision at every call boundary</span></li>
+          <li><span class="zh">Web 缓存投影，但不直接写开放领域数据库</span><span class="en">Web may cache projections but never writes open domain databases directly</span></li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-    <section class="dev-principles section" data-reveal>
-      <div class="shell">
-        <header class="section-heading centered">
-          <span class="section-index">01 / OWNERSHIP</span>
-          <h2><span class="zh">流程不冒充结算，检索不决定真相</span><span class="en">Procedure does not impersonate settlement</span></h2>
-          <p class="zh">SagaSmith 的可靠性来自明确所有权，而不是把更多上下文塞进同一个 Agent。</p>
-          <p class="en">SagaSmith derives reliability from explicit ownership, not from putting more context into one agent.</p>
-        </header>
-        <div class="dev-principle-grid">
-          <article><span>A</span><h3>SKILLS ≠ ENGINE</h3><p class="zh">技能负责流程、提问与协作；确定性规则由领域引擎结算。</p><p class="en">Skills own procedure and collaboration; domain engines settle deterministic rules.</p></article>
-          <article><span>B</span><h3>SEARCH ≠ TRUTH</h3><p class="zh">检索寻找候选证据；分支祖先与持久状态决定有效历史。</p><p class="en">Retrieval finds candidate evidence; branch ancestry and persisted state determine valid history.</p></article>
-          <article><span>C</span><h3>AGENT ≠ DATABASE</h3><p class="zh">Agent Host 管理模型和会话，但不直接拥有规则与战役数据。</p><p class="en">The Agent Host manages models and sessions without directly owning rules or campaign data.</p></article>
-          <article><span>D</span><h3>CLIENT ≠ AUTHORITY</h3><p class="zh">客户端只接收服务端已经按角色与范围过滤的投影。</p><p class="en">Clients receive projections already filtered by actor and scope on the server.</p></article>
-        </div>
-      </div>
-    </section>
+  <section class="section shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow"><span class="zh">权威所有权</span><span class="en">Authority ownership</span></p>
+      <h2><span class="zh">每一次写入，都能回答“谁负责”。</span><span class="en">Every write has an accountable owner.</span></h2>
+    </div>
+    <div class="authority-map" data-reveal>
+      <div class="authority-node"><strong>Client / UI</strong><span><span class="zh">输入与服务端授权投影</span><span class="en">Input and server-authorized projection</span></span></div>
+      <div class="authority-node"><strong>Agent / Skills</strong><span><span class="zh">意图、主持、工具选择与提案</span><span class="en">Intent, facilitation, tool selection, and proposals</span></span></div>
+      <div class="authority-node primary"><strong>Domain MCP</strong><span><span class="zh">权限、phase、revision、幂等与原子结算</span><span class="en">Authority, phase, revision, idempotency, and atomic settlement</span></span></div>
+      <div class="authority-node"><strong>Domain runtime</strong><span><span class="zh">系统规则、随机流与领域状态</span><span class="en">System rules, random streams, and domain state</span></span></div>
+      <div class="authority-node"><strong>SagaSmith Core</strong><span><span class="zh">持久化、事务、知识、分支、内容与检索</span><span class="en">Persistence, transactions, knowledge, branches, content, and retrieval</span></span></div>
+    </div>
+    <div class="ledger" style="margin-top: 42px" data-reveal>
+      <article class="ledger-row"><strong>Agent ≠ Domain</strong><p><span class="zh">Agent workspace memory 与主持人格不能替代战役 Snapshot、ActorKnowledge、权限或规则 receipt。</span><span class="en">Agent workspace memory and facilitation identity cannot replace campaign snapshots, ActorKnowledge, permissions, or rule receipts.</span></p><span class="tag">NO DIRECT DB WRITE</span></article>
+      <article class="ledger-row"><strong>Skills ≠ Engine</strong><p><span class="zh">Skills 描述主持、审核和创作步骤；会改变权威状态的机械结果必须由 runtime/MCP 验证。</span><span class="en">Skills describe facilitation, review, and authoring procedures; mechanical outcomes that change authoritative state must be validated by runtime and MCP.</span></p><span class="tag">PROPOSAL ONLY</span></article>
+      <article class="ledger-row"><strong>Retrieval ≠ Truth</strong><p><span class="zh">检索返回候选证据；来源、规则锁、分支祖先与持久状态决定什么当前有效。</span><span class="en">Retrieval returns candidate evidence; sources, rule locks, branch ancestry, and persistent state decide what is currently valid.</span></p><span class="tag">SOURCE-BOUND</span></article>
+    </div>
+  </section>
 
-    <section class="dev-principles section" data-reveal>
-      <div class="shell">
-        <header class="section-heading centered">
-          <span class="section-index">02 / TWO DEPLOYMENTS</span>
-          <h2><span class="zh">部署可以不同，权威契约不能分叉</span><span class="en">Deploy differently without forking authority</span></h2>
-          <p class="zh">本地与 Hosted 只在 transport、authentication、storage 和 deployment 上不同；工具 schema、错误、规则写入、revision 与 idempotency 必须一致。</p>
-          <p class="en">Local and hosted deployments may differ in transport, authentication, storage, and deployment; tool schemas, errors, rule writes, revisions, and idempotency must remain identical.</p>
-        </header>
-        <div class="dev-principle-grid">
-          <article><span>L</span><h3>LOCAL AGENT KIT</h3><p class="zh">Discord、QQ、Telegram Bot 可由 SagaSmith Agent 承载；Codex、Claude Code、OpenClaw 等 MCP client 也可通过 stdio 或 localhost HTTP 直连领域 MCP，使用 SQLite 与本地文件。</p><p class="en">SagaSmith Agent can host Discord, QQ, and Telegram bots; Codex, Claude Code, OpenClaw, and other MCP clients can also connect directly over stdio or localhost HTTP with SQLite and local files.</p></article>
-          <article><span>W</span><h3>SAGASMITH WEB</h3><p class="zh">Browser/PWA 进入 API/BFF、托管控制面与 principal-scoped Agent worker，再调用同一领域 MCP；PostgreSQL、Redis 与对象存储只承担 Hosted 职责。</p><p class="en">Browser/PWA traffic crosses the API/BFF, hosted control plane, and principal-scoped Agent worker before reaching the same domain MCP; PostgreSQL, Redis, and object storage remain hosted concerns.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="dev-architecture section shell" id="architecture" data-reveal>
-      <header class="section-heading split-heading">
-        <div><span class="section-index">03 / ARCHITECTURE</span><h2><span class="zh">每一层只拥有<br />它该拥有的状态</span><span class="en">Each layer owns<br />only the right state</span></h2></div>
-        <div><p class="zh">规则可以升级、系统可以扩展、Host 可以更换，而不需要复制领域逻辑或让客户端承担权限边界。</p><p class="en">Rules can evolve, systems can expand, and hosts can change without copying domain logic or moving authorization into clients.</p></div>
-      </header>
-      <div class="architecture-stack">
-        <article><span>01</span><small>HUMAN & AGENT CLIENTS</small><h3>Players · DM · Bots · Generic Agents</h3><p><span class="zh">浏览器、PWA、频道与通用 MCP 客户端</span><span class="en">Browser, PWA, channels, and generic MCP clients</span></p></article>
-        <div class="stack-connector"><i></i><code>local stdio/http · hosted https/session</code></div>
-        <div class="stack-pair">
-          <article><span>02A</span><small>LOCAL HOST</small><h3>SagaSmith Agent</h3><p><span class="zh">Bot、会话、模型、workspace 与多渠道</span><span class="en">Bots, sessions, models, workspace, and channels</span></p></article>
-          <article><span>02B</span><small>HOSTED PRODUCT</small><h3>SagaSmith Web</h3><p><span class="zh">前端、API/BFF、控制面、协作、Forge 与 Agent worker</span><span class="en">Frontend, API/BFF, control plane, collaboration, Forge, and Agent workers</span></p></article>
-        </div>
-        <div class="stack-connector"><i></i><code>MCP · tools · resources · prompts</code></div>
-        <article class="stack-focus"><span>03</span><small>CAPABILITY PLANE</small><h3>Domain MCP Servers</h3><p><span class="zh">发现、会话暴露、授权、幂等与审计</span><span class="en">Discovery, session exposure, authorization, idempotency, and audit</span></p></article>
-        <div class="stack-connector"><i></i><code>validated domain operations</code></div>
-        <div class="stack-pair">
-          <article><span>04A</span><small>RULE SYSTEMS</small><h3>D&D 5e · CoC 7e · Next</h3><p><span class="zh">规则包、角色 schema、战斗与解析 profile</span><span class="en">Rule packs, character schemas, combat, and parser profiles</span></p></article>
-          <article><span>04B</span><small>SHARED CORE</small><h3>Campaign Runtime</h3><p><span class="zh">分支、知识、导入、检索与持久化</span><span class="en">Branches, knowledge, imports, retrieval, and persistence</span></p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="dev-principles section" data-reveal>
-      <div class="shell">
-        <header class="section-heading centered">
-          <span class="section-index">04 / VERIFIED HOST PATH</span>
-          <h2><span class="zh">身份可验证，证据可复查</span><span class="en">Verifiable identity, reviewable evidence</span></h2>
-          <p class="zh">2026-08-20 的当前源码回归从 SagaSmith Web 签名身份开始，经 Agent 的会话作用域动态工具进入 D&amp;D 与 CoC MCP，并发完成两条参考战役且未记录回归缺口。D&amp;D 路径记录了合法结局；未执行模组与互斥路径仍保留为机器可读 exclusion。</p>
-          <p class="en">The 2026-08-20 current-source regression starts with SagaSmith Web-signed identity, crosses the Agent's session-scoped dynamic tools, and completes concurrent D&amp;D and CoC reference campaigns without a reported regression gap. The D&amp;D path records a legal ending; unexecuted modules and mutually exclusive paths remain machine-readable exclusions.</p>
-        </header>
-      </div>
-    </section>
-
-    <section class="dev-principles section" data-reveal>
-      <div class="shell">
-        <header class="section-heading centered">
-          <span class="section-index">05 / UNIFIED CONTENT</span>
-          <h2><span class="zh">分享内容，不复制运行时身份</span><span class="en">Share content without copying runtime identity</span></h2>
-          <p class="zh">同一格式连接创作、分发与导入，同时把战役账本留在原来的权威边界。</p>
-          <p class="en">One format connects authoring, distribution, and import while campaign ledgers stay with their authority.</p>
-        </header>
-        <div class="dev-principle-grid">
-          <article><span>A</span><h3>ACTOR CARD</h3><p class="zh">PC、NPC 与怪物共用完整角色卡；导入生成新 id，不复制 actor knowledge。</p><p class="en">PCs, NPCs, and monsters share one complete card; import creates a new id and no ActorKnowledge.</p></article>
-          <article><span>B</span><h3>ONE ARCHIVE</h3><p class="zh">核心规则、Addon、模组和预设共用带来源、许可、checksum 与内容寻址资产的物理格式。</p><p class="en">Core rules, addons, modules, and presets share one physical format with sources, licenses, checksums, and content-addressed assets.</p></article>
-          <article><span>C</span><h3>MODULE PACK</h3><p class="zh">Scene Atlas、原文、地图、审核内容、NPC/怪物/预设 PC、角色图与稳定关联可以自包含迁移。</p><p class="en">Scene Atlas data, source documents, maps, reviews, NPCs, monsters, pregens, portraits, and stable bindings can migrate together.</p></article>
-          <article><span>D</span><h3>PACK ≠ SAVE</h3><p class="zh">权限、进度、世界状态、记忆、随机流、分支与 Snapshot 永不随内容包迁移。</p><p class="en">Permissions, progress, world state, memory, random streams, branches, and Snapshots never ride with content packages.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="dev-experiment section" data-reveal>
-      <div class="shell experiment-panel">
-        <div class="experiment-title">
-          <span class="lab-tag"><i></i>EXPERIMENTAL</span>
-          <h2><span class="zh">扩展规则集导入：<br />受控实验，而非通用承诺</span><span class="en">Extended ruleset import:<br />a controlled experiment, not a universal promise</span></h2>
-        </div>
-        <div class="experiment-details">
-          <p class="zh">当前导入流程用于验证来源保留、解析、质量报告、索引与规则包校验。它不代表平台能够自动理解任意规则书，也不代表未经适配的第三方系统可以安全、完整地运行。</p>
-          <p class="en">The current import flow validates provenance, parsing, quality reporting, indexing, and rule-pack checks. It does not imply automatic understanding of arbitrary rulebooks or safe, complete execution of unadapted third-party systems.</p>
-          <ul>
-            <li><span class="zh">已定稿规则 Pack 可携带完整来源与稳定引用迁移；依赖使用跨实例 definition checksum，导入后已保存但仍未启用</span><span class="en">Finalized rule Packs migrate with complete sources and stable citations; dependencies use cross-instance definition checksums, and imported Packs are stored but remain inactive</span></li>
-            <li><span class="zh">需要明确的系统插件与数据 schema</span><span class="en">Requires an explicit system plugin and data schema</span></li>
-            <li><span class="zh">需要规则验证、回归测试与人工审查</span><span class="en">Requires rule validation, regression tests, and human review</span></li>
-            <li><span class="zh">不提供或授权商业规则书与模组内容</span><span class="en">Does not provide or license commercial rulebook or adventure content</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="repositories section shell" id="repositories" data-reveal>
-      <header class="section-heading split-heading">
-        <div><span class="section-index">06 / REPOSITORIES</span><h2><span class="zh">按所有权进入，<br />而不是猜仓库</span><span class="en">Enter by ownership,<br />not by guesswork</span></h2></div>
-        <div><p class="zh">每个仓库独立版本与测试。状态标签表达当前定位，不隐含生产就绪。</p><p class="en">Each repository versions and tests independently. Status labels describe current positioning without implying production readiness.</p></div>
-      </header>
-      <div class="repo-groups">
-        {repoGroups.map((group, groupIndex) => (
-          <section class="repo-group">
-            <header><span>0{groupIndex + 1}</span><div><small>{group.label}</small><h3 class="zh">{group.title}</h3><h3 class="en">{group.titleEn}</h3></div></header>
-            <div>
-              {group.repos.map((repo) => (
-                <a class="repo-row" href={repo.url} target="_blank" rel="noreferrer">
-                  <div><strong>{repo.name}</strong><p class="zh">{repo.desc}</p><p class="en">{repo.descEn}</p></div>
-                  <em>{repo.status}</em>
-                  <b>↗</b>
-                </a>
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
-    </section>
-
-    <section class="dev-closing">
+  <section id="repositories" class="section shell">
+    <div class="section-head split" data-reveal>
       <div>
-        <span class="section-index">OPEN PLATFORM</span>
-        <h2><span class="zh">从一条真实路径开始，<br />把边界做到可靠。</span><span class="en">Start with one real path.<br />Make its boundaries reliable.</span></h2>
+        <p class="eyebrow"><span class="zh">当前仓库拓扑</span><span class="en">Current repository topology</span></p>
+        <h2><span class="zh">这些是唯一当前入口。</span><span class="en">These are the only current entry points.</span></h2>
       </div>
-      <div class="closing-actions">
-        <a class="button primary" href="https://github.com/SagaSmithAI" target="_blank" rel="noreferrer">GitHub <b>↗</b></a>
-        <a href="/"><span class="zh">返回玩家与 DM 首页</span><span class="en">Back to the DM & player home</span></a>
+      <div class="section-note"><span class="zh">原独立 MCP、Skills、UI 与通用 Module Generator 仓库仅保留为 archived read-only history：不接收新 Issue、不参与发布，也不是 compatibility fallback。</span><span class="en">Former standalone MCP, Skills, UI, and generic Module Generator repositories are archived read-only history. They accept no new issues, supply no releases, and provide no compatibility fallback.</span></div>
+    </div>
+    <div class="repo-ledger" data-reveal>
+      {repositories.map((repo) => (
+        <article class="repo-row">
+          <span>{repo.key}</span>
+          <a href={repo.url} target="_blank" rel="noreferrer">{repo.name}</a>
+          <p><span class="zh">{repo.roleZh}</span><span class="en">{repo.roleEn}</span></p>
+          <span class="tag">CURRENT</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow"><span class="zh">公共契约</span><span class="en">Public contract</span></p>
+      <h2><span class="zh">六个维度必须跨发行形态一致。</span><span class="en">Six dimensions stay consistent across distributions.</span></h2>
+    </div>
+    <div class="feature-grid">
+      <article class="feature-card" data-reveal><span class="choice-label">SCHEMA + CAPABILITY</span><h3><span class="zh">动态发现，不维护固定工具全集</span><span class="en">Dynamic discovery, never a fixed tool superset</span></h3><p><span class="zh">Host 使用服务端动态工具列表，并在 <code>tools/list_changed</code> 后刷新 schema；phase、role 与 exposure 继续在服务端收窄。</span><span class="en">Hosts use the server-owned dynamic tool list and refresh schemas after <code>tools/list_changed</code>; phase, role, and exposure narrow capabilities server-side.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">ERROR + REVISION</span><h3><span class="zh">失败可解释，写入可并发验证</span><span class="en">Failures explain themselves; writes remain concurrency-safe</span></h3><p><span class="zh">客户端收到一致的错误结构与 revision 语义；旧 revision 不能通过 UI、Agent 文本或 transport 差异绕过。</span><span class="en">Clients receive consistent error structures and revision semantics; stale revisions cannot bypass checks through UI, Agent text, or transport differences.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">IDEMPOTENCY + AUTHORITY</span><h3><span class="zh">重试不会复制结算，身份不能由请求自选</span><span class="en">Retries do not duplicate settlement; requests do not choose identity</span></h3><p><span class="zh">幂等键、principal context、actor binding 与 campaign role 均由可信边界注入并由 MCP 重新验证。</span><span class="en">Idempotency keys, principal context, actor bindings, and campaign roles are injected by trusted boundaries and revalidated by MCP.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">PACK CONTRACT</span><h3><span class="zh">统一内容包，独立权利与激活</span><span class="en">Unified content packages, separate rights and activation</span></h3><p><span class="zh"><code>sagasmith.content-package</code> v2 是当前公开交换格式；每个 Pack 的许可、来源、导入权限与 campaign activation 都独立判断。</span><span class="en"><code>sagasmith.content-package</code> v2 is the current public exchange format; each Pack's license, provenance, import authority, and campaign activation are evaluated separately.</span></p></article>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="callout" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">贡献入口</span><span class="en">Contribution entry</span></p>
+        <h2><span class="zh">从拥有行为的仓库开始。</span><span class="en">Start in the repository that owns the behavior.</span></h2>
+        <p><span class="zh">跨仓库或公共 contract 变更请先开 Issue。提交报告时附 commit/release、环境、复现命令与脱敏错误；漏洞、凭证、私有战役和受限制来源请走私密安全入口。</span><span class="en">Open an issue before cross-repository or public-contract changes. Include commit or release, environment, reproduction commands, and redacted errors. Route vulnerabilities, credentials, private campaigns, and restricted source material through private security reporting.</span></p>
       </div>
-    </section>
-  </main>
+      <div class="button-row">
+        <a class="button primary" href="https://github.com/SagaSmithAI/.github/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer"><span class="zh">贡献指南</span><span class="en">Contributing guide</span> ↗</a>
+        <a class="button" href="/security"><span class="zh">安全入口</span><span class="en">Security</span></a>
+      </div>
+    </div>
+  </section>
 </SiteLayout>

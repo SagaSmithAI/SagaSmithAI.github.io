@@ -1,112 +1,87 @@
 # SagaSmithAI Website
 
-[Live site](https://sagasmithai.github.io) · [Platform overview](https://github.com/SagaSmithAI/.github/blob/main/profile/README.md) · [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-Web) · [Content catalog](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
+[Live site](https://sagasmithai.github.io) · [Platform overview](https://github.com/SagaSmithAI/.github/blob/main/profile/README.md) · [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-Web) · [Local Agent Kit](https://github.com/SagaSmithAI/SagaSmith-agent)
 
-The source for [sagasmithai.github.io](https://sagasmithai.github.io): the public home of the AI-native TTRPG platform.
+The bilingual static organization site for SagaSmithAI, an AI-native TTRPG platform. It is a public product and developer entry surface, not a runtime dashboard, hosted campaign service, or replacement for component documentation.
 
-## What the site communicates
+## Information architecture
 
-- fully autonomous game mastering as the primary player-facing experience;
-- human-DM collaboration as a supported second hosting mode;
-- persistent choices, actor-scoped knowledge, and clear table boundaries;
-- honest D&D and CoC experience status;
-- extended ruleset import as an explicitly experimental capability;
-- checksum-validated unified core-rule, addon, module, and preset packages;
-- the public-source hosted [SagaSmith Web](https://github.com/SagaSmithAI/SagaSmith-Web),
-  while keeping game-state authority in system MCPs;
-- Local Agent Kit and Hosted Web as two deployments of the same authoritative MCP contract;
-- the public, rights-aware
-  [Content Pack repository](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library)
-  and checksum catalog, without treating repository visibility as a content license;
-- a separate developer path for architecture, repositories, and ownership boundaries;
-- short public-facing platform updates.
+| Route | Purpose |
+|---|---|
+| `/` | Product thesis, Local/Hosted contract map, experience boundaries, maturity, and recent progress |
+| `/start` | Current release-locked Local Kit install, MCP-host templates, transports, and SagaSmith Web development entry |
+| `/developers` | Authoritative contract, ownership boundaries, and current repository topology |
+| `/library` | Current Content Pack inventory and integrity/authority/rights boundaries |
+| `/updates` | Dated public progress summaries with explicit evidence limits |
+| `/security` | Private vulnerability-reporting routes and sensitive-data guidance |
+| `/privacy` | Privacy notice for this static GitHub Pages site |
+| `/404` | Bilingual not-found recovery page |
 
-The site is bilingual (Chinese/English), static, and deliberately contains no runtime dashboard or user campaign data.
+Chinese is the default language. The language control reveals complete English copy on the same static routes and stores only `sagasmith-language` in browser `localStorage`.
 
 ## Current repository map
 
 | Layer | Current repository |
 |---|---|
-| Neutral runtime | [`sagasmith-core`](https://github.com/SagaSmithAI/sagasmith-core) |
-| D&D Domain / MCP / Skills / UI | [`sagasmith-dnd`](https://github.com/SagaSmithAI/sagasmith-dnd) |
-| CoC Domain / MCP / Skills / UI | [`sagasmith-coc`](https://github.com/SagaSmithAI/sagasmith-coc) |
+| Agent host and Local Agent Kit | [`SagaSmith-agent`](https://github.com/SagaSmithAI/SagaSmith-agent) |
+| Hosted browser product | [`SagaSmith-Web`](https://github.com/SagaSmithAI/SagaSmith-Web) |
+| System-neutral runtime | [`Sagasmith-core`](https://github.com/SagaSmithAI/Sagasmith-core) |
+| D&D Domain / MCP / Skills / UI | [`Sagasmith-dnd`](https://github.com/SagaSmithAI/Sagasmith-dnd) |
+| CoC Domain / MCP / Skills / UI | [`Sagasmith-coc`](https://github.com/SagaSmithAI/Sagasmith-coc) |
 | Narrative Domain / MCP / Skills | [`sagasmith-narrative`](https://github.com/SagaSmithAI/sagasmith-narrative) |
-| Agent host | [`SagaSmith-agent`](https://github.com/SagaSmithAI/SagaSmith-agent) |
-| Hosted Web product | [SagaSmith Web (`SagaSmith-Web`)](https://github.com/SagaSmithAI/SagaSmith-Web) |
-| Content catalog | [`SagaSmith-dnd-content-library`](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library) |
+| Rights-aware Content Pack catalog | [`SagaSmith-dnd-content-library`](https://github.com/SagaSmithAI/SagaSmith-dnd-content-library) |
+| Organization profile and community policy | [`.github`](https://github.com/SagaSmithAI/.github) |
 
-Former standalone MCP, Skills, UI, and generic Module Generator repositories
-are archived history, do not accept new issues, and are not current documentation,
-release inputs, or compatibility fallbacks. Their landing READMEs should point to the matching
-vertical repository.
+Former standalone MCP, Skills, UI, and generic Module Generator repositories are archived read-only history. They are not current documentation, release inputs, producers, consumers, or compatibility fallbacks.
 
-## Verified integration baseline
+## Product boundaries
 
-The public status published on 2026-08-20 is backed by a current-source hosted
-run: SagaSmith Web-signed principal context reached session-scoped Agent/MCP tools,
-and the D&D and CoC reference campaigns completed concurrently without a
-reported regression gap. The D&D path recorded a legal ending. Catalog-wide
-discovery and exclusions remain machine-readable; the site must not describe
-this reference run as complete playthrough coverage for every Pack or branch.
+- SagaSmith Local Agent Kit and SagaSmith Web are two deployments of `sagasmith.authoritative-mcp/v1`.
+- Transport, authentication, storage, and deployment may differ. Handlers, tool schemas, errors, authority, revisions, idempotency, and rule-write semantics may not.
+- SagaSmith Web owns accounts, sessions, quota, collaboration, Forge, Module Studio, hosted orchestration, and cloud projections. Domain MCPs remain authoritative for game state.
+- Agent and Skills may interpret, facilitate, and propose. Domain runtimes and MCP settle deterministic rules and authoritative writes.
+- `sagasmith.content-package` v2 Packs do not carry campaign permissions, ActorKnowledge, progress, random streams, branches, or snapshots.
+- Public repository or catalog visibility is not a content license. Every Pack, source, image, map, font, and derived asset retains its own rights requirements.
+- Extended ruleset import is Experimental and does not imply arbitrary unadapted rulebooks can execute safely.
 
-## Development
+## Development and validation
 
 Requires Node.js 22.12+.
 
 ```bash
-npm install
-npm run dev
+npm ci
+npm run check:content
 npm run build
-npm run preview
+npm run check:site
+npm run check:external
 ```
 
-The Pages workflow publishes `/dnd-ui` from `apps/ui` in the current
-[`sagasmith-dnd`](https://github.com/SagaSmithAI/Sagasmith-dnd) vertical
-repository. That external release input is pinned to a full commit SHA in
-`.github/workflows/deploy.yml` and is advanced only after the replacement
-revision passes the D&D workbench CI.
+`npm run check` runs the deterministic content/topology checks, production build, and built-site metadata/internal-link/asset-budget checks. `check:external` performs the network-dependent external-link pass separately.
 
-Main files:
+The GitHub Pages workflow builds only this repository and publishes `dist/`. It has no cross-repository release input or bundled Workbench. Pull requests run the same deterministic checks; deployment occurs only from `main` or an explicit workflow dispatch.
+
+## Assets and visual source
+
+- `public/logo-wordmark.png`, `public/logo-mark.png`, and the original favicon path are first-party brand assets already committed to this Apache-2.0 website in PR #9. They remain covered by this repository's `LICENSE` and `NOTICE`.
+- `public/og.png` is rendered at 1200×630 from the site-owned, reviewable `src/assets/og-source.svg`; it uses only inline vectors, text, and the documented site tokens.
+- `public/favicon.svg` is a site-owned vector mark adapted from the existing website favicon and recolored to the current product palette. `public/icon-512.png` is rendered from the reviewable `src/assets/icon-source.svg` for exact manifest and Apple touch dimensions.
+- The visual token names and interaction patterns are aligned with the current SagaSmith Web product language: void `#0c0d0d`, forge panel `#151716`, iron line `#2a2d2b`, vellum ink `#eee9dc`, forge gold `#d9ad5b`, and moss state `#718d6a`.
+- SagaSmith Web is proprietary. No SagaSmith Web source file, texture, icon, private implementation, model, cache, or generated workflow is copied into this static repository.
+- The site loads no remote font, analytics, image CDN, or third-party visual asset at runtime.
+
+## Main sources
 
 ```text
-src/pages/index.astro        DM/player homepage and autonomous-hosting story
-src/pages/start.astro        Executable Local Kit, MCP-client, and Hosted Web entry paths
-src/pages/developers.astro   Developer architecture and repository map
-src/pages/library.astro      Rights-aware public Content Pack catalog frame
-src/layouts/SiteLayout.astro Shared metadata, navigation, language, and footer
-src/styles/site.css          Shared responsive visual system
-src/lib/news.ts              Local field-note loader
-news/                        Dated Markdown field notes
-public/                      Logo, favicons, and social preview image
+src/layouts/SiteLayout.astro  Shared metadata, bilingual navigation, accessibility, and footer
+src/lib/site.ts               Current repository, system-status, and Local profile data
+src/lib/news.ts               Local dated-news loader
+src/pages/                    Every public route, including privacy, security, updates, and 404
+src/styles/site.css           Shared responsive visual system and reduced-motion handling
+news/                         Dated historical progress sources
+scripts/                      Content, built-site, and external-link checks
+public/                       First-party brand assets, manifest, sitemap, and robots policy
 ```
-
-## Content rules
-
-- Describe SagaSmithAI as an **AI-native TTRPG platform** with complete autonomous
-  hosting as its primary end-user experience.
-- Keep DM and player outcomes ahead of implementation details on the homepage.
-- Present human-DM collaboration as a supported mode, not the only mode.
-- Use the D&D-style fantasy d20 reference path for primary visual storytelling
-  while CoC remains less mature; keep CoC in clearly labeled system-status areas.
-- Present D&D as the end-to-end reference path and label CoC/UI maturity honestly.
-- Always label extended ruleset import as experimental; never imply arbitrary
-  rulebooks or unadapted third-party systems can be imported and run reliably.
-- Keep domain state out of the website; link to MCP/Agent setup instead.
-- Describe SagaSmith Web as the full hosted browser product, with its control plane as one backend
-  responsibility, never as the owner of D&D, CoC, or Narrative campaign state.
-- Keep the Local Agent Kit independent from SagaSmith Web and require both deployments to preserve
-  the same MCP schemas, capabilities, errors, authority, revision, and idempotency behavior.
-- Do not claim bundled access to commercial rulebooks or modules.
-- Treat repository visibility and content licensing as separate facts. Every
-  public catalog entry still requires its own license and distribution rights.
-- Distinguish unified content packages from campaign saves: no permissions,
-  ActorKnowledge, progress, random stream, branches, or Snapshots migrate with them.
-- Describe rule-package imports as validated inactive storage; branch activation
-  remains a separate Owner/DM operation and never implies source authority.
-- Update the organization Profile and platform README when the platform map changes.
-- Tie verification claims to dated, machine-readable regression evidence and keep
-  unexecuted modules or paths explicit.
 
 ## License
 
-Apache-2.0
+Apache-2.0. See [`NOTICE`](NOTICE). Repository visibility and this website license do not grant rights to separately licensed Content Packs or SagaSmith Web source.

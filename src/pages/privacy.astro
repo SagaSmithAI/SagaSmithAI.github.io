@@ -1,0 +1,39 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+<SiteLayout
+  title="组织站点隐私说明"
+  titleEn="Organization site privacy notice"
+  description="SagaSmithAI 静态组织站点的数据边界：无账户、无分析脚本，仅在本机保存语言偏好；GitHub Pages 与外部链接适用各自政策。"
+  descriptionEn="Data boundaries for the static SagaSmithAI organization site: no accounts or analytics, only a local language preference, with GitHub Pages and external links governed by their own policies."
+  page="privacy"
+>
+  <article class="prose">
+    <p class="eyebrow"><span class="zh">隐私</span><span class="en">Privacy</span></p>
+    <h1><span class="zh">这个站点不承载你的战役。</span><span class="en">This site does not host your campaign.</span></h1>
+    <p class="lede"><span class="zh">本说明只适用于 <code>sagasmithai.github.io</code> 组织静态站点，不是 SagaSmith Web、Local Agent Kit、Bot、领域 MCP 或第三方模型 provider 的隐私政策。</span><span class="en">This notice applies only to the static organization site at <code>sagasmithai.github.io</code>. It is not the privacy policy for SagaSmith Web, the Local Agent Kit, bots, domain MCPs, or third-party model providers.</span></p>
+
+    <section>
+      <h2><span class="zh">本站处理什么</span><span class="en">What this site handles</span></h2>
+      <p><span class="zh">本站是由 GitHub Pages 发布的静态文件。它不提供账户登录、不接收 campaign 数据、不嵌入分析脚本、不设置广告 cookie，也不把表单提交到 SagaSmithAI 服务。</span><span class="en">This site is a set of static files published by GitHub Pages. It provides no account login, receives no campaign data, embeds no analytics, sets no advertising cookies, and submits no forms to a SagaSmithAI service.</span></p>
+      <p><span class="zh">语言切换会在浏览器 <code>localStorage</code> 中保存一个值：<code>sagasmith-language</code>（<code>zh</code> 或 <code>en</code>）。它只在你的设备上用于记住界面语言，可以通过清除站点数据删除。</span><span class="en">The language switch stores one value in browser <code>localStorage</code>: <code>sagasmith-language</code> (<code>zh</code> or <code>en</code>). It remains on your device solely to remember interface language and can be removed by clearing site data.</span></p>
+    </section>
+
+    <section>
+      <h2><span class="zh">托管与外部链接</span><span class="en">Hosting and external links</span></h2>
+      <p><span class="zh">GitHub Pages 可能按 GitHub 自身政策处理请求日志、IP 地址与安全遥测。本站链接到 GitHub 仓库、文档和安全报告页面；离开本站后，目标服务的政策适用。</span><span class="en">GitHub Pages may process request logs, IP addresses, and security telemetry under GitHub's own policies. This site links to GitHub repositories, documentation, and security reporting pages; the destination service's policy applies after you leave this site.</span></p>
+      <p><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noreferrer"><span class="zh">GitHub 通用隐私声明</span><span class="en">GitHub General Privacy Statement</span> ↗</a></p>
+    </section>
+
+    <section>
+      <h2><span class="zh">产品数据不属于本站</span><span class="en">Product data is outside this site's scope</span></h2>
+      <p><span class="zh">SagaSmith Web 拥有其账户、session、协作与运营数据边界；Local Agent Kit 的数据保存在用户选择的本地环境。使用这些产品前，请阅读相应仓库和部署中的当前隐私、安全与配置说明。</span><span class="en">SagaSmith Web owns its account, session, collaboration, and operations data boundaries. Local Agent Kit data remains in the local environment chosen by its operator. Read the current privacy, security, and configuration documentation for the relevant repository and deployment before use.</span></p>
+    </section>
+
+    <section>
+      <h2><span class="zh">更新与联系</span><span class="en">Updates and contact</span></h2>
+      <p><span class="zh">本说明随静态站点源码版本化。若发现说明与站点行为不一致，请在本站源码仓库提交普通 Issue；若不一致涉及敏感数据或漏洞，请使用安全页面的私密入口。</span><span class="en">This notice is versioned with the static site source. If it diverges from site behavior, open a regular issue in the site repository; if the mismatch involves sensitive data or a vulnerability, use the private path on the security page.</span></p>
+      <p><a href="https://github.com/SagaSmithAI/SagaSmithAI.github.io/issues" target="_blank" rel="noreferrer"><span class="zh">站点 Issue</span><span class="en">Site issues</span> ↗</a> · <a href="/security"><span class="zh">安全入口</span><span class="en">Security entry</span></a></p>
+    </section>
+  </article>
+</SiteLayout>

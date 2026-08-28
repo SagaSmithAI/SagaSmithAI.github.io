@@ -42,6 +42,10 @@ accurate historical references.
   when the public topology changes.
 - Keep `/start` commands synchronized with the current `SagaSmith-agent` Local Kit manifest,
   CLI, transport contract, and credential-free templates.
+- Keep `/security`, `/privacy`, `/updates`, the sitemap, manifest, README, and
+  Pages workflow aligned with the public routes and data boundaries.
+- GitHub Pages publishes this repository's static `dist/` only. Do not bundle a
+  domain Workbench or treat another repository as a website release input.
 
 ## Development
 
@@ -55,5 +59,5 @@ npm run preview
 ```
 
 Use the repository scripts as the source of truth. A topology change is not
-complete until `src/pages/developers.astro` and the relevant README/profile/news
-entry agree.
+complete until `src/lib/site.ts`, `src/pages/developers.astro`, and the relevant
+README/profile/news entry agree.

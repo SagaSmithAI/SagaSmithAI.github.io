@@ -1,0 +1,54 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { loadNews } from '../lib/news';
+
+const news = await loadNews(50);
+---
+<SiteLayout
+  title="SagaSmith 公开进展"
+  titleEn="SagaSmith public updates"
+  description="SagaSmithAI 带日期的公开平台、架构、验证与内容边界进展。"
+  descriptionEn="Dated public updates on SagaSmithAI platform, architecture, validation, and content boundaries."
+  page="updates"
+>
+  <header class="page-hero shell">
+    <div data-reveal>
+      <p class="eyebrow"><span class="zh">公开进展</span><span class="en">Public updates</span></p>
+      <h1><span class="zh">变更有日期，结论有边界。</span><span class="en">Dated changes. Bounded claims.</span></h1>
+      <p class="lede"><span class="zh">这里记录对外可验证的平台里程碑。历史条目保留当时事实；当前安装、发布与贡献入口始终以现行 vertical repositories、SagaSmith-agent、Sagasmith-core 与 SagaSmith-Web 为准。</span><span class="en">These notes record externally verifiable milestones. Historical entries preserve the facts of their date; current installation, release, and contribution paths always use the active vertical repositories, SagaSmith-agent, Sagasmith-core, and SagaSmith-Web.</span></p>
+    </div>
+    <aside class="page-hero-aside" data-reveal>
+      <strong>EVIDENCE RULE</strong>
+      <p><span class="zh">参考战役通过只证明记录的集成边界；未执行的 Pack、分支和部署保持为明确 exclusion。</span><span class="en">A passing reference campaign proves only its recorded integration boundary. Unexecuted Packs, branches, and deployments remain explicit exclusions.</span></p>
+    </aside>
+  </header>
+
+  <section class="section shell">
+    <div class="ledger" data-reveal>
+      {news.map((item) => (
+        <article class="ledger-row" data-update>
+          <div>
+            <span class="tag">{item.tag}</span>
+            <time datetime={item.date} style="display:block;margin-top:10px;color:var(--muted);font:700 10px var(--mono)">{item.date}</time>
+          </div>
+          <div>
+            <strong style="display:block;margin-bottom:10px;font:500 27px/1.12 var(--display)"><span class="zh">{item.title}</span><span class="en">{item.titleEn}</span></strong>
+            <p><span class="zh">{item.summary}</span><span class="en">{item.summaryEn}</span></p>
+          </div>
+          <span class="state" data-tone="alpha"><span class="zh">已发布</span><span class="en">Published</span></span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="callout" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">看当前状态</span><span class="en">Need current status?</span></p>
+        <h2><span class="zh">以默认分支和当前仓库地图为准。</span><span class="en">Use default branches and the current repository map.</span></h2>
+        <p><span class="zh">历史条目不是安装清单，也不重新激活已归档组件。当前 topology、owner 与 contract 见开发者页面。</span><span class="en">Historical notes are not installation manifests and do not reactivate archived components. See the developer page for current topology, ownership, and contracts.</span></p>
+      </div>
+      <a class="button primary" href="/developers#repositories"><span class="zh">当前仓库地图</span><span class="en">Current repository map</span></a>
+    </div>
+  </section>
+</SiteLayout>

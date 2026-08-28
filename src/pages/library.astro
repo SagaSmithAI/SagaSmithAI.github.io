@@ -2,46 +2,93 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 ---
 <SiteLayout
-  title="SagaSmith D&D Content Library"
-  description="Browse finalized SagaSmith D&D core-rule, addon, module, and preset packages, including actors, sources, assets, review records, and character art."
+  title="内容库与权利边界"
+  titleEn="Content library and rights boundaries"
+  description="SagaSmith 当前 Content Pack 目录、统一包格式、校验和、导入/激活边界，以及逐包许可与来源核验要求。"
+  descriptionEn="The current SagaSmith Content Pack catalog, unified package format, checksums, import and activation boundaries, and item-level licensing requirements."
   page="library"
 >
-  <main class="public-library-page">
-    <header>
-      <span>PUBLIC REPOSITORY / CHECKSUM-BOUND / RIGHTS-AWARE</span>
-      <h1><span class="zh">SagaSmith 当前内容包目录</span><span class="en">SagaSmith Current Content Pack Catalog</span></h1>
-      <p class="zh">仓库与机器可读索引现已公开，统一列出 D&amp;D 5e 与 CoC 7e 的 core rules、Addon、模组和预设。公开可见不等于开放内容许可：每个 Pack、来源与资产仍保留自己的许可、署名和分发限制。请只下载、导入或再分发你有权使用的内容；安装与战役启用仍由 MCP 权限和规则锁控制。</p>
-      <p class="en">The repository and machine-readable index are now public, covering current D&amp;D 5e and CoC 7e core rules, addons, modules, and presets. Public visibility is not an open-content license: every Pack, source, and asset retains its own license, attribution, and distribution restrictions. Download, import, or redistribute only what you are authorized to use; MCP permissions and campaign locks still govern installation and activation.</p>
-      <p class="zh">2026-08-20，当前源码托管栈已并发完成 D&amp;D 与 CoC 参考战役。回归 runner 会发现目录中的全部模组，并把未执行项与互斥路径保留为机器可读 exclusion；一次参考通过不等于 46 个 Pack 的完整通关认证。</p>
-      <p class="en">On 2026-08-20 the current-source hosted stack completed the D&amp;D and CoC reference campaigns concurrently. The regression runner discovers every catalog module and preserves unexecuted items and mutually exclusive paths as machine-readable exclusions; one reference pass is not complete playthrough certification for all 46 Packs.</p>
-      <div class="library-actions">
-        <a href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library" target="_blank" rel="noreferrer"><span class="zh">查看公开仓库</span><span class="en">View public repository</span> ↗</a>
-        <a href="https://raw.githubusercontent.com/SagaSmithAI/SagaSmith-dnd-content-library/main/content-library/index.json" target="_blank" rel="noreferrer"><span class="zh">机器可读索引</span><span class="en">Machine-readable index</span> ↗</a>
-      </div>
-    </header>
-    <section class="catalog-source">
-      <span>CANONICAL CATALOG SOURCE</span>
-      <h2><span class="zh">目录以校验和索引为准</span><span class="en">The checksum index is the catalog authority</span></h2>
-      <p class="zh">Content Library 仓库目前没有独立 GitHub Pages 部署。请通过公开仓库审阅 Pack、许可与验证证据，或直接读取 raw JSON 索引；本站不再嵌入不存在的 Pages UI。</p>
-      <p class="en">The Content Library repository currently has no separate GitHub Pages deployment. Review Packs, rights metadata, and validation evidence in the public repository or consume the raw JSON index; this site no longer embeds a nonexistent Pages UI.</p>
-      <div class="library-actions">
-        <a href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library/tree/main/content-library" target="_blank" rel="noreferrer"><span class="zh">浏览目录源码</span><span class="en">Browse catalog source</span> ↗</a>
-        <a href="https://raw.githubusercontent.com/SagaSmithAI/SagaSmith-dnd-content-library/main/content-library/index.json" target="_blank" rel="noreferrer"><span class="zh">打开 JSON</span><span class="en">Open JSON</span> ↗</a>
-      </div>
-    </section>
-  </main>
-</SiteLayout>
+  <header class="page-hero shell">
+    <div data-reveal>
+      <p class="eyebrow"><span class="zh">内容库</span><span class="en">Content library</span></p>
+      <h1><span class="zh">可校验，不等于可随意分发。</span><span class="en">Verifiable does not mean freely distributable.</span></h1>
+      <p class="lede"><span class="zh">当前目录用不可变 identity、版本、大小与 SHA-256 描述 Content Pack。仓库可见性只让索引可以被审计；每个 Pack、来源文档与嵌入资产仍保留各自许可、署名和分发限制。</span><span class="en">The current catalog describes Content Packs with immutable identities, versions, sizes, and SHA-256 checksums. Repository visibility makes the index auditable; every Pack, source document, and embedded asset retains its own license, attribution, and distribution restrictions.</span></p>
+    </div>
+    <aside class="page-hero-aside" data-reveal>
+      <strong>CURRENT FORMAT</strong>
+      <p><code>sagasmith.content-package</code> v2<br /><code>.sagasmith-pack</code><br /><span class="zh">目录快照生成于 2026-08-16</span><span class="en">Catalog snapshot generated 2026-08-16</span></p>
+    </aside>
+  </header>
 
-<style>
-  .public-library-page { padding: 120px 24px 50px; }
-  .public-library-page > header { width: min(1180px,100%); margin: 0 auto 24px; }
-  .public-library-page > header > span { color: #c54b2d; font: 700 11px monospace; letter-spacing: .14em; }
-  .public-library-page h1 { margin: 12px 0; font-size: clamp(34px,5vw,68px); }
-  .public-library-page p { max-width: 850px; color: #686e68; }
-  .library-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
-  .library-actions a { color: #c54b2d; font: 700 12px monospace; letter-spacing: .06em; text-decoration: none; }
-  .library-actions a:hover { text-decoration: underline; }
-  .catalog-source { width: min(1180px,100%); margin: 0 auto; padding: clamp(28px,5vw,64px); border: 1px solid #333a34; background: #f2ede3; }
-  .catalog-source > span { color: #c54b2d; font: 700 11px monospace; letter-spacing: .14em; }
-  .catalog-source h2 { margin: 12px 0; font-size: clamp(26px,4vw,46px); }
-</style>
+  <section class="section shell">
+    <div class="section-head split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">当前机器索引</span><span class="en">Current machine index</span></p>
+        <h2><span class="zh">46 个当前 Pack，逐项锁定。</span><span class="en">46 current Packs, locked item by item.</span></h2>
+      </div>
+      <p><span class="zh">数量来自当前 <code>content-library/index.json</code>：D&D 43 个，CoC 3 个。索引存在不代表任何条目已经授予你下载、导入或再分发权。</span><span class="en">Counts come from the current <code>content-library/index.json</code>: 43 D&D Packs and 3 CoC Packs. Presence in the index does not grant permission to download, import, or redistribute an entry.</span></p>
+    </div>
+    <div class="stat-strip" data-reveal>
+      <div class="stat"><strong>21</strong><span>D&amp;D ADDONS</span></div>
+      <div class="stat"><strong>3</strong><span>CORE RULE PACKS<br />D&amp;D 2 · CoC 1</span></div>
+      <div class="stat"><strong>20</strong><span>MODULES<br />D&amp;D 18 · CoC 2</span></div>
+      <div class="stat"><strong>2</strong><span>D&amp;D ACTOR PRESETS</span></div>
+    </div>
+    <div class="button-row">
+      <a class="button primary" href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library/blob/main/content-library/index.json" target="_blank" rel="noreferrer"><span class="zh">查看机器索引</span><span class="en">Open machine index</span> ↗</a>
+      <a class="button" href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library" target="_blank" rel="noreferrer"><span class="zh">查看目录仓库</span><span class="en">Open catalog repository</span> ↗</a>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow"><span class="zh">统一内容边界</span><span class="en">Unified content boundary</span></p>
+      <h2><span class="zh">四种 Pack，共用一套可验证骨架。</span><span class="en">Four Pack kinds share one verifiable envelope.</span></h2>
+    </div>
+    <div class="ledger" data-reveal>
+      <article class="ledger-row"><strong>core_rules</strong><p><span class="zh">核心规则 profile、来源、版本与确定性定义；安装不会自动赋予来源权利。</span><span class="en">Core-rule profiles, provenance, versions, and deterministic definitions; installation does not confer source rights.</span></p><span class="tag">RULE LOCK</span></article>
+      <article class="ledger-row"><strong>addon</strong><p><span class="zh">绑定依赖与版本的扩展规则；导入后仍需 Owner/DM 独立激活。</span><span class="en">Extension rules with locked dependencies and versions; Owner or DM activation remains a separate step after import.</span></p><span class="tag">DEPENDENCY LOCK</span></article>
+      <article class="ledger-row"><strong>module</strong><p><span class="zh">结构化模组、标准化来源、Scene Atlas、NPC、资产与审核记录；不携带战役进度。</span><span class="en">Structured modules, normalized sources, Scene Atlas, NPCs, assets, and review records; never campaign progress.</span></p><span class="tag">SOURCE-BOUND</span></article>
+      <article class="ledger-row"><strong>preset</strong><p><span class="zh">PC、NPC 与怪物共用 <code>sagasmith.actor-card.v3</code>；导入始终创建新的本地 identity。</span><span class="en">PCs, NPCs, and monsters share <code>sagasmith.actor-card.v3</code>; import always creates a new local identity.</span></p><span class="tag">NEW IDENTITY</span></article>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-head split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">边界检查</span><span class="en">Boundary checks</span></p>
+        <h2><span class="zh">技术完整性、运行权限与内容权利是三件事。</span><span class="en">Technical integrity, runtime authority, and content rights are separate.</span></h2>
+      </div>
+      <div class="section-note"><span class="zh">Extended ruleset import 仍是 Experimental。来源保留、解析成功和 checksum 通过，都不代表系统能够安全执行任意未适配规则书。</span><span class="en">Extended ruleset import remains Experimental. Preserved provenance, successful parsing, and valid checksums do not mean the system can safely execute an arbitrary unadapted rulebook.</span></div>
+    </div>
+    <div class="boundary-grid">
+      <article class="boundary-card" data-reveal><span class="choice-label">01 / INTEGRITY</span><h3><span class="zh">先验证归档</span><span class="en">Validate the archive first</span></h3><p><span class="zh">校验 manifest、archive SHA-256、每个 blob、依赖闭包、system/kind 与可移植路径。旧 portable JSON、release manifest 与 <code>.sagasmith-module</code> 不属于当前公开协议。</span><span class="en">Validate manifest, archive SHA-256, every blob, dependency closure, system and kind, and portable paths. Legacy portable JSON, release manifests, and <code>.sagasmith-module</code> are not part of the current public protocol.</span></p></article>
+      <article class="boundary-card" data-reveal><span class="choice-label">02 / AUTHORITY</span><h3><span class="zh">导入不等于激活</span><span class="en">Import is not activation</span></h3><p><span class="zh">领域 MCP 负责导入、导出、删除与激活。导入可先进入校验后的非活动存储；branch activation 仍需独立的 Owner/DM 操作。</span><span class="en">The domain MCP owns import, export, removal, and activation. Import may land in validated inactive storage; branch activation remains a separate Owner or DM operation.</span></p></article>
+      <article class="boundary-card warning" data-reveal><span class="choice-label">03 / RIGHTS</span><h3><span class="zh">逐包核对许可</span><span class="en">Verify rights per Pack</span></h3><p><span class="zh">检查 <code>license_evidence</code>、来源授权、署名、图片/字体/地图许可与分发范围。商业原文、提取文本、chunks、embeddings 与 Drafts 应保持私密。</span><span class="en">Check <code>license_evidence</code>, source authorization, attribution, image, font, and map licenses, and distribution scope. Commercial source text, extracts, chunks, embeddings, and Drafts must remain private.</span></p></article>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow"><span class="zh">不会随 Pack 迁移</span><span class="en">Never travels with a Pack</span></p>
+      <h2><span class="zh">内容可以移动，战役权威留在原账本。</span><span class="en">Content may move. Campaign authority stays in its ledger.</span></h2>
+    </div>
+    <div class="feature-grid">
+      <article class="feature-card" data-reveal><span class="choice-label">IDENTITY</span><h3><span class="zh">权限与角色绑定</span><span class="en">Permissions and actor bindings</span></h3><p><span class="zh">来源数据库 id、principal、role grant 与 actor control 不进入可分享内容。</span><span class="en">Source database IDs, principals, role grants, and actor control never enter shareable content.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">CONTINUITY</span><h3><span class="zh">进度、分支与 Snapshot</span><span class="en">Progress, branches, and snapshots</span></h3><p><span class="zh">战役时间线、revision、世界状态、随机流和 Snapshot DAG 仍属于原运行时。</span><span class="en">Campaign timelines, revisions, world state, random streams, and snapshot DAGs remain in the original runtime.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">KNOWLEDGE</span><h3><span class="zh">ActorKnowledge 与记忆</span><span class="en">ActorKnowledge and memory</span></h3><p><span class="zh">PC/NPC 所知事实、隐藏 GM 内容、Agent session 与 workspace memory 不随 actor card 或模组导出。</span><span class="en">PC and NPC knowledge, hidden GM content, Agent sessions, and workspace memory do not export with actor cards or modules.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">ACTIVATION</span><h3><span class="zh">分支激活决定</span><span class="en">Branch activation decisions</span></h3><p><span class="zh">安装一个 Pack 不会替用户选择 campaign，也不暗示来源具有权威；激活需要匹配领域的受权操作。</span><span class="en">Installing a Pack does not choose a campaign or make its source authoritative; activation requires an authorized domain operation.</span></p></article>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="callout" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="zh">先检查，再使用</span><span class="en">Inspect before use</span></p>
+        <h2><span class="zh">公开目录是审计入口，不是许可商店。</span><span class="en">The public catalog is an audit surface, not a license store.</span></h2>
+        <p><span class="zh">只下载、导入或再分发你已获授权的内容。发现缺失、矛盾或敏感的许可证据时，不要公开传播包内容；从目录仓库的贡献或安全入口报告。</span><span class="en">Download, import, or redistribute only content you are authorized to use. If license evidence is missing, conflicting, or sensitive, do not redistribute the Pack; report it through the catalog repository's contribution or security path.</span></p>
+      </div>
+      <a class="button" href="/security"><span class="zh">安全报告入口</span><span class="en">Security reporting</span></a>
+    </div>
+  </section>
+</SiteLayout>

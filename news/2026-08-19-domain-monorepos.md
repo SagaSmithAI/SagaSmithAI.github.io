@@ -16,6 +16,6 @@ Skills、领域 UI（如有）和对应的 Pack/项目创作流程，同时继�
 审计，但不再接收当前 Issue、发布或集成，也不会被 Agent、SagaSmith Web 或安装器作为
 兼容回退。
 
-`sagasmith-core`、`SagaSmith-agent`、`SagaSmith-service`、内容目录、官网与组织文档
+`sagasmith-core`、`SagaSmith-agent`、`SagaSmith-Web`（当时名为 `SagaSmith-service`）、内容目录、官网与组织文档
 继续独立。开发者页、活跃仓库 README 与 SagaSmith Web 组件锁只把当前 vertical
 仓库作为发布和集成输入；归档仓库的入口文档应仅重定向到对应 vertical 仓库。

@@ -2,6 +2,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,36 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/checkout@v7
-        with:
-          repository: SagaSmithAI/Sagasmith-dnd
-          # Production inputs stay reproducible. Bump this revision only after
-          # the D&D workbench CI passes at the replacement commit.
-          ref: 25ee1ce4994f1950d6febd50145d364dbf621dbe
-          path: sagasmith-dnd
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: |
-            package-lock.json
-            sagasmith-dnd/package-lock.json
+          cache-dependency-path: package-lock.json
       - run: npm ci
+      - run: npm run check:content
       - run: npm run build
-      - run: npm ci
-        working-directory: sagasmith-dnd
-      - run: npm run build:ui
-        working-directory: sagasmith-dnd
-        env:
-          SAGASMITH_UI_BASE: /dnd-ui
-          SAGASMITH_UI_SITE: https://SagaSmithAI.github.io
-          PUBLIC_SAGASMITH_LIBRARY_URL: https://SagaSmithAI.github.io/content-library/index.json
-      - run: cp -R sagasmith-dnd/apps/ui/dist dist/dnd-ui
+      - run: npm run check:site
       - uses: actions/upload-pages-artifact@v5
+        if: github.event_name != 'pull_request'
         with:
           path: dist/
   deploy:
     needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
