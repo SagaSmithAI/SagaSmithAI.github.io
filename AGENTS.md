@@ -33,6 +33,10 @@ accurate historical references.
 - Present Local Agent Kit and SagaSmith Web as two deployments of the same authoritative MCP
   contract. Their transport, authentication, storage, and deployment may differ; their tool
   schemas, rule/state writes, revision behavior, and idempotency may not.
+- Describe MCP `2026-07-28` as the modern target: request-scoped discovery and authorization,
+  deterministic catalogs with Host-selected task projections, and explicit expiring handles for
+  cross-call state. Treat initialize/session exposure and `tools/list_changed` only as a labeled
+  compatibility adapter, never as an authority boundary or the long-term model.
 - Treat repository visibility, software licensing, and Pack/source/asset rights
   as separate facts.
 - Do not claim bundled commercial rules or modules.
@@ -46,6 +50,8 @@ accurate historical references.
   Pages workflow aligned with the public routes and data boundaries.
 - GitHub Pages publishes this repository's static `dist/` only. Do not bundle a
   domain Workbench or treat another repository as a website release input.
+- Release and production deployments consume only validated immutable component locks. Rollback
+  restores a previously validated lock; it never revives an archived repository as an input.
 
 ## Development
 

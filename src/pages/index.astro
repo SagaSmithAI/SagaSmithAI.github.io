@@ -36,7 +36,7 @@ const news = await loadNews(3);
 
     <div class="contract-map" data-reveal aria-label="Local and hosted deployments converge on one authoritative MCP contract">
       <div class="contract-head">
-        <span>DEPLOYMENT MAP / v1</span>
+        <span>DEPLOYMENT MAP / MCP 2026-07-28</span>
         <b>CONTRACT LOCKED</b>
       </div>
       <div class="contract-body">
@@ -50,7 +50,7 @@ const news = await loadNews(3);
           <section class="contract-lane">
             <small>HOSTED / WEB PRODUCT</small>
             <h2>SagaSmith Web</h2>
-            <p><span class="zh">浏览器/PWA、API/BFF、协作、Forge 与 principal-scoped Agent worker。</span><span class="en">Browser/PWA, API/BFF, collaboration, Forge, and principal-scoped Agent workers.</span></p>
+            <p><span class="zh">浏览器/PWA、API/BFF、协作、Forge 与使用专用委托的 request-scoped Agent worker。</span><span class="en">Browser/PWA, API/BFF, collaboration, Forge, and request-scoped Agent workers using audience-bound delegation.</span></p>
             <span class="lane-status">account · session · worker</span>
           </section>
         </div>
@@ -58,8 +58,8 @@ const news = await loadNews(3);
         <div class="contract-stack">
           <section class="contract-core">
             <small>ONE AUTHORITATIVE CONTRACT</small>
-            <strong>sagasmith.authoritative-mcp/v1</strong>
-            <p><span class="zh">同一 handlers、schemas、errors、authority、revision 与 idempotency。</span><span class="en">The same handlers, schemas, errors, authority, revisions, and idempotency.</span></p>
+            <strong>sagasmith.authoritative-mcp/v2</strong>
+            <p><span class="zh">同一 handlers、schemas、errors、每请求 authority、revision 与 idempotency。</span><span class="en">The same handlers, schemas, errors, per-request authority, revisions, and idempotency.</span></p>
           </section>
           <div class="runtime-grid" aria-label="Domain runtimes">
             <div class="runtime-node"><small>DOMAIN</small>D&amp;D</div>

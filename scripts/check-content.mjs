@@ -51,12 +51,33 @@ const authoritativeFiles = [
   '.github/workflows/deploy.yml',
 ];
 const authoritativeText = (await Promise.all(authoritativeFiles.map(read))).join('\n');
+const modernContractFiles = [
+  'README.md',
+  'src/pages/index.astro',
+  'src/pages/start.astro',
+  'src/pages/developers.astro',
+];
+const modernContractText = (await Promise.all(modernContractFiles.map(read))).join('\n');
 
 for (const legacy of legacyNames) {
   if (authoritativeText.includes(legacy)) failures.push(`authoritative surfaces still name legacy repository: ${legacy}`);
 }
 for (const repo of currentRepos) {
   if (!authoritativeText.includes(repo)) failures.push(`current repository missing from authoritative surfaces: ${repo}`);
+}
+for (const legacyClaim of [
+  'sagasmith.authoritative-mcp/v1',
+  'principal-scoped worker',
+  'refresh schemas after <code>tools/list_changed</code>',
+]) {
+  if (modernContractText.includes(legacyClaim)) failures.push(`public contract still contains legacy claim: ${legacyClaim}`);
+}
+for (const file of ['README.md', 'src/pages/start.astro', 'src/pages/developers.astro']) {
+  const source = await read(file);
+  if (!source.includes('2026-07-28')) failures.push(`${file}: missing modern MCP target`);
+}
+for (const requirement of ['server/discover', 'tools/list', 'opaque handle', 'COMPONENT LOCK + ROLLBACK']) {
+  if (!modernContractText.includes(requirement)) failures.push(`public contract missing modern boundary: ${requirement}`);
 }
 
 const workflow = await read('.github/workflows/deploy.yml');
