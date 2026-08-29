@@ -36,13 +36,26 @@ Former standalone MCP, Skills, UI, and generic Module Generator repositories are
 
 ## Product boundaries
 
-- SagaSmith Local Agent Kit and SagaSmith Web are two deployments of `sagasmith.authoritative-mcp/v1`.
+- SagaSmith Local Agent Kit and SagaSmith Web are two deployments of the
+  `sagasmith.authoritative-mcp/v2` application contract, with MCP `2026-07-28` as the modern
+  protocol target.
 - Transport, authentication, storage, and deployment may differ. Handlers, tool schemas, errors, authority, revisions, idempotency, and rule-write semantics may not.
+- Modern requests use `server/discover`, carry protocol/capability/identity metadata on every
+  request, and never treat initialize, a connection, or `Mcp-Session-Id` as authority. Domain
+  `tools/list` is deterministic and privately cacheable for one authorization scope; the Host
+  projects the task-relevant facade subset without mutating the server catalog.
+- Cross-call state uses explicit server-issued opaque handles or explicit campaign/revision
+  parameters. Handles have an owner and expiry, are re-authorized on every call, and are names—not
+  bearer capabilities. Legacy initialize/session exposure is retained only by an explicitly pinned
+  compatibility adapter while older clients are migrated.
 - SagaSmith Web owns accounts, sessions, quota, collaboration, Forge, Module Studio, hosted orchestration, and cloud projections. Domain MCPs remain authoritative for game state.
 - Agent and Skills may interpret, facilitate, and propose. Domain runtimes and MCP settle deterministic rules and authoritative writes.
 - `sagasmith.content-package` v2 Packs do not carry campaign permissions, ActorKnowledge, progress, random streams, branches, or snapshots.
 - Public repository or catalog visibility is not a content license. Every Pack, source, image, map, font, and derived asset retains its own rights requirements.
 - Extended ruleset import is Experimental and does not imply arbitrary unadapted rulebooks can execute safely.
+- Local release profiles and SagaSmith Web production builds pin exact validated component commits.
+  Rollback restores the previous complete lock and compatible data/schema state; archived split
+  repositories are never release inputs or fallbacks.
 
 ## Development and validation
 

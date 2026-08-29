@@ -17,7 +17,7 @@ import { repositories } from '../lib/site';
     </div>
     <aside class="page-hero-aside" data-reveal>
       <strong>AUTHORITATIVE CONTRACT</strong>
-      <p><code>sagasmith.authoritative-mcp/v1</code><br /><span class="zh">schema · capability · error · revision · idempotency · authority</span><span class="en">schema · capability · error · revision · idempotency · authority</span></p>
+      <p><code>sagasmith.authoritative-mcp/v2</code><br /><code>MCP 2026-07-28</code><br /><span class="zh">schema · capability · error · revision · idempotency · authority</span><span class="en">schema · capability · error · revision · idempotency · authority</span></p>
     </aside>
   </header>
 
@@ -27,7 +27,7 @@ import { repositories } from '../lib/site';
         <p class="eyebrow"><span class="zh">双发行物</span><span class="en">Two distributions</span></p>
         <h2><span class="zh">部署可以不同，领域真相不能分叉。</span><span class="en">Deployment may differ. Domain truth may not fork.</span></h2>
       </div>
-      <p><span class="zh">Local 与 Hosted 可以采用不同 transport、authentication、storage 和 deployment。它们必须保持相同 handlers、tool schemas、capability discovery、错误、权限、revision、idempotency 与规则写入语义。</span><span class="en">Local and Hosted may use different transport, authentication, storage, and deployment. They must preserve the same handlers, tool schemas, capability discovery, errors, authority, revisions, idempotency, and rule-write semantics.</span></p>
+      <p><span class="zh">Local 与 Hosted 可以采用不同 transport、authentication、storage 和 deployment。它们必须保持相同 handlers、tool schemas、capability discovery、错误、权限、revision、idempotency 与规则写入语义。现代 MCP 每次请求都携带版本、能力与身份元数据，不执行 initialize，也不以连接或 <code>Mcp-Session-Id</code> 建立权威。</span><span class="en">Local and Hosted may use different transport, authentication, storage, and deployment. They must preserve the same handlers, tool schemas, capability discovery, errors, authority, revisions, idempotency, and rule-write semantics. Modern MCP carries version, capability, and identity metadata on every request; it does not initialize or derive authority from a connection or <code>Mcp-Session-Id</code>.</span></p>
     </div>
     <div class="mode-grid">
       <article class="mode-card highlight" data-reveal>
@@ -36,6 +36,7 @@ import { repositories } from '../lib/site';
         <ul class="mode-list">
           <li><span class="zh">Host：SagaSmith Agent、Bot 或通用 MCP Agent</span><span class="en">Host: SagaSmith Agent, a bot, or a generic MCP agent</span></li>
           <li><span class="zh">Transport：stdio 或仅 loopback 的 Streamable HTTP</span><span class="en">Transport: stdio or loopback-only Streamable HTTP</span></li>
+          <li><span class="zh">同一 request-scoped handlers；legacy initialize 仅是锁定的兼容 adapter</span><span class="en">The same request-scoped handlers; legacy initialize is only a pinned compatibility adapter</span></li>
           <li><span class="zh">Storage：SQLite 与本地文件</span><span class="en">Storage: SQLite and local files</span></li>
           <li><span class="zh">不依赖 Web、PostgreSQL、Redis、对象存储、账户或 Forge</span><span class="en">No dependency on Web, PostgreSQL, Redis, object storage, accounts, or Forge</span></li>
         </ul>
@@ -45,7 +46,8 @@ import { repositories } from '../lib/site';
         <h3>Browser → API/BFF → Agent worker → Domain MCP</h3>
         <ul class="mode-list">
           <li><span class="zh">Web 拥有账户、session、配额、邀请、协作、Forge 与云端投影</span><span class="en">Web owns accounts, sessions, quota, invitations, collaboration, Forge, and cloud projections</span></li>
-          <li><span class="zh">principal-scoped worker 将身份交给动态 MCP 工具</span><span class="en">Principal-scoped workers pass identity to dynamic MCP tools</span></li>
+          <li><span class="zh">request-scoped worker 使用面向目标 MCP audience 的专用委托</span><span class="en">Request-scoped workers use delegations issued for the target MCP audience</span></li>
+          <li><span class="zh">共享 HTTP pool 不携带隐式 principal/session，也不透传浏览器 token</span><span class="en">Shared HTTP pools carry no implicit principal or session and never pass browser tokens through</span></li>
           <li><span class="zh">领域服务在每次调用边界重新验证权限与 revision</span><span class="en">Domain services revalidate authority and revision at every call boundary</span></li>
           <li><span class="zh">Web 缓存投影，但不直接写开放领域数据库</span><span class="en">Web may cache projections but never writes open domain databases directly</span></li>
         </ul>
@@ -95,12 +97,14 @@ import { repositories } from '../lib/site';
   <section class="section shell">
     <div class="section-head" data-reveal>
       <p class="eyebrow"><span class="zh">公共契约</span><span class="en">Public contract</span></p>
-      <h2><span class="zh">六个维度必须跨发行形态一致。</span><span class="en">Six dimensions stay consistent across distributions.</span></h2>
+      <h2><span class="zh">现代协议、权威语义与发布锁必须跨发行形态一致。</span><span class="en">Modern protocol, authority semantics, and release locks stay consistent across distributions.</span></h2>
     </div>
     <div class="feature-grid">
-      <article class="feature-card" data-reveal><span class="choice-label">SCHEMA + CAPABILITY</span><h3><span class="zh">动态发现，不维护固定工具全集</span><span class="en">Dynamic discovery, never a fixed tool superset</span></h3><p><span class="zh">Host 使用服务端动态工具列表，并在 <code>tools/list_changed</code> 后刷新 schema；phase、role 与 exposure 继续在服务端收窄。</span><span class="en">Hosts use the server-owned dynamic tool list and refresh schemas after <code>tools/list_changed</code>; phase, role, and exposure narrow capabilities server-side.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">DISCOVERY + PROJECTION</span><h3><span class="zh">稳定目录，按任务投影</span><span class="en">Stable catalogs, task-scoped projections</span></h3><p><span class="zh">现代 Host 使用 <code>server/discover</code> 与确定排序、按 authorization 隔离且可私有缓存的 <code>tools/list</code>。Host 根据 system、phase 与任务把稳定目录的 facade 子集交给模型；工具调用仍由 MCP 重新校验 role、phase 与 revision，目录不会被同一连接的副作用改写。</span><span class="en">Modern Hosts use <code>server/discover</code> and a deterministically ordered <code>tools/list</code> that is authorization-isolated and privately cacheable. The Host projects a facade subset for the current system, phase, and task; MCP still revalidates role, phase, and revision on every call, and connection side effects never mutate the catalog.</span></p></article>
       <article class="feature-card" data-reveal><span class="choice-label">ERROR + REVISION</span><h3><span class="zh">失败可解释，写入可并发验证</span><span class="en">Failures explain themselves; writes remain concurrency-safe</span></h3><p><span class="zh">客户端收到一致的错误结构与 revision 语义；旧 revision 不能通过 UI、Agent 文本或 transport 差异绕过。</span><span class="en">Clients receive consistent error structures and revision semantics; stale revisions cannot bypass checks through UI, Agent text, or transport differences.</span></p></article>
-      <article class="feature-card" data-reveal><span class="choice-label">IDEMPOTENCY + AUTHORITY</span><h3><span class="zh">重试不会复制结算，身份不能由请求自选</span><span class="en">Retries do not duplicate settlement; requests do not choose identity</span></h3><p><span class="zh">幂等键、principal context、actor binding 与 campaign role 均由可信边界注入并由 MCP 重新验证。</span><span class="en">Idempotency keys, principal context, actor bindings, and campaign roles are injected by trusted boundaries and revalidated by MCP.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">IDEMPOTENCY + AUTHORITY</span><h3><span class="zh">重试不会复制结算，身份不能由请求自选</span><span class="en">Retries do not duplicate settlement; requests do not choose identity</span></h3><p><span class="zh">幂等键与 caller/workload、requester/resource owner、acting character、audience、room turn、base revision、expiry 均由可信 Host 结构化注入并由 MCP 每次重新验证。模型不能选择权威身份，HTTP 也不接受 token passthrough。</span><span class="en">Idempotency keys and caller/workload, requester/resource owner, acting character, audience, room turn, base revision, and expiry are injected structurally by the trusted Host and revalidated by MCP on every call. Models cannot choose authoritative identity, and HTTP does not accept token passthrough.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">HANDLE + CROSS-CALL STATE</span><h3><span class="zh">显式状态，不依赖隐藏 session</span><span class="en">Explicit state, never a hidden session</span></h3><p><span class="zh">跨调用的 exposure、import、render 等状态使用服务端签发的 opaque handle，或显式 campaign/revision 参数。Handle 绑定 owner 与 TTL，过期返回可恢复错误；它只是名称，不是 bearer capability。</span><span class="en">Cross-call exposure, import, render, and similar state uses a server-issued opaque handle or explicit campaign and revision parameters. Handles bind an owner and TTL, return a recoverable expiry error, and are names rather than bearer capabilities.</span></p></article>
+      <article class="feature-card" data-reveal><span class="choice-label">COMPONENT LOCK + ROLLBACK</span><h3><span class="zh">整组升级，整组回滚</span><span class="en">Upgrade and roll back as one set</span></h3><p><span class="zh">Local release profile 与 Hosted production 固定经过验证的 Agent、Core、三个领域和 Web commit 组合。切换前执行 modern/legacy、stdio/HTTP 与数据 canary；回滚恢复上一份完整锁及兼容 schema，不把 archived repo、未锁定 main 或旧 session 状态当作输入。</span><span class="en">Local release profiles and Hosted production pin a validated Agent, Core, domain, and Web commit set. Before switching, run modern/legacy, stdio/HTTP, and data canaries; rollback restores the previous complete lock and compatible schema, never an archived repository, unlocked main branch, or old session state.</span></p></article>
       <article class="feature-card" data-reveal><span class="choice-label">PACK CONTRACT</span><h3><span class="zh">统一内容包，独立权利与激活</span><span class="en">Unified content packages, separate rights and activation</span></h3><p><span class="zh"><code>sagasmith.content-package</code> v2 是当前公开交换格式；每个 Pack 的许可、来源、导入权限与 campaign activation 都独立判断。</span><span class="en"><code>sagasmith.content-package</code> v2 is the current public exchange format; each Pack's license, provenance, import authority, and campaign activation are evaluated separately.</span></p></article>
     </div>
   </section>

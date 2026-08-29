@@ -56,7 +56,7 @@ import { localProfiles } from '../lib/site';
         <p class="eyebrow">Local Agent Kit</p>
         <h2><span class="zh">从发行锁安装，不依赖旧仓库。</span><span class="en">Install from the release lock, with no legacy repository dependency.</span></h2>
       </div>
-      <p><span class="zh"><code>--source release</code> 会使用 Agent 仓库内的发行锁检出所选当前组件。安装器不会导入商业书籍、生成私有 Pack、配置 provider secret 或自动激活内容。</span><span class="en"><code>--source release</code> uses the Agent repository's release lock to fetch the selected current components. The installer does not import commercial books, create private Packs, configure provider secrets, or activate content.</span></p>
+      <p><span class="zh"><code>--source release</code> 会使用 Agent 仓库内的不可变发行锁检出所选当前组件。锁同时记录经过验证的 MCP 现代/兼容组合；回滚恢复上一份完整锁，不会改用归档仓库。安装器不会导入商业书籍、生成私有 Pack、配置 provider secret 或自动激活内容。</span><span class="en"><code>--source release</code> uses the Agent repository's immutable release lock to fetch the selected current components. The lock records the validated modern/compatibility MCP combination; rollback restores the previous complete lock and never substitutes an archived repository. The installer does not import commercial books, create private Packs, configure provider secrets, or activate content.</span></p>
     </div>
     <div class="steps">
       <article class="step" data-reveal>
@@ -126,10 +126,10 @@ uv run nanobot sagasmith start</code></pre>
   <section class="section shell">
     <div class="section-head split" data-reveal>
       <div>
-        <p class="eyebrow"><span class="zh">同一契约，三种本地 transport</span><span class="en">One contract, three local transports</span></p>
+        <p class="eyebrow"><span class="zh">MCP 2026-07-28，同一契约、三种本地 transport</span><span class="en">MCP 2026-07-28, one contract across three local transports</span></p>
         <h2><span class="zh">transport 改变进程形态，不改变规则语义。</span><span class="en">Transport changes process shape, not rule semantics.</span></h2>
       </div>
-      <p><span class="zh">每种模式都必须执行同一 handlers、schema、错误、revision、idempotency 与 authority 语义。HTTP 仅监听 loopback。</span><span class="en">Every mode executes the same handlers, schemas, errors, revisions, idempotency, and authority semantics. HTTP binds to loopback only.</span></p>
+      <p><span class="zh">每种模式都必须执行同一 handlers、schema、错误、revision、idempotency 与 authority 语义。现代请求使用 <code>server/discover</code>，并在每次调用携带版本、能力与身份元数据；连接或 <code>Mcp-Session-Id</code> 不是权限边界。HTTP 仅监听 loopback。</span><span class="en">Every mode executes the same handlers, schemas, errors, revisions, idempotency, and authority semantics. Modern requests use <code>server/discover</code> and carry version, capability, and identity metadata on every call; neither a connection nor <code>Mcp-Session-Id</code> is an authority boundary. HTTP binds to loopback only.</span></p>
     </div>
     <div class="transport-grid">
       <article class="transport" data-reveal><code>stdio</code><p><span class="zh">一个本地客户端独占每个 MCP 进程；不开放网络监听。</span><span class="en">One local client owns each MCP process; no network listener.</span></p></article>
@@ -144,7 +144,7 @@ uv run nanobot sagasmith start</code></pre>
         <p class="eyebrow">SagaSmith Web</p>
         <h2><span class="zh">托管产品不是 Local 的必需后端。</span><span class="en">The hosted product is not a required Local backend.</span></h2>
       </div>
-      <p><span class="zh">SagaSmith Web 独立拥有账户、session、配额、邀请、协作、Forge、Module Studio 与云端投影；它通过 principal-scoped worker 调用同一领域 MCP，不直接写领域数据库。</span><span class="en">SagaSmith Web independently owns accounts, sessions, quota, invitations, collaboration, Forge, Module Studio, and cloud projections. Principal-scoped workers call the same domain MCP; Web never writes domain databases directly.</span></p>
+      <p><span class="zh">SagaSmith Web 独立拥有账户、Web session、配额、邀请、协作、Forge、Module Studio 与云端投影；request-scoped worker 使用面向目标 MCP 的专用委托调用同一领域 handlers，不透传浏览器 token，也不直接写领域数据库。</span><span class="en">SagaSmith Web independently owns accounts, Web sessions, quota, invitations, collaboration, Forge, Module Studio, and cloud projections. Request-scoped workers call the same domain handlers with audience-bound delegations; they neither pass browser tokens through nor write domain databases directly.</span></p>
     </div>
     <div class="steps">
       <article class="step" data-reveal>
@@ -162,6 +162,12 @@ uv run nanobot sagasmith start</code></pre>
             <pre><code>Copy-Item .env.example .env
 docker compose -f compose.yaml -f compose.workspace.yaml up --build</code></pre>
           </div>
+        </div>
+      </article>
+      <article class="step" data-reveal>
+        <div>
+          <h3><span class="zh">按组件锁升级与回滚</span><span class="en">Upgrade and roll back by component lock</span></h3>
+          <p><span class="zh">生产部署只接受已验证的不可变 Web/Agent/Core/领域 commit 组合。先用锁定版本执行协议与数据 canary，再切换；回滚恢复上一份完整锁及其兼容 schema。不要把归档 split repo、未锁定 main 或 legacy session 状态作为回退输入。</span><span class="en">Production accepts only a validated immutable Web, Agent, Core, and domain commit set. Run protocol and data canaries against the lock before switching; rollback restores the previous complete lock and compatible schema. Never use an archived split repository, an unlocked main branch, or legacy session state as a fallback input.</span></p>
         </div>
       </article>
     </div>
