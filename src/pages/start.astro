@@ -144,7 +144,7 @@ uv run nanobot sagasmith start</code></pre>
         <p class="eyebrow">SagaSmith Web</p>
         <h2><span class="zh">托管产品不是 Local 的必需后端。</span><span class="en">The hosted product is not a required Local backend.</span></h2>
       </div>
-      <p><span class="zh">SagaSmith Web 独立拥有账户、Web session、配额、邀请、协作、Forge、Module Studio 与云端投影；request-scoped worker 使用面向目标 MCP 的专用委托调用同一领域 handlers，不透传浏览器 token，也不直接写领域数据库。</span><span class="en">SagaSmith Web independently owns accounts, Web sessions, quota, invitations, collaboration, Forge, Module Studio, and cloud projections. Request-scoped workers call the same domain handlers with audience-bound delegations; they neither pass browser tokens through nor write domain databases directly.</span></p>
+      <p><span class="zh">SagaSmith Web 独立拥有账户、Web session、配额、邀请、协作、Forge、Module Studio、durable <code>RoomTurnJob</code> 与云端投影；worker 只连接当前 campaign system，使用面向目标 MCP 的专用委托，并向模型投影最多 16 个任务工具。它不透传浏览器 token，也不直接读取或写入领域数据库。</span><span class="en">SagaSmith Web independently owns accounts, Web sessions, quota, invitations, collaboration, Forge, Module Studio, durable <code>RoomTurnJob</code> state, and cloud projections. A worker connects only the current campaign system, uses an audience-bound delegation, and projects at most 16 task tools to the model. It neither passes browser tokens through nor reads or writes domain databases directly.</span></p>
     </div>
     <div class="steps">
       <article class="step" data-reveal>
@@ -166,8 +166,14 @@ docker compose -f compose.yaml -f compose.workspace.yaml up --build</code></pre>
       </article>
       <article class="step" data-reveal>
         <div>
+          <h3><span class="zh">验证托管可靠性边界</span><span class="en">Verify the Hosted reliability boundary</span></h3>
+          <p><span class="zh">房间 turn 必须以持久状态、lease/heartbeat、幂等键、quota 续租和 <code>base_revision</code> 恢复；MCP 已提交但 Web 尚未发布时重用保存的标准 <code>CallToolResult</code>。text、image、audio、resource 与 embedded resource 由内部 <code>HostMediaEnvelope</code> 转为私有 artifact，不替换 MCP wire contract。<code>RoomTurnJob</code> 也不等同 MCP Task；只有协商能力且长工具返回 claim 后才 poll/cancel。</span><span class="en">Room turns recover through durable state, leases and heartbeats, one idempotency key, quota renewal, and <code>base_revision</code>. If MCP committed before Web publication, reuse the saved standard <code>CallToolResult</code>. Text, image, audio, resource, and embedded-resource content becomes private artifacts through the internal <code>HostMediaEnvelope</code> without replacing the MCP wire contract. A <code>RoomTurnJob</code> is not an MCP Task; poll and cancel begin only after capability negotiation and a long tool's Task claim.</span></p>
+        </div>
+      </article>
+      <article class="step" data-reveal>
+        <div>
           <h3><span class="zh">按组件锁升级与回滚</span><span class="en">Upgrade and roll back by component lock</span></h3>
-          <p><span class="zh">生产部署只接受已验证的不可变 Web/Agent/Core/领域 commit 组合。先用锁定版本执行协议与数据 canary，再切换；回滚恢复上一份完整锁及其兼容 schema。不要把归档 split repo、未锁定 main 或 legacy session 状态作为回退输入。</span><span class="en">Production accepts only a validated immutable Web, Agent, Core, and domain commit set. Run protocol and data canaries against the lock before switching; rollback restores the previous complete lock and compatible schema. Never use an archived split repository, an unlocked main branch, or legacy session state as a fallback input.</span></p>
+          <p><span class="zh">生产部署只接受 <code>sagasmith.release-lock/v3</code> 中已验证的不可变 Web/Agent/Core/领域 commit 组合。先用锁定版本执行协议与数据 canary，再切换；回滚恢复上一份完整锁及其兼容 schema。不要把归档 split repo、未锁定 main 或 legacy session 状态作为回退输入。</span><span class="en">Production accepts only the validated immutable Web, Agent, Core, and domain commit set in <code>sagasmith.release-lock/v3</code>. Run protocol and data canaries against the lock before switching; rollback restores the previous complete lock and compatible schema. Never use an archived split repository, an unlocked main branch, or legacy session state as a fallback input.</span></p>
         </div>
       </article>
     </div>
