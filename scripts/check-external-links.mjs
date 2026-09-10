@@ -46,6 +46,9 @@ async function check(url) {
         headers: { 'user-agent': 'SagaSmithAI-site-link-check/1.0', range: 'bytes=0-0' },
       });
     }
+    // Only the status is needed. A server may ignore Range and stream an
+    // unlimited GET body, keeping connections and the checker alive.
+    await response.body?.cancel();
     if (response.status === 404 || response.status === 410) failures.push(`${response.status} ${url}`);
     else if (!response.ok && response.status !== 403 && response.status !== 429) failures.push(`${response.status} ${url}`);
     else if (!response.ok) warnings.push(`${response.status} ${url}`);
