@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import catalogStatus from '../data/library-catalog-status.json';
 ---
 <SiteLayout
   title="内容库与权利边界"
@@ -14,9 +15,9 @@ import SiteLayout from '../layouts/SiteLayout.astro';
       <h1><span class="zh">可校验，不等于可随意分发。</span><span class="en">Verifiable does not mean freely distributable.</span></h1>
       <p class="lede"><span class="zh">当前目录用不可变 identity、版本、大小与 SHA-256 描述 Content Pack。仓库可见性只让索引可以被审计；每个 Pack、来源文档与嵌入资产仍保留各自许可、署名和分发限制。</span><span class="en">The current catalog describes Content Packs with immutable identities, versions, sizes, and SHA-256 checksums. Repository visibility makes the index auditable; every Pack, source document, and embedded asset retains its own license, attribution, and distribution restrictions.</span></p>
     </div>
-    <aside class="page-hero-aside" data-reveal>
-      <strong>CURRENT FORMAT</strong>
-      <p><code>sagasmith.content-package</code> v2<br /><code>.sagasmith-pack</code><br /><span class="zh">目录快照生成于 2026-08-16</span><span class="en">Catalog snapshot generated 2026-08-16</span></p>
+    <aside class="page-hero-aside catalog-current" data-reveal>
+      <strong>CURRENT CATALOG</strong>
+      <p><span class="zh">目录快照生成于 {catalogStatus.generated_on}</span><span class="en">Catalog snapshot generated {catalogStatus.generated_on}</span><br /><code>{catalogStatus.source_commit.slice(0, 12)}</code><br /><a href={catalogStatus.catalog_url} target="_blank" rel="noreferrer">Machine-readable index ↗</a></p>
     </aside>
   </header>
 
@@ -35,9 +36,10 @@ import SiteLayout from '../layouts/SiteLayout.astro';
       <div class="stat"><strong>2</strong><span>D&amp;D ACTOR PRESETS</span></div>
     </div>
     <div class="button-row">
-      <a class="button primary" href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library/blob/main/content-library/index.json" target="_blank" rel="noreferrer"><span class="zh">查看机器索引</span><span class="en">Open machine index</span> ↗</a>
+      <a class="button primary" href={catalogStatus.catalog_url} target="_blank" rel="noreferrer"><span class="zh">查看机器索引</span><span class="en">Open machine index</span> ↗</a>
       <a class="button" href="https://github.com/SagaSmithAI/SagaSmith-dnd-content-library" target="_blank" rel="noreferrer"><span class="zh">查看目录仓库</span><span class="en">Open catalog repository</span> ↗</a>
     </div>
+    <p class="catalog-freshness"><span class="zh">页面仅展示元数据，不托管 Pack 归档；发布时间与源提交由构建时 freshness 检查核对。</span><span class="en">This page exposes metadata only and does not mirror Pack archives; the published date and source commit are checked during the site build.</span></p>
   </section>
 
   <section class="section shell">

@@ -112,12 +112,13 @@ Node.js 22.12+ is required.
 ```bash
 npm ci
 npm run check:content
+npm run check:catalog
 npm run build
 npm run check:site
 npm run check:external
 ```
 
-`npm run check` runs deterministic content/topology checks, the production build, and built-site metadata/internal-link/asset-budget checks. `check:external` is the separate network-dependent external-link pass.
+`npm run check` runs the deterministic content/topology checks, production build, and built-site metadata/internal-link/asset-budget checks. `check:catalog` verifies the public catalog marker against the current catalog source commit and generation date; it requires network access. `check:external` performs the remaining network-dependent external-link pass separately.
 
 The GitHub Pages workflow builds only this repository and publishes `dist/`. Pull requests run deterministic checks; deployment occurs only from `main` or an explicit workflow dispatch. Domain Workbenches and other repositories are never bundled into the site artifact.
 
